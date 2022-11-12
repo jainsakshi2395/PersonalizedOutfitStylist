@@ -1,0 +1,46 @@
+.register-container {
+  /* background-color: blueviolet; */
+}
+
+.content-box {
+  margin: 30px auto;
+  width: 500px;
+  height: 600px;
+  border: solid 0.5px #999999;
+  border-radius: 15px;
+  box-shadow: 5px 10px #ddd;
+  padding: 20px;
+}
+
+.content-title {
+  text-align: center;
+}
+
+.fields-container{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.profile-field {
+  display: flex;
+  padding: 20px;
+  justify-content: space-around;
+}
+
+.input-field {
+  width: 50px;
+  border-radius: 5px;
+  border: solid 0.5px;
+  padding: 8px;
+}
+
+.save-button {
+  background-color: #FF9902;
+  color: white;
+  width: 70px;
+  height: 30px;
+  border: none;
+  font-weight: bold;
+  margin: 20px auto;
+}
