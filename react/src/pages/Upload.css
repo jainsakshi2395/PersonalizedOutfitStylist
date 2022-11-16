@@ -1,0 +1,37 @@
+.upload-modal {
+  border: dashed 3px #bbb;
+  border-radius: inherit;
+}
+
+.upload-start-button {
+  margin: 20px
+}
+
+.upload-button {
+  margin: 20px auto;
+  width: fit-content;
+}
+
+.header {
+  border-bottom: none !important;
+}
+
+.choose-button {
+  margin: 20px auto;
+  width: fit-content;
+  color: #fff !important;
+  background-color: #807897 !important;
+}
+
+.hint-text {
+  margin: 10px auto;
+}
+
+.modal-content {
+  border: none !important;
+}
+
+.upload-icon {
+  margin: 20px auto;
+  color: #807897;
+}
