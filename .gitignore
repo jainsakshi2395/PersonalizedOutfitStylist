@@ -57,3 +57,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### virtual environment ###
+./venv/
