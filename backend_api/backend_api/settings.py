@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backend_app_1.apps.BackendApp1Config',
     'rest_framework',
+    'backend_app_2.apps.BackendApp2Config',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fashiondb',
         'USER': 'root',
-        'PASSWORD': 'test123',
+        'PASSWORD': 'password',
         'HOST':'localhost',
         'PORT':'3306',
     }
