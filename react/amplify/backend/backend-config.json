@@ -1,0 +1,72 @@
+{
+  "api": {
+    "usersApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "personalizedoutfitst125e9625"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "personalizedoutfitst32ebcd62": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "personalizedoutfitst125e9625": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_personalizedoutfitst125e9625_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "personalizedoutfitst125e9625"
+        }
+      ]
+    },
+    "AMPLIFY_function_personalizedoutfitst125e9625_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "personalizedoutfitst125e9625"
+        }
+      ]
+    }
+  }
+}
