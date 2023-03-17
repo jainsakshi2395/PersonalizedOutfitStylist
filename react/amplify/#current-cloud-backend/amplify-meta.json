@@ -1,0 +1,117 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-personalizedoutfitst-dev-172724-authRole",
+      "UnauthRoleArn": "arn:aws:iam::512148372417:role/amplify-personalizedoutfitst-dev-172724-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::512148372417:role/amplify-personalizedoutfitst-dev-172724-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-personalizedoutfitst-dev-172724-deployment",
+      "UnauthRoleName": "amplify-personalizedoutfitst-dev-172724-unauthRole",
+      "StackName": "amplify-personalizedoutfitst-dev-172724",
+      "StackId": "arn:aws:cloudformation:us-east-1:512148372417:stack/amplify-personalizedoutfitst-dev-172724/d4a39070-c135-11ed-8f8c-12d770f25637",
+      "AmplifyAppId": "d28cavb63h80b4",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-personalizedoutfitst-dev-172724-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    }
+  },
+  "auth": {
+    "personalizedoutfitst32ebcd62": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-personalizedoutfitst-dev-172724-deployment/amplify-cfn-templates/auth/personalizedoutfitst32ebcd62-cloudformation-template.json",
+        "logicalId": "authpersonalizedoutfitst32ebcd62"
+      },
+      "lastPushTimeStamp": "2023-03-14T02:24:07.555Z",
+      "output": {
+        "UserPoolId": "us-east-1_YIQ5vpiSR",
+        "AppClientIDWeb": "535fnl49ahlgh4ll1p1tdurtlt",
+        "AppClientID": "3unm4869inos7hj5i3q09iaku",
+        "HostedUIDomain": "personalisedoutfits-dev",
+        "IdentityPoolId": "us-east-1:990bb589-6ec3-4333-a2a7-7c46ca7a38a6",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:512148372417:userpool/us-east-1_YIQ5vpiSR",
+        "IdentityPoolName": "personalizedoutfitst32ebcd62_identitypool_32ebcd62__dev",
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3001/\"],\"LogoutURLs\":[\"http://localhost:3001/register/\"]}",
+        "UserPoolName": "personalizedoutfitst32ebcd62_userpool_32ebcd62"
+      },
+      "lastPushDirHash": "JFBFknjojOmhNq3oOSd7fieLVsk="
+    }
+  },
+  "function": {
+    "personalizedoutfitst125e9625": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [],
+      "lastBuildTimeStamp": "2023-03-14T01:02:16.131Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-03-14T01:02:16.793Z",
+      "distZipFilename": "personalizedoutfitst125e9625-38664a6879335350624e-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-personalizedoutfitst-dev-172724-deployment",
+        "s3Key": "amplify-builds/personalizedoutfitst125e9625-38664a6879335350624e-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-personalizedoutfitst-dev-172724-deployment/amplify-cfn-templates/function/personalizedoutfitst125e9625-cloudformation-template.json",
+        "logicalId": "functionpersonalizedoutfitst125e9625"
+      },
+      "lastPushTimeStamp": "2023-03-14T02:24:07.041Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::512148372417:role/personalizedoutfitstLambdaRole9511095e-dev",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:512148372417:function:personalizedoutfitst125e9625-dev",
+        "Name": "personalizedoutfitst125e9625-dev",
+        "LambdaExecutionRole": "personalizedoutfitstLambdaRole9511095e-dev"
+      },
+      "lastPushDirHash": "+vkYyukRQH0ddDaXb2C00scdsfc="
+    }
+  },
+  "api": {
+    "usersApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "personalizedoutfitst125e9625",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-personalizedoutfitst-dev-172724-deployment/amplify-cfn-templates/api/usersApi-cloudformation-template.json",
+        "logicalId": "apiusersApi"
+      },
+      "lastPushTimeStamp": "2023-03-14T02:24:07.044Z",
+      "output": {
+        "ApiName": "usersApi",
+        "RootUrl": "https://8gyuh1lbk1.execute-api.us-east-1.amazonaws.com/dev",
+        "ApiId": "8gyuh1lbk1"
+      },
+      "lastPushDirHash": "M43cVC2Al2lrR7peMHJtUWancNs="
+    }
+  }
+}

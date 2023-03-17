@@ -1,3 +1,47 @@
 from django.shortcuts import render
-
+from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import UserImageSerializer, OutfitSerializer
+from django.http import FileResponse, HttpResponse
+from rest_framework import viewsets
+from .models import Outfit, UserImage
+import zipfile
+from io import BytesIO
 # Create your views here.
+
+
+class ImageUploadView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+
+    def post(self, request, *args, **kwargs):
+        user_image_serializer = UserImageSerializer(data=request.data)
+        if user_image_serializer.is_valid():
+            user_image_serializer.save()
+            # img_path = File.objects.get(id=2)
+            # img = open(img_path, 'rb')
+            # img = open(img_path, 'rb')
+            # img2 = open('media/bootstrap.jpeg', 'rb')
+            # img_res = FileSerializer(img_path)
+            # response = FileResponse(img2)
+            # return HttpResponse(img_res, content_type="image/png")
+        #image_details = Outfit.objects.get(pk=image_id)
+
+        image_details = Outfit.objects.filter(pk__in=[59679, 59680, 59681])
+        serializer = OutfitSerializer(image_details, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+            # outfile = BytesIO()
+            # with zipfile.ZipFile(outfile, 'w') as zf:
+            #     for item in rc_files:
+            #         zf.writestr(f"{item.remark}.png", item.file.read())
+            #
+            # response = HttpResponse(outfile.getvalue(), content_type='application/zip')
+            # response['Content-Disposition'] = 'attachment; filename=my_file.zip'
+            # return response
+
+            # return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+        # else:
+        #     return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
