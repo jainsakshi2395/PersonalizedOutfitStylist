@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fashiondb',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'test123',
         'HOST':'localhost',
         'PORT':'3306',
     }
