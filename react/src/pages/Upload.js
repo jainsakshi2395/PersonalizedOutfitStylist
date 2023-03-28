@@ -28,9 +28,16 @@ function Upload() {
 
   return (
     <>
-    <Button variant="primary" className='upload-start-button' onClick={handleShow}>
-        Upload Image
-        </Button>
+      <div className='upload-img'>
+        <div className='container'>
+          <div className='text-center'>
+            <span>Upload image to generate similar recommentations</span>
+            <Button variant="primary" className='upload-start-button' onClick={handleShow}>
+              Upload Image
+            </Button>
+          </div>
+        </div>
+      </div>
       <Modal show={show} 
       onHide={handleClose} 
       backdrop="static"

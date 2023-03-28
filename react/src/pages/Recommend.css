@@ -1,0 +1,22 @@
+.recommend{
+    margin: 40px 0;
+}
+
+.rec-details{
+    padding: 15px;
+    min-height: 113px;
+}
+ 
+.rec-details p{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.rec-details span{
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+    height: 41px;
+    overflow: hidden;
+}
