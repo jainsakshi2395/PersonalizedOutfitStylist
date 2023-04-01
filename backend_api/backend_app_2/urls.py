@@ -8,6 +8,4 @@ urlpatterns = [
     path('profile-create', views.CreateProfile, name='profile-create'),
     path('profile-update/<uuid:pk>', views.updateProfile, name='profile-update'),
     path('profile-delete/<uuid:pk>', views.deleteProfile, name='profile-delete'),
-
-
 ]
