@@ -84,4 +84,5 @@ amplifytools.xcconfig
 **.sample
 __pycache__
 *.py[cod]
+.idea/*
 #amplify-do-not-edit-end
