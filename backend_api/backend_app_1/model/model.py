@@ -29,7 +29,7 @@ def extract_features(img_path, model):
     return normalized_result
 
 
-path = '/Users/sakshijain/Desktop/CMPE295B/images'
+path = '\Users\simra\Desktop\Pickle\images' # drive 255 images folder
 
 # print(os.listdir(path))
 

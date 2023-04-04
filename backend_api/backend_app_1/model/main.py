@@ -11,8 +11,8 @@ from PIL import Image
 from sklearn.neighbors import NearestNeighbors
 import pickle
 
-embedded_features_file_path = '/Users/sakshijain/Desktop/CMPE295B/embeddings.pkl'
-filenames_path = '/Users/sakshijain/Desktop/CMPE295B/filenames.pkl'
+embedded_features_file_path = '\Users\simra\Desktop\Pickle\embeddings.pkl'
+filenames_path = '\Users\simra\Desktop\Pickle\filenames.pkl'
 
 feature_list = np.array(pickle.load(open(embedded_features_file_path, 'rb')))
 filenames = pickle.load(open(filenames_path,'rb'))
@@ -26,7 +26,7 @@ model = tensorflow.keras.Sequential([
 
 st.title('Personalized Outfit Stylist')
 
-folder_path = '/Users/sakshijain/Desktop/CMPE295B/PersonalizedOutfitStylist/backend_api/backend_app_1/uploads'
+folder_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\uploads'
 
 
 def save_uploaded_file(uploaded_file):

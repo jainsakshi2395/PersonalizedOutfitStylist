@@ -1,8 +1,6 @@
 from django.db import models
 
-
 # Create your models here.
-
 
 class Outfit(models.Model):
     image_id = models.IntegerField(primary_key=True, null=False)
