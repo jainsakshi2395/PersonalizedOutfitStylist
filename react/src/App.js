@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Register from './pages/Register';
 import Upload from './pages/Upload';
+import Recommend from './pages/Recommend';
+import Details from './pages/Details';
 import { Provider } from 'react-redux';
 import './App.css';
 import store from './store';
@@ -19,6 +21,8 @@ function App() {
             <Route exact path='/home' element={<Register />}/>
             <Route exact path='/register' element={<Register />} />
             <Route exact path='/upload' element={<Upload />} />
+            <Route exact path='/recommend' element={<Recommend />} />
+            <Route exact path='/details' element={<Details />} />
           </Routes>
         </Router>
       </div>
