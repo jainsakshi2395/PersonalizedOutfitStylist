@@ -82,4 +82,7 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 **.sample
+__pycache__
+*.py[cod]
+.idea/*
 #amplify-do-not-edit-end
