@@ -2,8 +2,9 @@
 
 import numpy as np
 import pandas as pd
+from django.conf import settings
 
-path = r'C:\Users\simra\Desktop\Pickle\BodyMeasurements.csv'
+path = settings.BODY_MEASUREMENT_CSV
 
 num = pd.read_csv(path)
 df = num.loc[:, ['Age']]
@@ -122,7 +123,7 @@ df["Dresstype"] = df["AgeGroups"].apply(map_ageGroup_to_dressType)
 
 """### import the sample dataset of images"""
 
-path2 = r'C:\Users\simra\Desktop\Pickle\sample_outfits.csv'
+path2 = settings.SAMPLE_OUTFIT_CSV
 num = pd.read_csv(path2, error_bad_lines=False)
 df1 = num.loc[:, ['title', 'product_type', 'product_details', 'ideal_for', 'type', 'images']]
 
