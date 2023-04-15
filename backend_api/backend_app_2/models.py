@@ -18,8 +18,8 @@ class UserProfile(models.Model):
     hip = models.DecimalField(max_digits=4, decimal_places=2)
     body_type = models.CharField(max_length=225)
     gender = models.CharField(max_length=100)
-    created_at = models.DateTimeField(default=timezone.now())
-    updated_at = models.DateTimeField(default=timezone.now())
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
         db_table = 'user_profile'
