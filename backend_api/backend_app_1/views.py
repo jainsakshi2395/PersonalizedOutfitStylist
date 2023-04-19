@@ -15,6 +15,7 @@ import os
 from sklearn.neighbors import NearestNeighbors
 from django.conf import settings
 from .model.model_age import recommend_outfits, clf
+from .model.model_bodytype import recommend_bodytype_results, clf_bodytype
 
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 model.trainable = False
@@ -113,6 +114,11 @@ def get_recommended_results(age_category):
     model_response += prediction_result.to_dict('records')[:5]
     return model_response
 
+def get_recommended_bodytype_results(body_type):
+    model_response = list()
+    prediction_result = recommend_bodytype_results([body_type])
+    model_response += prediction_result.to_dict('records')[:5]
+    return model_response
 
 class RecommendAll(APIView):
     def __init__(self, **kwargs):
@@ -156,7 +162,11 @@ class RecommendAll(APIView):
             # write the code to integrate model 2 - bodytype
             # It should have response as list of dictionary for recommended outfits
             self.recommended_response["body_type"] = body_type
-            pass
+            self.recommended_response['results'] += get_recommended_bodytype_results(body_type)
+        elif user_bust and user_waist and user_hip:
+            body_type = clf_bodytype.predict(np.array([[user_bust, user_waist, user_hip]]))[0]
+            self.recommended_response["body_type"] = body_type
+            self.recommended_response['results'] += get_recommended_bodytype_results(body_type)
 
         if selected_season:
             # write the code to integrate model 3 - season
