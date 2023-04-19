@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from .local_settings import EMBEDDED_FEATURES_FILE_PATH, FILENAMES_PATH, FEATURE_LIST, FILENAMES, IMG_FOLDER_PATH
+from .local_settings import EMBEDDED_FEATURES_FILE_PATH, FILENAMES_PATH, FEATURE_LIST, FILENAMES, IMG_FOLDER_PATH, \
+    BODY_MEASUREMENT_CSV, SAMPLE_OUTFIT_CSV
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fashiondb',
         'USER': 'root',
-        'PASSWORD': 'myReason-1',
+        'PASSWORD': 'test123',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -132,3 +133,5 @@ FILENAMES_PATH = FILENAMES_PATH
 FEATURE_LIST = FEATURE_LIST
 FILENAMES = FILENAMES
 IMG_FOLDER_PATH = IMG_FOLDER_PATH
+BODY_MEASUREMENT_CSV = BODY_MEASUREMENT_CSV
+SAMPLE_OUTFIT_CSV = SAMPLE_OUTFIT_CSV

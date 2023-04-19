@@ -15,7 +15,6 @@ from django.conf import settings
 embedded_features_file_path = settings.EMBEDDED_FEATURES_FILE_PATH
 filenames_path = settings.FILENAMES_PATH
 
-
 feature_list = np.array(pickle.load(open(embedded_features_file_path, 'rb')))
 filenames = pickle.load(open(filenames_path,'rb'))
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
@@ -28,8 +27,7 @@ model = tensorflow.keras.Sequential([
 
 st.title('Personalized Outfit Stylist')
 
-# folder_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\uploads'
-folder_path = '/Users/supreetha/Documents/PersonalizedOutfitStylist/backend_api/backend_app_1/uploads'
+folder_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\uploads'
 
 
 def save_uploaded_file(uploaded_file):
