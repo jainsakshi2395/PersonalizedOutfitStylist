@@ -130,11 +130,10 @@ class RecommendAll(APIView):
         age_group = request.data.get('age_group')  # accepting as string = "Teen"  || "Children" || "Adult"
         body_type = request.data.get('body_type')   # accepting as string = "Pear" || "Rectangle" || ..
         selected_season = request.data.get('season')         # accepting as string = "Fall" || "Winter" || ..
-        user_height = request.data.get('height')
-        user_bust = request.data.get('bust')
-        user_waist = request.data.get('waist')
-        user_hip = request.data.get('hip')
-
+        user_height = request.data.get('user_height')
+        user_bust = request.data.get('user_bust')
+        user_waist = request.data.get('user_waist')
+        user_hip = request.data.get('user_hip')
 
         if user_age:
             try:
