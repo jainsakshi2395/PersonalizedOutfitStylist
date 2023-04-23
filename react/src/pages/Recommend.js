@@ -1,90 +1,42 @@
-import React, { useState } from 'react'
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import './Recommend.css';
-
+  
 function Recommend() {
+    const initialResults = useSelector((state) => state.initialRecommend.data);
+    const [results, setResults] = useState([]);
+
+    useEffect(() => {
+        if (initialResults.results) {
+        setResults(initialResults.results);
+        }
+    }, [initialResults.results]);
+
+    const resultCard = (item, i) =>{
+        return (<div className="col-3 " key={i}>
+                <div className='box-shadow'>
+                <Link to="/details" className='shadow'>
+                        <div className="border bg-light">
+                            <div className='rec-img'>
+                            <img className='card-img' src={item.images.split('|').length > 0 ? item.images.split('|')[0] : item.images} alt={item.title} />
+                            </div>
+                            <div className='rec-details'>
+                                <p>{item.title}</p>
+                                <span>{item.product_details}</span>
+                            </div>
+                        </div>
+                    </Link>
+                </div>
+            </div>
+        )
+    }
     return (
     <>
       <div className='recommend'>
-      <div class="container">
-        <div class="row g-3">
-            <div class="col-3 ">
-                <div className='box-shadow'>
-                    <a href='/details' className='shadow'>
-                        <div class="border bg-light">
-                            <div className='rec-img'>
-                                <img src='https://dummyimage.com/312x350/e3e3e3/fff.jpg&text=Dummy+Image' alt='Dummy Image' />
-                            </div>
-                            <div className='rec-details'>
-                                <p>Product Name</p>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-3">
-                <div className='box-shadow'>
-                    <a href='/details'>
-                        <div class="border bg-light">
-                            <div className='rec-img'>
-                                <img src='https://dummyimage.com/312x350/e3e3e3/fff.jpg&text=Dummy+Image' alt='Dummy Image' />
-                            </div>
-                            <div className='rec-details'>
-                                <p>Product Name</p>
-                                <span>Lorem ipsum dolor sit amet, </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-3">
-                <div className='box-shadow'>
-                    <a href='/details'>
-                        <div class="border bg-light">
-                            <div className='rec-img'>
-                                <img src='https://dummyimage.com/312x350/e3e3e3/fff.jpg&text=Dummy+Image' alt='Dummy Image' />
-                            </div>
-                            <div className='rec-details'>
-                                <p>Product Name</p>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-3">
-                <div className='box-shadow'>
-                    <a href='/details'>
-                        <div class="border bg-light">
-                            <div className='rec-img'>
-                                <img src='https://dummyimage.com/312x350/e3e3e3/fff.jpg&text=Dummy+Image' alt='Dummy Image' />
-                            </div>
-                            <div className='rec-details'>
-                                <p>Product Name</p>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-3">
-                <div className='box-shadow'>
-                    <a href='/details'>
-                        <div class="border bg-light">
-                            <div className='rec-img'>
-                                <img src='https://dummyimage.com/312x350/e3e3e3/fff.jpg&text=Dummy+Image' alt='Dummy Image' />
-                            </div>
-                            <div className='rec-details'>
-                                <p>Product Name</p>
-                                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>      
+      <div className="container">
+        <div className="row g-3">
+        {results.length && results.map((item, id) => resultCard(item, id))}
         </div>
         </div>
       </div>

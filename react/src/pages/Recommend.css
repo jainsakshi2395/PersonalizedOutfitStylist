@@ -51,3 +51,8 @@
     height: 41px;
     overflow: hidden;
 }
+
+.card-img {
+    width: 200px;
+    height: 400px;
+}

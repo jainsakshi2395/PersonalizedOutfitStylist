@@ -2,11 +2,6 @@ from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
-# from django.http import JsonResponse
-from .serializers import UserImageSerializer, OutfitSerializer
-# from .apps import BackendApp1Config
-# from django.http import HttpResponse, JsonResponse
-# from .models import Outfit, UserImage
 from .serializers import OutfitSerializer
 from .models import Outfit
 from keras.utils import load_img
@@ -19,6 +14,8 @@ from numpy.linalg import norm
 import os
 from sklearn.neighbors import NearestNeighbors
 from django.conf import settings
+from .model.model_age import recommend_outfits, clf
+from .model.model_bodytype import recommend_bodytype_results, clf_bodytype
 
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 model.trainable = False
@@ -102,39 +99,85 @@ class ImageUploadView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class RecommendAll(APIView):
-    def post(self, request, *args, **kwargs):
+def get_recommended_results(age_category):
+    model_response = list()
 
+    if age_category == "Children":
+        user_predicted_age = 5
+    elif age_category == "Teen":
+        user_predicted_age = 14
+    elif age_category == "Adult":
+        user_predicted_age = 30
+    else:
+        return model_response
+    prediction_result = recommend_outfits([[user_predicted_age]])
+    model_response += prediction_result.to_dict('records')[:5]
+    return model_response
+
+def get_recommended_bodytype_results(body_type):
+    model_response = list()
+    prediction_result = recommend_bodytype_results([body_type])
+    model_response += prediction_result.to_dict('records')[:5]
+    return model_response
+
+class RecommendAll(APIView):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.recommended_response = {"age_group": None, "body_type": None, "season": None, "results": []}
+
+    def post(self, request, *args, **kwargs):
+        user_age = request.data.get("user_age")    # accepting as integer = 25
         age_group = request.data.get('age_group')  # accepting as string = "Teen"  || "Children" || "Adult"
         body_type = request.data.get('body_type')   # accepting as string = "Pear" || "Rectangle" || ..
-        season = request.data.get('season')         # accepting as string = "Fall" || "Winter" || ..
-        recommended_response = list()
+        selected_season = request.data.get('season')         # accepting as string = "Fall" || "Winter" || ..
+        user_height = request.data.get('user_height')
+        user_bust = request.data.get('user_bust')
+        user_waist = request.data.get('user_waist')
+        user_hip = request.data.get('user_hip')
 
+        if user_age:
+            try:
+                user_age = int(user_age)
+            except:
+                return Response("user_age is not a valid integer", status=status.HTTP_400_BAD_REQUEST)
+            if user_age <= 0 or user_age > 40:
+                return Response("user_age is invalid", status=status.HTTP_400_BAD_REQUEST)
 
         if age_group:
-            # write the code to call Model 1
-            # It should have response as list of dictionary
+            if not isinstance(age_group, str):
+                return Response("age_group is not a valid string", status=status.HTTP_400_BAD_REQUEST)
+            if age_group not in ["Children", "Adult", "Teen"]:
+                return Response("age_group is invalid", status=status.HTTP_400_BAD_REQUEST)
 
-            # adding sample output to test for now
-            image_details = Outfit.objects.filter(pk__in=[59679, 59680, 59681])
-            serializer = OutfitSerializer(image_details, many=True)
-            recommended_response += serializer.data
+        if age_group:
+            self.recommended_response["age_group"] = age_group
+            self.recommended_response['results'] += get_recommended_results(age_group)
+        elif user_age:
+            user_age_group = clf.predict(np.array([[user_age]]))[0]
+            self.recommended_response["age_group"] = user_age_group
+            self.recommended_response['results'] += get_recommended_results(user_age_group)
 
         if body_type:
-            # write the code to call model 2
-            # It should have response as list of dictionary
+            # write the code to integrate model 2 - bodytype
+            # It should have response as list of dictionary for recommended outfits
+            self.recommended_response["body_type"] = body_type
+            self.recommended_response['results'] += get_recommended_bodytype_results(body_type)
+        elif user_bust and user_waist and user_hip:
+            body_type = clf_bodytype.predict(np.array([[user_bust, user_waist, user_hip]]))[0]
+            self.recommended_response["body_type"] = body_type
+            self.recommended_response['results'] += get_recommended_bodytype_results(body_type)
+
+        if selected_season:
+            # write the code to integrate model 3 - season
+            # It should have response as list of dictionary for recommended outfits
+            self.recommended_response["season"] = selected_season
             pass
 
-        if season:
-            # write the code to call model 3
-            # It should have response as list of dictionary
-            pass
-
-        return Response(recommended_response, status=status.HTTP_200_OK)
+        return Response(self.recommended_response, status=status.HTTP_200_OK)
 
 
 class Default(APIView):
     def get(self, request, *args, **kwargs):
-        data = {"This is API server, Use Postman"}
+        data = {"This is API server, Use Postman!!"}
         return Response(data, status=status.HTTP_200_OK)
 

@@ -22,7 +22,7 @@ export const postProfileFailure = (error) => {
   }
 };
 
-const url = RestUrl + "/profile-create";
+const url = RestUrl + "/api/profile-create";
 export const postProfile = (profileState) => {
   const config = {
     method: "post",
