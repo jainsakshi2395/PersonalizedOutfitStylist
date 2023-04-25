@@ -1,47 +1,54 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import './Recommend.css';
-  
+import "./Recommend.css";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import Upload from "./Upload";
+import Results from "./Results";
+
 function Recommend() {
-    const initialResults = useSelector((state) => state.initialRecommend.data);
-    const [results, setResults] = useState([]);
+  const initialResults = useSelector((state) => state.initialRecommend.data);
+  const similarImageResults = useSelector((state) => state.upload.data);
+  const [filterResults, setFilterResults] = useState([]);
+  const [similarResults, setSimilarResults] = useState([]);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
 
-    useEffect(() => {
-        if (initialResults.results) {
-        setResults(initialResults.results);
-        }
-    }, [initialResults.results]);
-
-    const resultCard = (item, i) =>{
-        return (<div className="col-3 " key={i}>
-                <div className='box-shadow'>
-                <Link to="/details" className='shadow'>
-                        <div className="border bg-light">
-                            <div className='rec-img'>
-                            <img className='card-img' src={item.images.split('|').length > 0 ? item.images.split('|')[0] : item.images} alt={item.title} />
-                            </div>
-                            <div className='rec-details'>
-                                <p>{item.title}</p>
-                                <span>{item.product_details}</span>
-                            </div>
-                        </div>
-                    </Link>
-                </div>
-            </div>
-        )
+  useEffect(() => {
+    if (initialResults.results) {
+      setFilterResults(initialResults.results);
     }
-    return (
+    if (similarImageResults) {
+      setSimilarResults(similarImageResults);
+    }
+  }, [initialResults.results, similarImageResults]);
+
+  return (
     <>
-      <div className='recommend'>
-      <div className="container">
-        <div className="row g-3">
-        {results.map((item, id) => resultCard(item, id))}
-        </div>
-        </div>
+      <div className="recommend">
+        <Tabs
+          selectedIndex={activeTabIndex}
+          onSelect={(index) => setActiveTabIndex(index)}
+        >
+          <TabList>
+            <Tab>Filters</Tab>
+            <Tab>Similar Image</Tab>
+          </TabList>
+          <TabPanel>
+            {/* Call filters component here <Filters /> */}
+            <span className="divider"></span>
+            <Results results={filterResults} />
+          </TabPanel>
+          <TabPanel>
+            <div className="tab-content">
+              <Upload />
+              <div className="divider"></div>
+              <Results results={similarResults} isSimilarImages={true} />
+            </div>
+          </TabPanel>
+        </Tabs>
       </div>
     </>
-    )
+  );
 }
 
 export default Recommend;
