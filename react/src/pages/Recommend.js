@@ -36,7 +36,7 @@ function Recommend() {
       <div className='recommend'>
       <div className="container">
         <div className="row g-3">
-        {results.length && results.map((item, id) => resultCard(item, id))}
+        {results.map((item, id) => resultCard(item, id))}
         </div>
         </div>
       </div>

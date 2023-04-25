@@ -2,29 +2,29 @@ import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useDispatch } from 'react-redux';
+import { postUpload } from '../redux/upload/uploadAction';
 import './Upload.css';
 
 function Upload() {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
   }
   const handleShow = () => setShow(true);
-  const [selectedFile, setSelectedFile] = useState('');
-	const [filePicked, setFilePicked] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
 
 	const changeHandler = (event) => {
-		setSelectedFile(event.target.files[0]);
+		setSelectedImage(event.target.files[0]);
 	};
 
-  const handleFileSubmission = () => {
-    let reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onload = () => {
-      setFilePicked(JSON.stringify(reader.result));
-      //TODO: add backend post call once the backend APIs are ready.
-    }
-	};
+  const handleImageUpload = () => {
+    const formData = new FormData();
+    formData.append('file', selectedImage, selectedImage.name);
+    formData.set('Content-Type', 'image/jpeg');
+    dispatch(postUpload(formData));
+  }
 
   return (
     <>
@@ -53,7 +53,7 @@ function Upload() {
             <Form.Control type="file" onChange={changeHandler} />
           </Form.Group>
           <div className='hint-text'>or drag and drop</div>
-          <Button className='upload-button' variant="primary" onClick={handleFileSubmission}>
+          <Button className='upload-button' variant="primary" onClick={handleImageUpload} disabled={!selectedImage}>
             Upload
           </Button>
         </div>
