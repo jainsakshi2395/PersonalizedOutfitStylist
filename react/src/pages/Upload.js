@@ -1,67 +1,84 @@
-import React, { useState } from 'react'
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import './Upload.css';
+import React, { useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { useDispatch, useSelector } from "react-redux";
+import { postUpload } from "../redux/upload/uploadAction";
+import { setPreviewImage } from "../redux/updatePreview/setPreviewAction";
+import "./Upload.css";
 
 function Upload() {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  const handleClose = () => {
-    setShow(false);
-  }
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [selectedFile, setSelectedFile] = useState('');
-	const [filePicked, setFilePicked] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const previewImage = useSelector((state) => state.setPreview.previewImage);
 
-	const changeHandler = (event) => {
-		setSelectedFile(event.target.files[0]);
-	};
+  const changeHandler = (event) => {
+    setSelectedImage(event.target.files[0]);
+    dispatch(setPreviewImage(URL.createObjectURL(event.target.files[0])));
+  };
 
-  const handleFileSubmission = () => {
-    let reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onload = () => {
-      setFilePicked(JSON.stringify(reader.result));
-      //TODO: add backend post call once the backend APIs are ready.
-    }
-	};
+  const handleImageUpload = () => {
+    const formData = new FormData();
+    formData.append("file", selectedImage, selectedImage.name);
+    formData.set("Content-Type", "image/jpeg");
+    dispatch(postUpload(formData));
+    handleClose();
+  };
 
   return (
     <>
-      <div className='upload-img'>
-        <div className='container'>
-          <div className='text-center'>
-            <span>Upload image to generate similar recommentations</span>
-            <Button variant="primary" className='upload-start-button' onClick={handleShow}>
-              Upload Image
-            </Button>
-          </div>
-        </div>
-      </div>
-      <Modal show={show} 
-      onHide={handleClose} 
-      backdrop="static"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      >
-      <div className='upload-modal'>
-        <Modal.Header className='header' closeButton></Modal.Header>
-        <Modal.Body>
-        <div className='modal-content'>
-          <div className='upload-icon'><i className="fa-solid fa-cloud-arrow-up fa-xl"></i></div>
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Control type="file" onChange={changeHandler} />
-          </Form.Group>
-          <div className='hint-text'>or drag and drop</div>
-          <Button className='upload-button' variant="primary" onClick={handleFileSubmission}>
-            Upload
+      <div className="upload-img">
+        <div className="upload-section">
+          {previewImage && (
+            <img className="preview-img" src={previewImage} alt="Preview" />
+          )}
+          <span className="upload-text">
+            Upload image to generate similar recommentations
+          </span>
+          <Button
+            variant="primary"
+            className="upload-start-button"
+            onClick={handleShow}
+          >
+            Upload Image
           </Button>
         </div>
-        </Modal.Body>
       </div>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <div className="upload-modal">
+          <Modal.Header className="header" closeButton></Modal.Header>
+          <Modal.Body>
+            <div className="modal-content">
+              <div className="upload-icon">
+                <i className="fa-solid fa-cloud-arrow-up fa-xl"></i>
+              </div>
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Control type="file" onChange={changeHandler} />
+              </Form.Group>
+              <div className="hint-text">or drag and drop</div>
+              <Button
+                className="upload-button"
+                variant="primary"
+                onClick={handleImageUpload}
+                disabled={!selectedImage}
+              >
+                Upload
+              </Button>
+            </div>
+          </Modal.Body>
+        </div>
       </Modal>
     </>
-  )
+  );
 }
 
 export default Upload;

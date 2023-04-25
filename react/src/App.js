@@ -20,7 +20,6 @@ function App() {
             <Route exact path='/' element={<Upload />}/>
             <Route exact path='/home' element={<Register />}/>
             <Route exact path='/register' element={<Register />} />
-            <Route exact path='/upload' element={<Upload />} />
             <Route exact path='/recommend' element={<Recommend />} />
             <Route exact path='/details' element={<Details />} />
           </Routes>
