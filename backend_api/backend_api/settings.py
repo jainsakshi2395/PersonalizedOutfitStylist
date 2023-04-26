@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from .local_settings import EMBEDDED_FEATURES_FILE_PATH , FILENAMES_PATH, FEATURE_LIST, FILENAMES, IMG_FOLDER_PATH
+from .local_settings import EMBEDDED_FEATURES_FILE_PATH, FILENAMES_PATH, FEATURE_LIST, FILENAMES, IMG_FOLDER_PATH
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

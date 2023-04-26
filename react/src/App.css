@@ -7,3 +7,15 @@
   color: #444 !important;
   border: none !important;
 }
+
+.App .navbar {
+  padding: 0;
+}
+
+.App .navbar .navbar-container{
+  margin: 0 auto;
+}
+
+.App .navbar .navbar-container .nav-menu{
+  margin: 0;
+}

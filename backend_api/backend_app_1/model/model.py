@@ -8,6 +8,7 @@ from numpy.linalg import norm
 import os
 from tqdm import tqdm
 import pickle
+from django.conf import settings
 
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 model.trainable = False
@@ -29,7 +30,7 @@ def extract_features(img_path, model):
     return normalized_result
 
 
-path = '\Users\simra\Desktop\Pickle\images' # drive 255 images folder
+path = settings.IMG_FOLDER_PATH # drive 255 images folder
 
 # print(os.listdir(path))
 

@@ -2,10 +2,10 @@
 
 import numpy as np
 import pandas as pd
+from django.conf import settings
 
-path = r'C:\Users\simra\Desktop\Pickle\BodyMeasurements.csv'
-
-num = pd.read_csv(path)
+path1 = 'https://drive.google.com/uc?id=1uTdERhfpCC0dtc-YyXadY9ZoHShJvsDU'
+num = pd.read_csv(path1)
 df = num.loc[:, ['Age']]
 df.columns = ['Age']
 df.dropna(inplace=True)
@@ -122,8 +122,8 @@ df["Dresstype"] = df["AgeGroups"].apply(map_ageGroup_to_dressType)
 
 """### import the sample dataset of images"""
 
-path2 = r'C:\Users\simra\Desktop\Pickle\sample_outfits.csv'
-num = pd.read_csv(path2, error_bad_lines=False)
+path2 = 'https://drive.google.com/uc?id=1ypzPWMt5FqtUYtS0kN_OpXjtYKXZxno9'
+num = pd.read_csv(path2, on_bad_lines='skip') #changed as error_bad_lines doesnot work in latest pandas
 df1 = num.loc[:, ['title', 'product_type', 'product_details', 'ideal_for', 'type', 'images']]
 
 df1.dropna(inplace=True)
