@@ -23,9 +23,9 @@ def age_groups(df):
 
         if age >= 1 and age <= 12:
             df.at[i, 'AgeGroups'] = 'Children'
-        elif age >= 13 and age < 22:
+        elif age >= 13 and age <= 17:
             df.at[i, 'AgeGroups'] = 'Teen'
-        elif age >= 22 and age < 40:
+        elif age >= 18 and age < 40:
             df.at[i, 'AgeGroups'] = 'Adult'
         else:
             df.at[i, 'AgeGroups'] = 'Senior Citizen'
@@ -53,37 +53,37 @@ from sklearn.metrics import accuracy_score
 
 X_train, X_test, y_train, y_test = train_test_split(df[['Age']], df['AgeGroups'], test_size=0.2, random_state=42)
 
-clf = DecisionTreeClassifier()
-clf.fit(X_train, y_train)
+clf_age_based = DecisionTreeClassifier()
+clf_age_based.fit(X_train, y_train)
 
-y_pred = clf.predict(X_test)
+y_pred = clf_age_based.predict(X_test)
 
 accuracy = accuracy_score(y_test, y_pred)
-print('Accuracy:', accuracy)
+# print('Accuracy:', accuracy)
 
 # predict the age group of user
 
 input_values = np.array([[22]])
 
-predicted_age_group = clf.predict(input_values)
+predicted_age_group = clf_age_based.predict(input_values)
 
-print('Predicted age group:', predicted_age_group)
+# print('Predicted age group:', predicted_age_group)
 
 # predict the age group of user
 
 input_values = np.array([[4]])
 
-predicted_age_group = clf.predict(input_values)
+predicted_age_group = clf_age_based.predict(input_values)
 
-print('Predicted age group:', predicted_age_group)
+# print('Predicted age group:', predicted_age_group)
 
 # predict the age group of user
 
 input_values = np.array([[14]])
 
-predicted_age_group = clf.predict(input_values)
+predicted_age_group = clf_age_based.predict(input_values)
 
-print('Predicted age group:', predicted_age_group)
+# print('Predicted age group:', predicted_age_group)
 
 """## Determine which outfits are appropriate for specific age groups:
 
@@ -123,7 +123,7 @@ df["Dresstype"] = df["AgeGroups"].apply(map_ageGroup_to_dressType)
 """### import the sample dataset of images"""
 
 path2 = 'https://drive.google.com/uc?id=1ypzPWMt5FqtUYtS0kN_OpXjtYKXZxno9'
-num = pd.read_csv(path2, on_bad_lines='skip') #changed as error_bad_lines doesnot work in latest pandas
+num = pd.read_csv(path2, on_bad_lines='skip')
 df1 = num.loc[:, ['title', 'product_type', 'product_details', 'ideal_for', 'type', 'images']]
 
 df1.dropna(inplace=True)
@@ -150,7 +150,7 @@ filtered_df = df1[df1['product_type'].str.contains(pattern, flags=re.IGNORECASE)
 filtered_df.head()
 
 num_rows = filtered_df.shape[0]
-print('Number of rows in filtered dataframe:', num_rows)
+# print('Number of rows in filtered dataframe:', num_rows)
 
 filtered_df.shape[0]
 
@@ -183,8 +183,8 @@ dfmap = dfmap.reset_index()
 dfmap.columns = ['AgeGroups', 'Dresstypes']
 
 
-def recommend_outfits(input_values):
-  predicted_age_group = clf.predict(input_values)
+def recommend_age_based_outfits(input_values):
+  predicted_age_group = clf_age_based.predict(input_values)
   dress_types = dfmap.loc[dfmap['AgeGroups'] == predicted_age_group[0], 'Dresstypes'].iloc[0]
   keywords = dress_types.split(',')
 
@@ -201,7 +201,7 @@ def recommend_outfits(input_values):
   return filtered_df
 
 num_rows = filtered_df.shape[0]
-print('Number of rows in filtered dataframe:', num_rows)
+# print('Number of rows in filtered dataframe:', num_rows)
 
 filtered_df.shape[0]
 

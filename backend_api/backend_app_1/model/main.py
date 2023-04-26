@@ -28,8 +28,8 @@ model = tensorflow.keras.Sequential([
 
 st.title('Personalized Outfit Stylist')
 
-# folder_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\uploads'
-folder_path = '/Users/supreetha/Documents/PersonalizedOutfitStylist/backend_api/backend_app_1/uploads'
+folder_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\uploads'
+# folder_path = '/Users/supreetha/Documents/PersonalizedOutfitStylist/backend_api/backend_app_1/uploads'
 
 
 def save_uploaded_file(uploaded_file):
