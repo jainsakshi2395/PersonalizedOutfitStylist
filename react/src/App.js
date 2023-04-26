@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Upload from './pages/Upload';
 import Recommend from './pages/Recommend';
 import Details from './pages/Details';
+import NewUser from './pages/NewUser';
 import { Provider } from 'react-redux';
 import './App.css';
 import store from './store';
@@ -22,6 +23,7 @@ function App() {
             <Route exact path='/register' element={<Register />} />
             <Route exact path='/recommend' element={<Recommend />} />
             <Route exact path='/details' element={<Details />} />
+            <Route exact path='/newuser' element={<NewUser />} />
           </Routes>
         </Router>
       </div>
