@@ -14,7 +14,7 @@ from numpy.linalg import norm
 import os
 from sklearn.neighbors import NearestNeighbors
 from django.conf import settings
-from .model.model_age import recommend_outfits, clf
+from .model.model_age import recommend_age_based_outfits, clf_age_based
 from .model.model_bodytype import recommend_bodytype_results, clf_bodytype
 
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
@@ -76,13 +76,10 @@ class ImageUploadView(APIView):
         img_file = request.data['file']
         print(img_file)
 
-
         # feature extract
-
         features = feature_extraction(os.path.join(settings.IMG_FOLDER_PATH, file.name), model)
 
         print(features)
-
         # recommendation
 
         indices = recommend(features, settings.FEATURE_LIST)
@@ -99,7 +96,7 @@ class ImageUploadView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-def get_recommended_results(age_category):
+def get_recommended_age_results(age_category):
     model_response = list()
 
     if age_category == "Children":
@@ -110,7 +107,7 @@ def get_recommended_results(age_category):
         user_predicted_age = 30
     else:
         return model_response
-    prediction_result = recommend_outfits([[user_predicted_age]])
+    prediction_result = recommend_age_based_outfits([[user_predicted_age]])
     model_response += prediction_result.to_dict('records')[:5]
     return model_response
 
@@ -130,7 +127,7 @@ class RecommendAll(APIView):
         age_group = request.data.get('age_group')  # accepting as string = "Teen"  || "Children" || "Adult"
         body_type = request.data.get('body_type')   # accepting as string = "Pear" || "Rectangle" || ..
         selected_season = request.data.get('season')         # accepting as string = "Fall" || "Winter" || ..
-        user_height = request.data.get('user_height')
+        # user_height = request.data.get('user_height')
         user_bust = request.data.get('user_bust')
         user_waist = request.data.get('user_waist')
         user_hip = request.data.get('user_hip')
@@ -151,12 +148,32 @@ class RecommendAll(APIView):
 
         if age_group:
             self.recommended_response["age_group"] = age_group
-            self.recommended_response['results'] += get_recommended_results(age_group)
+            self.recommended_response['results'] += get_recommended_age_results(age_group)
             print("testing:  ", self.recommended_response['results'])
         elif user_age:
-            user_age_group = clf.predict(np.array([[user_age]]))[0]
+            user_age_group = clf_age_based.predict(np.array([[user_age]]))[0]
             self.recommended_response["age_group"] = user_age_group
-            self.recommended_response['results'] += get_recommended_results(user_age_group)
+            self.recommended_response['results'] += get_recommended_age_results(user_age_group)
+
+        if user_bust or user_waist or user_hip:
+            try:
+                user_bust = float(user_bust)
+                user_waist = float(user_waist)
+                user_hip = float(user_hip)
+            except:
+                return Response("User's physical attributes are not valid", status=status.HTTP_400_BAD_REQUEST)
+            if user_bust <= 0 or user_bust > 40:
+                return Response("User_Bust is invalid", status=status.HTTP_400_BAD_REQUEST)
+            if user_waist <= 0 or user_waist > 40:
+                return Response("User_Waist is invalid", status=status.HTTP_400_BAD_REQUEST)
+            if user_hip <= 0 or user_hip > 40:
+                return Response("User_Hip is invalid", status=status.HTTP_400_BAD_REQUEST)
+
+        if body_type:
+            if not isinstance(body_type, str):
+                return Response("Body_Type is not a valid string", status=status.HTTP_400_BAD_REQUEST)
+            if body_type not in ["Pear-Hourglass", "Hourglass", "Apple", "Pear", "Rectangle"]:
+                return Response("Body_Type is invalid", status=status.HTTP_400_BAD_REQUEST)
 
         if body_type:
             # write the code to integrate model 2 - bodytype
