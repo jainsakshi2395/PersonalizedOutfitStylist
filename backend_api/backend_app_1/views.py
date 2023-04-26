@@ -148,7 +148,7 @@ class RecommendAll(APIView):
 
         if age_group:
             self.recommended_response["age_group"] = age_group
-            self.recommended_response['results'] += get_recommended_results(age_group)
+            self.recommended_response['results'] += get_recommended_age_results(age_group)
             print("testing:  ", self.recommended_response['results'])
         elif user_age:
             user_age_group = clf_age_based.predict(np.array([[user_age]]))[0]
