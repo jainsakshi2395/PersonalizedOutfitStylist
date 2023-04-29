@@ -1,6 +1,6 @@
 {
   "api": {
-    "usersApi": {
+    "apiCMPE295": {
       "dependsOn": [
         {
           "attributes": [
@@ -8,7 +8,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "personalizedoutfitst125e9625"
+          "resourceName": "react2aefee53"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -16,9 +16,27 @@
     }
   },
   "auth": {
-    "personalizedoutfitst32ebcd62": {
-      "customAuth": false,
-      "dependsOn": [],
+    "react": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "reactCustomMessage",
+          "triggerProvider": "Cognito"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "reactPostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -32,39 +50,133 @@
           "EMAIL"
         ],
         "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
+        "usernameAttributes": [],
         "verificationMechanisms": [
           "EMAIL"
         ]
       },
       "providerPlugin": "awscloudformation",
-      "service": "Cognito"
+      "service": "Cognito",
+      "serviceType": "managed"
     }
   },
   "function": {
-    "personalizedoutfitst125e9625": {
+    "CMPE295": {
       "build": true,
       "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "react2aefee53": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "reactCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "reactPostConfirmation": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_personalizedoutfitst125e9625_deploymentBucketName": {
+    "AMPLIFY_function_CMPE295_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "personalizedoutfitst125e9625"
+          "resourceName": "CMPE295"
         }
       ]
     },
-    "AMPLIFY_function_personalizedoutfitst125e9625_s3Key": {
+    "AMPLIFY_function_CMPE295_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "personalizedoutfitst125e9625"
+          "resourceName": "CMPE295"
+        }
+      ]
+    },
+    "AMPLIFY_function_react2aefee53_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "react2aefee53"
+        }
+      ]
+    },
+    "AMPLIFY_function_react2aefee53_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "react2aefee53"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactCustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactCustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactCustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactCustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactCustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactPostConfirmation_GROUP": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactPostConfirmation"
         }
       ]
     }
