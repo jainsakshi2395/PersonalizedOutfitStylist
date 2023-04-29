@@ -59,6 +59,15 @@
           "category": "function",
           "resourceName": "reactCustomMessage",
           "triggerProvider": "Cognito"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "reactPostConfirmation",
+          "triggerProvider": "Cognito"
         }
       ],
       "frontendAuthConfig": {
@@ -97,6 +106,11 @@
       "service": "Lambda"
     },
     "reactCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "reactPostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -172,6 +186,30 @@
         {
           "category": "function",
           "resourceName": "reactCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactPostConfirmation_GROUP": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_reactPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "reactPostConfirmation"
         }
       ]
     }
