@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import "./NewUser.css";
 import  Amplify, { Auth } from 'aws-amplify';
 import {withAuthenticator, AmplifyAuthenticator} from '@aws-amplify/ui-react';
@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 Amplify.configure(awsconfig);
 Auth.configure(awsconfig);
 
-// Amplify.configure(awsconfig);
 
 function NewUserForm() {
 

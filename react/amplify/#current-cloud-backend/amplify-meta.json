@@ -80,7 +80,41 @@
         "logicalId": "apireact"
       },
       "lastPushTimeStamp": "2023-05-01T00:55:07.236Z",
-      "lastPushDirHash": "dIXijsPnIR8j36VNTBjKBnBQti0="
+      "lastPushDirHash": "dIXijsPnIR8j36VNTBjKBnBQti0=",
+      "DeploymentBucketName": "amplify-react-dev-201013-deployment",
+      "UnauthRoleName": "amplify-react-dev-201013-unauthRole",
+      "StackName": "amplify-react-dev-201013",
+      "StackId": "arn:aws:cloudformation:us-east-1:512148372417:stack/amplify-react-dev-201013/5d50aaa0-e63b-11ed-b8b9-0a2c39fbee67",
+      "AmplifyAppId": "d3q6j4fk1vnmc8",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    }
+  },
+  "api": {
+    "apiCMPE295": {
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "react2aefee53",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway",
+      "output": {
+        "ApiName": "apiCMPE295",
+        "RootUrl": "https://203f7pwhe2.execute-api.us-east-1.amazonaws.com/dev",
+        "ApiId": "203f7pwhe2"
+      },
+      "lastPushTimeStamp": "2023-04-29T03:58:42.364Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/api/apiCMPE295-cloudformation-template.json",
+        "logicalId": "apiapiCMPE295"
+      },
+      "lastPushDirHash": "lBOqfK5lKSfSvGRw8HzxRI0hohY="
     }
   },
   "auth": {
@@ -89,6 +123,15 @@
         {
           "category": "function",
           "resourceName": "reactCustomMessage",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "reactPostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -126,15 +169,15 @@
         "IdentityPoolName": "react_identitypool_51daa296__dev",
         "UserPoolName": "react_userpool_51daa296",
         "HostedUIDomain": "cmpe295-dev",
-        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\"],\"CallbackURLs\":[\"https://localhost:3000/register/\"],\"LogoutURLs\":[\"https://localhost:3000/newuser/\"]}"
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://localhost:3000/register/\"],\"LogoutURLs\":[\"https://localhost:3000/newuser/\"]}"
       },
-      "lastPushTimeStamp": "2023-05-01T00:55:03.020Z",
+      "lastPushTimeStamp": "2023-04-29T03:58:42.364Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/auth/react-cloudformation-template.json",
         "logicalId": "authreact"
       },
       "customAuth": false,
-      "lastPushDirHash": "mXwSWFrPyzTdGaGHYXauFdAN8o4="
+      "lastPushDirHash": "ZKh66+pOzHalTHy/6XagOf8Kr7s="
     }
   },
   "function": {
@@ -150,7 +193,7 @@
         "Name": "CMPE295-dev",
         "LambdaExecutionRole": "reactLambdaRole11cd5dfa-dev"
       },
-      "lastPushTimeStamp": "2023-05-01T00:55:03.021Z",
+      "lastPushTimeStamp": "2023-04-29T03:58:41.819Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/function/CMPE295-cloudformation-template.json",
         "logicalId": "functionCMPE295"
@@ -176,7 +219,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/function/react2aefee53-cloudformation-template.json",
         "logicalId": "functionreact2aefee53"
       },
-      "lastPushTimeStamp": "2023-05-01T00:55:03.022Z",
+      "lastPushTimeStamp": "2023-04-29T03:58:42.364Z",
       "output": {
         "LambdaExecutionRoleArn": "arn:aws:iam::512148372417:role/reactLambdaRole7c34c6d0-dev",
         "Region": "us-east-1",
@@ -202,7 +245,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/function/reactCustomMessage-cloudformation-template.json",
         "logicalId": "functionreactCustomMessage"
       },
-      "lastPushTimeStamp": "2023-05-01T00:55:03.023Z",
+      "lastPushTimeStamp": "2023-04-29T03:58:42.364Z",
       "output": {
         "LambdaExecutionRoleArn": "arn:aws:iam::512148372417:role/reactCustomMessage-dev",
         "Region": "us-east-1",
@@ -211,6 +254,32 @@
         "LambdaExecutionRole": "reactCustomMessage-dev"
       },
       "lastPushDirHash": "awaTLarYqhg1CF+5fM3d1ZxEzXg="
+    },
+    "reactPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2023-04-29T03:54:28.134Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-04-29T03:54:28.494Z",
+      "distZipFilename": "reactPostConfirmation-4a665771553137714a54-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-react-dev-201013-deployment",
+        "s3Key": "amplify-builds/reactPostConfirmation-4a665771553137714a54-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/function/reactPostConfirmation-cloudformation-template.json",
+        "logicalId": "functionreactPostConfirmation"
+      },
+      "lastPushTimeStamp": "2023-04-29T03:58:42.364Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::512148372417:role/reactPostConfirmation-dev",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:512148372417:function:reactPostConfirmation-dev",
+        "Name": "reactPostConfirmation-dev",
+        "LambdaExecutionRole": "reactPostConfirmation-dev"
+      },
+      "lastPushDirHash": "Fmo7cOY3uG35JtapvMhZGuTtNNM="
     }
   }
 }
