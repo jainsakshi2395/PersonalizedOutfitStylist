@@ -18,7 +18,7 @@ def age_groups(df):
 
     # Loop through each row in the dataframe
     for i in range(len(df)):
-        # Determine age groups type as - children, teen, adult, senior citizen
+        # Determine age groups type as - children, teen, adult
         age = df.at[i, 'Age']
 
         if age >= 1 and age <= 12:
@@ -198,10 +198,12 @@ def recommend_age_based_outfits(input_values):
                   df1['product_details'].str.contains(pattern, flags=re.IGNORECASE) |
                   df1['type'].str.contains(pattern, flags=re.IGNORECASE)]
 
+  filtered_df = filtered_df.assign(age_group=predicted_age_group[0])
   return filtered_df
 
 num_rows = filtered_df.shape[0]
 # print('Number of rows in filtered dataframe:', num_rows)
+# print('Number of rows in filtered dataframe: ', num_rows)
 
 filtered_df.shape[0]
 

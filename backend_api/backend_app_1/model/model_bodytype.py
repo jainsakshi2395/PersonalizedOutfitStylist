@@ -161,6 +161,8 @@ def recommend_bodytype_results(predicted_bodytype):
                   df1['product_details'].str.contains(pattern, flags=re.IGNORECASE) |
                   df1['title'].str.contains(pattern, flags=re.IGNORECASE)]
 
+  filtered_df = filtered_df.assign(body_type=predicted_bodytype[0])
+
   return filtered_df
 
 print('Model for Bodytype ran successfully!')
