@@ -29,11 +29,6 @@
           "EMAILMESSAGE": "Your verification link is",
           "deploymentBucketName": "amplify-react-dev-201013-deployment",
           "s3Key": "amplify-builds/reactCustomMessage-4a767968432f4f776769-build.zip"
-        },
-        "reactPostConfirmation": {
-          "GROUP": "newusers",
-          "deploymentBucketName": "amplify-react-dev-201013-deployment",
-          "s3Key": "amplify-builds/reactPostConfirmation-4a665771553137714a54-build.zip"
         }
       },
       "auth": {
