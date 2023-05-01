@@ -1,77 +1,148 @@
 import React, { useEffect, useRef, useState } from 'react';
 import "./NewUser.css";
-import  Amplify, { API, Auth, graphqlOperation } from 'aws-amplify';
-import { withAuthenticator } from '@aws-amplify/ui-react';
-// import awsExports from '../aws-exports';
-// Amplify.configure(awsExports);
+import  Amplify, { Auth } from 'aws-amplify';
+import {withAuthenticator, AmplifyAuthenticator} from '@aws-amplify/ui-react';
+import awsconfig from '../aws-exports';
+import { useNavigate } from "react-router-dom";
+Amplify.configure(awsconfig);
+Auth.configure(awsconfig);
 
 
-function NewUserForm({ signOut, user }) {
-    return (
-        <>
-          <h1>Hello {user.username}</h1>
-          <button onClick={signOut}>Sign out</button>
-        </>
-      );
+function NewUserForm() {
 
-//     // Define state variables for the form fields
-//     const [userData, setUserData] = useState({ payload: { email: '' } });
-//     const [fullname, setName] = useState('');
-//     const [email, setEmail] = useState('');
-//     const [password, setPassword] = useState('');
+    // Define state variables for the form fields
+    const [showLoginForm, setShowLoginForm] = useState(true);
+    const [showSignupForm, setShowSignupForm] = useState(false);
+    const [showVerificationForm, setShowVerificationForm] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [verificationCode, setVerificationCode] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
-//     //User Informantion
-//     useEffect(() => {
-//         fetchUserData();
-//     }, []);
-
-//     async function fetchUserData() {
-//         await Auth.currentAuthenticatedUser()
-//         .then((userSession) => {
-//             console.log("userData: ", userSession);
-//             setUserData(userSession.signInUserSession.accessToken);
-//         })
-//         .catch((e) => console.log("Not signed in", e));
-//     }
-
-//     async function handleSubmit(event) {
-//         event.preventDefault();
-
-//         try {
-//           const response = await API.graphql(graphqlOperation(createUser, {input: { name: fullname, email: email, password: password }}));
-//           console.log(response);
-//           alert("New User Successfully Registered!");
-//         } catch (error) {
-//           console.log(error);
-//           alert("Error creating new user");
-//         }
-//       }
-
+    async function handleLogin(event) {
+        event.preventDefault();
     
+        try {
+          await Auth.signIn(username, password);
+          // Redirect the user 
+          navigate("/register");
+        } catch (error) {
+          setErrorMessage(error.message);
+        }
+      }
+    
+      async function handleSignup(event) {
+        event.preventDefault();
+    
+        try {
+          await Auth.signUp({
+            username: username,
+            password,
+            attributes: {
+              email,
+            },
+          });
+          setShowSignupForm(false);
+          setShowVerificationForm(true)
+          setErrorMessage('');
+        } catch (error) {
+          setErrorMessage(error.message);
+        }
+      }
+    
+      async function handleVerify(event) {
+        event.preventDefault();
+    
+        try {
+          await Auth.confirmSignUp(username, verificationCode);
+          // Redirect the user 
+          navigate("/register");
+        } catch (error) {
+          setErrorMessage(error.message);
+        }
+      }
+    
+      async function handleResendCode(event) {
+        event.preventDefault();
+    
+        try {
+          await Auth.resendSignUp(email);
+          setErrorMessage('');
+        } catch (error) {
+          setErrorMessage(error.message);
+        }
+      }
+    
+      function showLogin() {
+        setShowLoginForm(true);
+        setShowSignupForm(false);
+        setErrorMessage('');
+      }
+    
+      function showSignup() {
+        setShowLoginForm(false);
+        setShowSignupForm(true);
+        setErrorMessage('');
+      }
 
-
-//   return (
-//     <div className='recommend'>
-//         <div class="container">
-//             <div className='content-box2'>
-//                 <h2 className='content-title'>Create New User</h2>
-//                 <form onSubmit={handleSubmit} encType="multipart/form-data" className="new-user-form">
-//                     <label className="form-label">
-//                         Name: <input className="form-input" type="text" name="fullname" value={fullname} onChange={(e) => setName(e.target.value)} />
-//                     </label>
-//                     <label className="form-label">
-//                         Email: <input className="form-input" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-//                     </label>
-//                     <label className="form-label">
-//                         Password: <input className="form-input" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-//                     </label>
-//                     <button className="form-submit" type="submit">Create User</button>
-//                 </form>
-//             </div>
-//         </div>
-//     </div>
-//   );
+  return (
+    <div className='recommend'>
+        <div class="container">
+        {showLoginForm && (
+            <div className='content-box2'>
+                <h2 className='content-title'>Create New User</h2>
+                <form onSubmit={handleLogin} encType="multipart/form-data" className="new-user-form">
+                    <label className="form-label">
+                        Username: <input className="form-input" type="text" name="fullname" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    </label>
+                    <label className="form-label">
+                        Password: <input className="form-input" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </label>
+                    <div className='buttons'>
+                        <button className="form-submit" type="submit">Log In</button>
+                        <button className="form-submit" type="button" onClick={showSignup}>Sign up</button>
+                    </div>
+                </form>
+            </div>
+        )}
+        {showSignupForm && (
+            <div className='content-box2'>
+                <h2 className='content-title'>Create New User</h2>
+                <form onSubmit={handleSignup} encType="multipart/form-data" className="new-user-form">
+                    <label className="form-label">
+                        Username: <input className="form-input" type="text" name="fullname" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    </label>
+                    <label className="form-label">
+                        Email: <input className="form-input" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </label>
+                    <label className="form-label">
+                        Password: <input className="form-input" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </label>
+                    <div className='buttons'>
+                        <button className="form-submit" type="submit">Create User</button>
+                        <button className="form-submit" type="button" onClick={showLogin}>Log in</button>
+                    </div>
+                </form>
+            </div>
+        )}
+        {showVerificationForm && (
+            <div className='content-box3'>
+                <h2 className='content-title'>Create New User</h2>
+                <form onSubmit={handleVerify} encType="multipart/form-data" className="new-user-form">
+                    <label>
+                        Verification code: <input type="text" value={verificationCode} onChange={event => setVerificationCode(event.target.value)} />
+                    </label>
+                    <button type="submit" className="form-submit">Verify</button>
+                    <p>Didn't receive a code? <button type="button" className="form-submit" onClick={handleResendCode}>Resend code</button></p>
+                </form>
+            </div>
+        )}
+        </div>
+    </div>
+  );
 }
 
-// export default NewUserForm;
-export default withAuthenticator(NewUserForm);
+export default NewUserForm;
+// export default withAuthenticator(NewUserForm);

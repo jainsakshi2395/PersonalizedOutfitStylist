@@ -1,8 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import { Auth } from 'aws-amplify';
+import {AmplifySignOut} from '@aws-amplify/ui-react';
 
 function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    async function checkAuthState() {
+      try {
+        await Auth.currentAuthenticatedUser();
+        setIsLoggedIn(true);
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    }
+
+    checkAuthState();
+  }, []);
+
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click)
   const closeNavMenu = () => { 
@@ -28,6 +45,15 @@ function Navbar() {
           <Link to='/register' className='nav-links' onClick={closeNavMenu}>
             Register
           </Link>
+        </li>
+        <li className='nav-item'>
+          <div className='nav-links'>
+            {isLoggedIn ? (
+              <AmplifySignOut></AmplifySignOut>
+            ) : (
+              <span></span>
+            )}
+          </div>
         </li>
       </ul>
      </div>
