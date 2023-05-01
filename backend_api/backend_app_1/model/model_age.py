@@ -198,6 +198,7 @@ def recommend_age_based_outfits(input_values):
                   df1['product_details'].str.contains(pattern, flags=re.IGNORECASE) |
                   df1['type'].str.contains(pattern, flags=re.IGNORECASE)]
 
+  filtered_df = filtered_df.assign(age_group=predicted_age_group[0])
   return filtered_df
 
 num_rows = filtered_df.shape[0]
