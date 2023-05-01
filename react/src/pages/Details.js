@@ -1,32 +1,57 @@
-import React, { useState } from 'react'
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import './Details.css';
 
 function Details() {
+    let data = useSelector(state => state.cardDetails);
+    data = data.cardDetails;
     return (
     <>
       <div className='details'>
-      <div class="container">
-        <div class="row g-3">
-            <div class="col-4 text-center">
+      {data ? (<div className="container">
+        {data.isSimilarImages? (<div className="row g-3">
+            <div className="col-4 text-center">
                 <div className=''>
-                    <img src='https://img.ltwebstatic.com/images3_pi/2022/05/24/16533584254279e8c278cd25e1270bbb50e8b417dc_thumbnail_810x.webp' alt='Dummy Image' />
+                <img src={data.image_link} alt='Dummy Image' />
                 </div>
             </div>
-            <div class="col-6">
+            <div className="col-6">
                 <div className='text-justify'>
-                    <h2 className='mb-4'>LINEN GATHERED FLOWY DRESS</h2>
-                    <p><b>Suitable for body type:</b> <span>Hour Glass</span></p>
+                    <h2 className='mb-4'>{data.description}</h2>
+                    <p><b>Outfit type:</b> <span>{data.outfit_type}</span></p>
                     <p className='h5 pt-5 pb-4'><b>Buying Options</b></p>
                     <div className='links'>
                         <a href='#'>SHEIN</a>
                     </div>
                 </div>
             </div>   
-        </div>
-        </div>
+        </div>) : 
+        (<div className="row g-3">
+            <div className="col-4 text-center">
+                <div className=''>
+                <img src={
+                    data.images.split("|").length > 0
+                      ? data.images.split("|")[0]
+                      : data.images
+                  } alt={data.title} />
+                </div>
+            </div>
+            <div className="col-6">
+                <div className='text-justify'>
+                    <h2 className='mb-4'>{data.title}</h2>
+                    <p>{data.product_details}</p>
+                    {data.age_group && <p><b>Suitable for age group:</b> <span>{data.age_group}</span></p>}
+                    {data.body_type && <p><b>Suitable for body type:</b> <span>{data.body_type}</span></p>}
+                    <p className='h5 pt-5 pb-4'><b>Buying Options</b></p>
+                    <div className='links'>
+                        <a href='#'>SHEIN</a>
+                    </div>
+                </div>
+            </div>   
+        </div>)}
+        </div>) : (
+            <div>An error occured please try again!</div>
+        )}
       </div>
     </>
     )
