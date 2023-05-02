@@ -63,7 +63,7 @@ function Recommend() {
           </TabList>
           <TabPanel>
             {/* Call filters component here <Filters /> */}
-            <div class="">
+            <div className="">
               <div className="container">
                 <Form>
                   <p><b>Seasons</b></p>
@@ -146,7 +146,7 @@ function Recommend() {
                           id={`inline-${type}-7`}
                       />
                       <Form.Check
-                          label="Inverted Triangle"
+                          label="Pear-Hourglass"
                           name="group3"
                           type={type}
                           id={`inline-${type}-8`}
