@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -15,9 +15,22 @@ function Upload() {
   const [selectedImage, setSelectedImage] = useState(null);
   const previewImage = useSelector((state) => state.setPreview.previewImage);
 
+  useEffect(() => {
+    const storedPreviewImage = sessionStorage.getItem("previewImage");
+    if (storedPreviewImage) {
+      dispatch(setPreviewImage(storedPreviewImage));
+    }
+  }, [dispatch]);
+
   const changeHandler = (event) => {
+    const file = event.target.files[0];
     setSelectedImage(event.target.files[0]);
-    dispatch(setPreviewImage(URL.createObjectURL(event.target.files[0])));
+    const reader = new FileReader();
+    reader.onload = () => {
+      dispatch(setPreviewImage(reader.result));
+      sessionStorage.setItem("previewImage", reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleImageUpload = () => {
