@@ -40,23 +40,23 @@ function Register() {
         <h2 className='content-title'>Enter Profile Details</h2>
         <div className='fields-container'>
         <div className='profile-field' >
-          <label for='age'>Age</label>
+          <label htmlFor='age'>Age</label>
           <input className='input-field' name='age' onChange={(e) => setProfileState({...profileState, age: e.target.value})} type='number' placeholder='0'required/>
         </div>
         <div className='profile-field' >
-          <label for='height'>Height(ft)</label>
+          <label htmlFor='height'>Height(ft)</label>
           <input className='input-field' name='height' onChange={(e) => setProfileState({...profileState, height: e.target.value})} type='number' placeholder='0' required/>
         </div>
         <div className='profile-field' >
-          <label for='bust'>Bust(in)</label>
+          <label htmlFor='bust'>Bust(in)</label>
           <input className='input-field' name='bust' onChange={(e) => setProfileState({...profileState, bust: e.target.value})} type='number' placeholder='0' required/>
         </div>
         <div className='profile-field' >
-          <label for='waist'>Waist(in)</label>
+          <label htmlFor='waist'>Waist(in)</label>
           <input className='input-field' name='waist' onChange={(e) => setProfileState({...profileState, waist: e.target.value})} type='number' placeholder='0' required/>
         </div>
         <div className='profile-field' >
-          <label for='hips'>Hips(in)</label>
+          <label htmlFor='hips'>Hips(in)</label>
           <input className='input-field' name='hips' onChange={(e) => setProfileState({...profileState, hip: e.target.value})} type='number' placeholder='0'required/>
         </div>
         <button className='save-button' type="submit">SAVE</button>
