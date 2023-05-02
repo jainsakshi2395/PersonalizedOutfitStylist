@@ -202,7 +202,7 @@ def recommend_age_based_outfits(input_values):
   return filtered_df
 
 num_rows = filtered_df.shape[0]
-# print('Number of rows in filtered dataframe: ', num_rows)
+# print('Number of rows in filtered dataframe:', num_rows)
 
 filtered_df.shape[0]
 

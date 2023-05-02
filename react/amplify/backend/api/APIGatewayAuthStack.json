@@ -11,7 +11,7 @@
     "env": {
       "Type": "String"
     },
-    "usersApi": {
+    "apiCMPE295": {
       "Type": "String"
     }
   },
@@ -52,7 +52,7 @@
                       },
                       ":",
                       {
-                        "Ref": "usersApi"
+                        "Ref": "apiCMPE295"
                       },
                       "/",
                       {
@@ -82,7 +82,7 @@
                       },
                       ":",
                       {
-                        "Ref": "usersApi"
+                        "Ref": "apiCMPE295"
                       },
                       "/",
                       {
@@ -135,7 +135,7 @@
                       },
                       ":",
                       {
-                        "Ref": "usersApi"
+                        "Ref": "apiCMPE295"
                       },
                       "/",
                       {
@@ -165,7 +165,7 @@
                       },
                       ":",
                       {
-                        "Ref": "usersApi"
+                        "Ref": "apiCMPE295"
                       },
                       "/",
                       {
