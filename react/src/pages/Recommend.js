@@ -12,18 +12,34 @@ import Form from 'react-bootstrap/Form';
 function Recommend() {
   const initialResults = useSelector((state) => state.initialRecommend.data);
   const similarImageResults = useSelector((state) => state.upload.data);
-  const [filterResults, setFilterResults] = useState([]);
+  const [filterResults, setFilterResults] = useState({});
   const [similarResults, setSimilarResults] = useState([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-
+  
   useEffect(() => {
     if (initialResults.results) {
-      setFilterResults(initialResults.results);
+      setFilterResults(initialResults);
+      sessionStorage.setItem("initialResults", JSON.stringify(initialResults));
     }
-    if (similarImageResults) {
+  }, [initialResults]);
+
+  useEffect(() => {
+    if (similarImageResults.length) {
       setSimilarResults(similarImageResults);
+      sessionStorage.setItem("similarImageResults", JSON.stringify(similarImageResults));
     }
-  }, [initialResults.results, similarImageResults]);
+  }, [similarImageResults]);
+
+  useEffect(() => {
+    // Retrieve data from session storage
+    const storedData = sessionStorage.getItem("initialResults");
+    setFilterResults(storedData ? JSON.parse(storedData) : initialResults);
+  }, [initialResults]);
+  useEffect(() => {
+    // Retrieve data from session storage
+    const similarData = sessionStorage.getItem("similarImageResults");
+    setSimilarResults(similarData && similarData.length ? JSON.parse(similarData) : similarImageResults);
+  }, [similarImageResults]);
 
   //Advance Filters code
   const [show, setShow] = useState(false);
@@ -31,7 +47,18 @@ function Recommend() {
     setShow(false);
     }
     const handleShow = () => setShow(true);
+  
+    useEffect(() => {
+      // Store the current tab index in session storage
+      sessionStorage.setItem("activeTabIndex", activeTabIndex);
+    }, [activeTabIndex]);
 
+    useEffect(() => {
+      // Retrieve data from session storage
+      const activeIndex = sessionStorage.getItem("activeTabIndex");
+      setActiveTabIndex(activeIndex ? Number(activeIndex) : 0);
+    }, [activeTabIndex]);
+    
   return (
     <>
       <div className="recommend">
@@ -152,7 +179,7 @@ function Recommend() {
               </div>
             </Modal>
             <span className="divider"></span>
-            <Results results={filterResults} />
+            <Results results={filterResults.results} isAgeFiltered={filterResults.age_group} isBodyTypeFiltered={filterResults.body_type} isSeasonFiltered={filterResults.season}/>
           </TabPanel>
           <TabPanel>
             <div className="tab-content">
