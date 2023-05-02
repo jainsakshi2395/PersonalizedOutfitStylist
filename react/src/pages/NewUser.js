@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "./NewUser.css";
 import  Amplify, { Auth } from 'aws-amplify';
-import {withAuthenticator, AmplifyAuthenticator} from '@aws-amplify/ui-react';
 import awsconfig from '../aws-exports';
 import { useNavigate } from "react-router-dom";
 Amplify.configure(awsconfig);

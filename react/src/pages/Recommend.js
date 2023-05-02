@@ -49,7 +49,18 @@ function Recommend() {
     setShow(false);
     }
     const handleShow = () => setShow(true);
+  
+    useEffect(() => {
+      // Store the current tab index in session storage
+      sessionStorage.setItem("activeTabIndex", activeTabIndex);
+    }, [activeTabIndex]);
 
+    useEffect(() => {
+      // Retrieve data from session storage
+      const activeIndex = sessionStorage.getItem("activeTabIndex");
+      setActiveTabIndex(activeIndex ? Number(activeIndex) : 0);
+    }, [activeTabIndex]);
+    
   return (
     <>
       <div className="recommend">
