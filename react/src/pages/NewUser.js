@@ -107,7 +107,7 @@ function NewUserForm() {
             </div>
         )}
         {showSignupForm && (
-            <div className='content-box2'>
+            <div className='content-box4'>
                 <h2 className='content-title'>Create New User</h2>
                 <form onSubmit={handleSignup} encType="multipart/form-data" className="new-user-form">
                     <label className="form-label">

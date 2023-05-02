@@ -59,31 +59,11 @@
 .content-box4 {
   margin: 30px auto;
   width: 445px;
-  height: 500px;
+  height: 380px;
   border: solid 0.5px #999999;
   border-radius: 15px;
   box-shadow: 5px 10px #ddd;
   padding: 20px;
-}
-
-.content-box3 {
-    margin: 30px auto;
-    width: 445px;
-    height: 270px;
-    border: solid 0.5px #999999;
-    border-radius: 15px;
-    box-shadow: 5px 10px #ddd;
-    padding: 20px;
-}
-
-.content-box4 {
-    margin: 30px auto;
-    width: 445px;
-    height: 500px;
-    border: solid 0.5px #999999;
-    border-radius: 15px;
-    box-shadow: 5px 10px #ddd;
-    padding: 20px;
 }
 
 .content-title {
