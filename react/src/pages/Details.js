@@ -27,7 +27,7 @@ function Details() {
               <div className="row g-3">
                 <div className="col-4 text-center">
                   <div className="">
-                    <img src={data.image_link} alt="Dummy Image" />
+                    <img src={data.image_link} alt={data.description} />
                   </div>
                 </div>
                 <div className="col-6">
