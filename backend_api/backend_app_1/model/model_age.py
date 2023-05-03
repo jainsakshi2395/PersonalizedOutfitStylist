@@ -9,7 +9,6 @@ num = pd.read_csv(path1)
 df = num.loc[:, ['Age']]
 df.columns = ['Age']
 df.dropna(inplace=True)
-# df.head()
 
 
 def age_groups(df):
@@ -111,7 +110,6 @@ num = pd.read_csv(path2, on_bad_lines='skip')
 df1 = num.loc[:, ['title', 'product_type', 'product_details', 'ideal_for', 'type', 'images', 'link', 'brand', 'actual_color', 'specifications']]
 
 df1.dropna(inplace=True)
-# df1.head()
 
 num_rows = df1.shape[0]
 
@@ -156,8 +154,7 @@ import pandas as pd
 age_groups_dict = {
     "Children": "t-shirt, jeans, shorts, smock dress, child, boys, girls",
     "Teen": "skinny jeans, graphic tees, V-neck, sneakers, dresses, Off-shoulder",
-    "Adult": "chic, Off-shoulder, Bodycon, pencil skirt, blazers, blouses, jumpsuits, tops, sandals, mini skirts",
-    "Senior Citizen": "classy, sophisticated, kurta, peplum, trousers, shirt dress, formal"
+    "Adult": "chic, Off-shoulder, Bodycon, pencil skirt, blazers, blouses, jumpsuits, tops, sandals, mini skirts"
 }
 
 
@@ -187,5 +184,4 @@ def recommend_age_based_outfits(input_values):
 num_rows = filtered_df.shape[0]
 
 filtered_df.shape[0]
-
 
