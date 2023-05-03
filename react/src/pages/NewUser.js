@@ -27,6 +27,7 @@ function NewUserForm() {
           await Auth.signIn(username, password);
           // Redirect the user 
           navigate("/register");
+          window.location.reload();
         } catch (error) {
           setErrorMessage(error.message);
         }
@@ -57,7 +58,9 @@ function NewUserForm() {
         try {
           await Auth.confirmSignUp(username, verificationCode);
           // Redirect the user 
-          navigate("/register");
+          setShowVerificationForm(false)
+          setShowLoginForm(true)
+          alert("User successfully registered! Please login.")
         } catch (error) {
           setErrorMessage(error.message);
         }
@@ -88,7 +91,7 @@ function NewUserForm() {
 
   return (
     <div className='recommend'>
-        <div class="container">
+        <div className="container">
         {showLoginForm && (
             <div className='content-box2'>
                 <h2 className='content-title'>Create New User</h2>
