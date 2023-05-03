@@ -16,7 +16,7 @@ from sklearn.neighbors import NearestNeighbors
 from django.conf import settings
 from .model.model_age import recommend_age_based_outfits, clf_age_based
 from .model.model_bodytype import recommend_bodytype_results, clf_bodytype
-#from .model.model_season import recommend_outfits
+from .model.model_season import *
 
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 model.trainable = False
@@ -116,22 +116,23 @@ def get_recommended_age_results(age_category):
     else:
         return model_response
     prediction_result = recommend_age_based_outfits([[user_predicted_age]])
-    model_response += prediction_result.to_dict('records')[:5]
+    model_response += prediction_result.to_dict('records')[:10]
     return model_response
 
 
 def get_recommended_bodytype_results(body_type):
     model_response = list()
     prediction_result = recommend_bodytype_results([body_type])
-    model_response += prediction_result.to_dict('records')[:5]
+    model_response += prediction_result.to_dict('records')[:10]
     return model_response
 
-#
-# def get_recommended_season_results(season):
-#     model_response = list()
-#     prediction_result = recommend_outfits([season])
-#     model_response += prediction_result.to_dict('records')[:5]
-#     return model_response
+
+def get_recommended_season_results(season):
+    # model_response = list()
+    prediction_result = recommend_outfits(season)
+    # model_response += prediction_result.to_dict('records')[:5]
+    #model_response += prediction_result[:5]
+    return prediction_result[:10]
 
 
 class RecommendAll(APIView):
@@ -144,11 +145,9 @@ class RecommendAll(APIView):
         age_group = request.data.get('age_group')  # accepting as string = "Teen"  || "Children" || "Adult"
         body_type = request.data.get('body_type')  # accepting as string = "Pear" || "Rectangle" || ..
         selected_season = request.data.get('season')  # accepting as string = "Fall" || "Winter" || ..
-        # user_height = request.data.get('user_height')
         user_bust = request.data.get('user_bust')
         user_waist = request.data.get('user_waist')
         user_hip = request.data.get('user_hip')
-        season = request.data.get('season')
 
         if user_age:
             try:
@@ -167,7 +166,6 @@ class RecommendAll(APIView):
         if age_group:
             self.recommended_response["age_group"] = age_group
             self.recommended_response['results'] += get_recommended_age_results(age_group)
-            print("testing:  ", self.recommended_response['results'])
         elif user_age:
             user_age_group = clf_age_based.predict(np.array([[user_age]]))[0]
             self.recommended_response["age_group"] = user_age_group
@@ -175,16 +173,16 @@ class RecommendAll(APIView):
 
         if user_bust or user_waist or user_hip:
             try:
-                user_bust = float(user_bust)
-                user_waist = float(user_waist)
-                user_hip = float(user_hip)
+                user_bust = int(user_bust)
+                user_waist = int(user_waist)
+                user_hip = int(user_hip)
             except:
                 return Response("User's physical attributes are not valid", status=status.HTTP_400_BAD_REQUEST)
-            if user_bust <= 0 or user_bust > 40:
+            if user_bust < 30 or user_bust > 60:
                 return Response("User_Bust is invalid", status=status.HTTP_400_BAD_REQUEST)
-            if user_waist <= 0 or user_waist > 40:
+            if user_waist < 22 or user_waist > 50:
                 return Response("User_Waist is invalid", status=status.HTTP_400_BAD_REQUEST)
-            if user_hip <= 0 or user_hip > 40:
+            if user_hip < 30 or user_hip > 60:
                 return Response("User_Hip is invalid", status=status.HTTP_400_BAD_REQUEST)
 
         if body_type:
@@ -204,11 +202,10 @@ class RecommendAll(APIView):
             self.recommended_response['results'] += get_recommended_bodytype_results(body_type)
 
         if selected_season:
-            pass
             # write the code to integrate model 3 - season
             # It should have response as list of dictionary for recommended outfits
-            # self.recommended_response["season"] = selected_season
-            # self.recommended_response['results'] += get_recommended_season_results(season)
+            self.recommended_response["season"] = selected_season
+            self.recommended_response['results'] += get_recommended_season_results(selected_season)
 
         return Response(self.recommended_response, status=status.HTTP_200_OK)
 
