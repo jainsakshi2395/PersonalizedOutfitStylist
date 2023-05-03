@@ -11,8 +11,9 @@ Original file is located at
 
 # import numpy as np
 import pandas as pd
-# import pickle
 import re
+import json
+# import pickle
 
 path2 = 'https://drive.google.com/uc?id=1ypzPWMt5FqtUYtS0kN_OpXjtYKXZxno9'
 num = pd.read_csv(path2, on_bad_lines='skip')
@@ -28,6 +29,7 @@ len(df.index)
 df1 = df
 df1['detail_desc'] = df['body'].fillna('') + ' ' + df['product_details'].fillna('')
 # df1.head()
+# print("df1 printing: ", df1)
 
 # Define the keywords and their associated seasons
 keywords = {
@@ -57,7 +59,7 @@ df1['season'] = df['detail_desc'].apply(match_keywords)
 df['season'] = df['season'].astype(str)
 
 # View the resulting dataframe
-# print(df1.head(50))
+# print(df1.head(5))
 
 # print(df1['season'])
 
@@ -73,19 +75,24 @@ df['season'] = df['season'].astype(str)
 # print(json_data)
 
 # group the outfits by season and display them
-for season, group in df1.groupby('season'):
-    print(f'Outfits for {season}:')
-    print(group)
+# for season, group in df1.groupby('season'):
+#     print(f'Outfits for {season}:')
+#     print(group)
 
 
-def recommend_outfits(season):
+def recommend_outfits(season_name):
     # filter the outfits by season
-    season_outfits = df1[df1['season'] == season]
+    outfits_db = json.loads(df1.to_json(orient='records'))
+    season_outfits = []
+    for row in outfits_db:
+        if row['season'] == season_name:
+            season_outfits.append(row)
 
     # recommend the outfits
-    if season_outfits.empty:
-        print(f'Sorry, we don\'t have any outfits for {season} season.')
+    if not season_outfits:
+        print(f'Sorry, we don\'t have any outfits for {season_name} season.')
     else:
+        print(f"my output = {season_outfits[:5]}")
         return season_outfits
 
 
