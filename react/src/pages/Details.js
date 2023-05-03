@@ -33,14 +33,52 @@ function Details() {
                 <div className="col-6">
                   <div className="text-justify">
                     <h2 className="mb-4">{data.description}</h2>
-                    <p>
-                      <b>Outfit type:</b> <span>{data.outfit_type}</span>
-                    </p>
+                    {data.outfit_type && (
+                      <p>
+                        <b>Outfit type: </b> <span>{data.outfit_type}</span>
+                      </p>
+                    )}
+                    {data.base_colour && (
+                      <p>
+                        <b>Base Colour:</b> <span>{data.base_colour}</span>
+                      </p>
+                    )}
+                    {data.gender && (
+                      <p>
+                        <b>Gender:</b> <span>{data.gender}</span>
+                      </p>
+                    )}
+                    {data.master_category && (
+                      <p>
+                        <b>Master Category:</b>{" "}
+                        <span>{data.master_category}</span>
+                      </p>
+                    )}
+                    {data.sub_category && (
+                      <p>
+                        <b>Sub Category:</b> <span>{data.sub_category}</span>
+                      </p>
+                    )}
+                    {data.season && (
+                      <p>
+                        <b>Season:</b> <span>{data.season}</span>
+                      </p>
+                    )}
+                    {data.usage && (
+                      <p>
+                        <b>Usage:</b> <span>{data.usage}</span>
+                      </p>
+                    )}
                     <p className="h5 pt-5 pb-4">
                       <b>Buying Options</b>
                     </p>
-                    <div className="links">
-                      <a href="#">SHEIN</a>
+                    <div className="options">
+                      <div className="option">
+                        <a href="#">MACYS</a>
+                      </div>
+                      <div className="option">
+                        <a href="#">SHEIN</a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -74,6 +112,16 @@ function Details() {
                         <p>
                           <b>Suitable for body type:</b>{" "}
                           <span>{data.body_type}</span>
+                        </p>
+                      )}
+                      {data.ideal_for && (
+                        <p>
+                          <b>Ideal for:</b> <span>{data.ideal_for}</span>
+                        </p>
+                      )}
+                      {data.product_type && (
+                        <p>
+                          <b>Product Type:</b> <span>{data.product_type}</span>
                         </p>
                       )}
                       <p className="h5 pt-5 pb-4">
