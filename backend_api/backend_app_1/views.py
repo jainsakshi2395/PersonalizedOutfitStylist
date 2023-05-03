@@ -16,6 +16,7 @@ from sklearn.neighbors import NearestNeighbors
 from django.conf import settings
 from .model.model_age import recommend_age_based_outfits, clf_age_based
 from .model.model_bodytype import recommend_bodytype_results, clf_bodytype
+from .model.model_season import recommend_outfits
 
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 model.trainable = False
@@ -56,17 +57,14 @@ class ImageUploadView(APIView):
 
     def post(self, request, *args, **kwargs):
 
-        print('Inside Similar image recommendation Api..')
-
         if 'file' not in request.FILES:
-            return Response({'error': 'No file was sent'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'No file was sent'})
 
         file = request.FILES['file']
 
         # Check if file is an image
         if file.name.split('.')[-1] not in ['jpg', 'jpeg', 'png']:
-            return Response({'error': 'File must be an image and sent in jpg, jpeg or png format'}, status=
-            status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'File must be an image and sent in jpg, jpeg or png format'})
 
         if not os.path.exists(settings.IMG_FOLDER_PATH):
             os.makedirs(settings.IMG_FOLDER_PATH)
@@ -79,29 +77,24 @@ class ImageUploadView(APIView):
         img_file = request.data['file']
         print(img_file)
 
-        try:
-            # feature extract
-            features = feature_extraction(os.path.join(settings.IMG_FOLDER_PATH, file.name), model)
+        # feature extract
+        features = feature_extraction(os.path.join(settings.IMG_FOLDER_PATH, file.name), model)
 
-            print(features)
-            # recommendation
+        print(features)
+        # recommendation
 
-            indices = recommend(features, settings.FEATURE_LIST)
-            print(indices)
-            indexes = []
+        indices = recommend(features, settings.FEATURE_LIST)
+        print(indices)
+        indexes = []
 
-            for i in indices[0][1:6]:
-                index = extract_filename(settings.FILENAMES[i])
-                indexes.append(index)
+        for i in indices[0][1:6]:
+            index = extract_filename(settings.FILENAMES[i])
+            indexes.append(index)
 
-            print(indexes)
-            image_details = Outfit.objects.filter(pk__in=indexes)
-            serializer = OutfitSerializer(image_details, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-
-        except:
-            return Response("Error occurred while recommending similar image ",
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        print(indexes)
+        image_details = Outfit.objects.filter(pk__in=indexes)
+        serializer = OutfitSerializer(image_details, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 def get_recommended_age_results(age_category):
@@ -119,13 +112,17 @@ def get_recommended_age_results(age_category):
     model_response += prediction_result.to_dict('records')[:5]
     return model_response
 
-
 def get_recommended_bodytype_results(body_type):
     model_response = list()
     prediction_result = recommend_bodytype_results([body_type])
     model_response += prediction_result.to_dict('records')[:5]
     return model_response
 
+def get_recommended_season_results(season):
+    model_response = list()
+    prediction_result = recommend_outfits([season])
+    model_response += prediction_result.to_dict('records')[:5]
+    return model_response
 
 class RecommendAll(APIView):
     def __init__(self, **kwargs):
@@ -133,14 +130,15 @@ class RecommendAll(APIView):
         self.recommended_response = {"age_group": None, "body_type": None, "season": None, "results": []}
 
     def post(self, request, *args, **kwargs):
-        user_age = request.data.get("user_age")  # accepting as integer = 25
+        user_age = request.data.get("user_age")    # accepting as integer = 25
         age_group = request.data.get('age_group')  # accepting as string = "Teen"  || "Children" || "Adult"
-        body_type = request.data.get('body_type')  # accepting as string = "Pear" || "Rectangle" || ..
-        selected_season = request.data.get('season')  # accepting as string = "Fall" || "Winter" || ..
+        body_type = request.data.get('body_type')   # accepting as string = "Pear" || "Rectangle" || ..
+        selected_season = request.data.get('season')         # accepting as string = "Fall" || "Winter" || ..
         # user_height = request.data.get('user_height')
         user_bust = request.data.get('user_bust')
         user_waist = request.data.get('user_waist')
         user_hip = request.data.get('user_hip')
+        season = request.data.get('season')
 
         if user_age:
             try:
@@ -199,7 +197,7 @@ class RecommendAll(APIView):
             # write the code to integrate model 3 - season
             # It should have response as list of dictionary for recommended outfits
             self.recommended_response["season"] = selected_season
-            pass
+            self.recommended_response['results'] += get_recommended_season_results(season)
 
         return Response(self.recommended_response, status=status.HTTP_200_OK)
 
@@ -208,3 +206,4 @@ class Default(APIView):
     def get(self, request, *args, **kwargs):
         data = {"This is API server, Use Postman!!"}
         return Response(data, status=status.HTTP_200_OK)
+

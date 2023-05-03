@@ -1,3 +1,17 @@
+.welcomeUser{
+  margin-top: 20px;
+}
+
+.welcomeUser p{
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 32px;
+}
+
+.welcomeUser p span{
+  font-size: 14px;
+}
+
 .content-box {
   margin: 30px auto;
   width: 500px;
