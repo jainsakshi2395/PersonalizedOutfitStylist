@@ -157,16 +157,16 @@ class RecommendAll(APIView):
 
         if user_bust or user_waist or user_hip:
             try:
-                user_bust = float(user_bust)
-                user_waist = float(user_waist)
-                user_hip = float(user_hip)
+                user_bust = int(user_bust)
+                user_waist = int(user_waist)
+                user_hip = int(user_hip)
             except:
                 return Response("User's physical attributes are not valid", status=status.HTTP_400_BAD_REQUEST)
-            if user_bust <= 0 or user_bust > 40:
+            if user_bust < 30 or user_bust > 60:
                 return Response("User_Bust is invalid", status=status.HTTP_400_BAD_REQUEST)
-            if user_waist <= 0 or user_waist > 40:
+            if user_waist < 22 or user_waist > 50:
                 return Response("User_Waist is invalid", status=status.HTTP_400_BAD_REQUEST)
-            if user_hip <= 0 or user_hip > 40:
+            if user_hip < 30 or user_hip > 60:
                 return Response("User_Hip is invalid", status=status.HTTP_400_BAD_REQUEST)
 
         if body_type:
