@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'backend_app_1.apps.BackendApp1Config',
     'rest_framework',
     'backend_app_2.apps.BackendApp2Config',
+    'backend_app_3.apps.BackendApp3Config'
 ]
 
 MIDDLEWARE = [
