@@ -94,7 +94,7 @@ function NewUserForm() {
         <div className="container">
         {showLoginForm && (
             <div className='content-box2'>
-                <h2 className='content-title'>Create New User</h2>
+                <h2 className='content-title'>Login</h2>
                 <form onSubmit={handleLogin} encType="multipart/form-data" className="new-user-form">
                     <label className="form-label">
                         Username: <input className="form-input" type="text" name="fullname" value={username} onChange={(e) => setUsername(e.target.value)} />
