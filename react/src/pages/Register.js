@@ -49,6 +49,7 @@ function Register() {
     const initalRecState = mapProfileState(profileState);
     dispatch(postInitialRecommend(initalRecState));
     navigate("/recommend");
+    window.location.reload();
   }
   return (
     <form onSubmit={(e)=> submitProfile(e)}>

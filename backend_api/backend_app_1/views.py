@@ -16,6 +16,7 @@ from sklearn.neighbors import NearestNeighbors
 from django.conf import settings
 from .model.model_age import recommend_age_based_outfits, clf_age_based
 from .model.model_bodytype import recommend_bodytype_results, clf_bodytype
+from .model.model_season import recommend_outfits
 
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 model.trainable = False
@@ -117,6 +118,12 @@ def get_recommended_bodytype_results(body_type):
     model_response += prediction_result.to_dict('records')[:5]
     return model_response
 
+def get_recommended_season_results(season):
+    model_response = list()
+    prediction_result = recommend_outfits([season])
+    model_response += prediction_result.to_dict('records')[:5]
+    return model_response
+
 class RecommendAll(APIView):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -131,6 +138,7 @@ class RecommendAll(APIView):
         user_bust = request.data.get('user_bust')
         user_waist = request.data.get('user_waist')
         user_hip = request.data.get('user_hip')
+        season = request.data.get('season')
 
         if user_age:
             try:
@@ -189,7 +197,7 @@ class RecommendAll(APIView):
             # write the code to integrate model 3 - season
             # It should have response as list of dictionary for recommended outfits
             self.recommended_response["season"] = selected_season
-            pass
+            self.recommended_response['results'] += get_recommended_season_results(season)
 
         return Response(self.recommended_response, status=status.HTTP_200_OK)
 
