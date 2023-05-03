@@ -56,14 +56,17 @@ class ImageUploadView(APIView):
 
     def post(self, request, *args, **kwargs):
 
+        print('Inside Similar image recommendation Api..')
+
         if 'file' not in request.FILES:
-            return Response({'error': 'No file was sent'})
+            return Response({'error': 'No file was sent'}, status=status.HTTP_400_BAD_REQUEST)
 
         file = request.FILES['file']
 
         # Check if file is an image
         if file.name.split('.')[-1] not in ['jpg', 'jpeg', 'png']:
-            return Response({'error': 'File must be an image and sent in jpg, jpeg or png format'})
+            return Response({'error': 'File must be an image and sent in jpg, jpeg or png format'}, status=
+            status.HTTP_400_BAD_REQUEST)
 
         if not os.path.exists(settings.IMG_FOLDER_PATH):
             os.makedirs(settings.IMG_FOLDER_PATH)
@@ -76,24 +79,29 @@ class ImageUploadView(APIView):
         img_file = request.data['file']
         print(img_file)
 
-        # feature extract
-        features = feature_extraction(os.path.join(settings.IMG_FOLDER_PATH, file.name), model)
+        try:
+            # feature extract
+            features = feature_extraction(os.path.join(settings.IMG_FOLDER_PATH, file.name), model)
 
-        print(features)
-        # recommendation
+            print(features)
+            # recommendation
 
-        indices = recommend(features, settings.FEATURE_LIST)
-        print(indices)
-        indexes = []
+            indices = recommend(features, settings.FEATURE_LIST)
+            print(indices)
+            indexes = []
 
-        for i in indices[0][1:6]:
-            index = extract_filename(settings.FILENAMES[i])
-            indexes.append(index)
+            for i in indices[0][1:6]:
+                index = extract_filename(settings.FILENAMES[i])
+                indexes.append(index)
 
-        print(indexes)
-        image_details = Outfit.objects.filter(pk__in=indexes)
-        serializer = OutfitSerializer(image_details, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            print(indexes)
+            image_details = Outfit.objects.filter(pk__in=indexes)
+            serializer = OutfitSerializer(image_details, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except:
+            return Response("Error occurred while recommending similar image ",
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 def get_recommended_age_results(age_category):
@@ -111,11 +119,13 @@ def get_recommended_age_results(age_category):
     model_response += prediction_result.to_dict('records')[:5]
     return model_response
 
+
 def get_recommended_bodytype_results(body_type):
     model_response = list()
     prediction_result = recommend_bodytype_results([body_type])
     model_response += prediction_result.to_dict('records')[:5]
     return model_response
+
 
 class RecommendAll(APIView):
     def __init__(self, **kwargs):
@@ -123,10 +133,10 @@ class RecommendAll(APIView):
         self.recommended_response = {"age_group": None, "body_type": None, "season": None, "results": []}
 
     def post(self, request, *args, **kwargs):
-        user_age = request.data.get("user_age")    # accepting as integer = 25
+        user_age = request.data.get("user_age")  # accepting as integer = 25
         age_group = request.data.get('age_group')  # accepting as string = "Teen"  || "Children" || "Adult"
-        body_type = request.data.get('body_type')   # accepting as string = "Pear" || "Rectangle" || ..
-        selected_season = request.data.get('season')         # accepting as string = "Fall" || "Winter" || ..
+        body_type = request.data.get('body_type')  # accepting as string = "Pear" || "Rectangle" || ..
+        selected_season = request.data.get('season')  # accepting as string = "Fall" || "Winter" || ..
         # user_height = request.data.get('user_height')
         user_bust = request.data.get('user_bust')
         user_waist = request.data.get('user_waist')
@@ -198,4 +208,3 @@ class Default(APIView):
     def get(self, request, *args, **kwargs):
         data = {"This is API server, Use Postman!!"}
         return Response(data, status=status.HTTP_200_OK)
-
