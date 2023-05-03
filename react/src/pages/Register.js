@@ -11,6 +11,7 @@ Amplify.Logger.LOG_LEVEL = 'DEBUG';
    
 function Register() {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     async function getCurrentUser() {
       try {
@@ -27,13 +28,15 @@ function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [profileState, setProfileState] = useState({
+    "user_id": user?.attributes.sub || "",
     "age": 0,
-    "name": "",
+    "name": user?.username || "",
     "height": "",
     "waist": "",
     "bust": "",
     "hip": "",
   });
+  
   const mapProfileState = (profileState) => {
     return {
       user_age: profileState.age,
@@ -43,13 +46,15 @@ function Register() {
       user_hip: profileState.hip
     }
   }
+  const mapProfileState2 = (profileState) => { return {...profileState, user_id: user?.attributes.sub, name: user?.username }}
   const submitProfile = (event) => {
     event.preventDefault();
-    dispatch(postProfile(profileState));
+    const mapped = mapProfileState2(profileState);
+    dispatch(postProfile(mapped));
     const initalRecState = mapProfileState(profileState);
     dispatch(postInitialRecommend(initalRecState));
     navigate("/recommend");
-    window.location.reload();
+    // window.location.reload();
   }
   return (
     <form onSubmit={(e)=> submitProfile(e)}>
