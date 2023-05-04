@@ -17,9 +17,9 @@ function Recommend() {
   const [filterResults, setFilterResults] = useState({});
   const [similarResults, setSimilarResults] = useState([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const [age, setAge] = useState(null);
+  const [age, setAge] = useState(filterResults.age_group || "");
   const [season, setSeason] = useState(null);
-  const [bodytype, setBodytype] = useState(null);
+  const [bodytype, setBodytype] = useState(filterResults.body_type || "");
 
   useEffect(() => {
     if (initialResults.results) {
@@ -44,6 +44,11 @@ function Recommend() {
       );
     }
   }, [similarImageResults]);
+
+  useEffect(() => {
+    setAge(filterResults.age_group || "");
+    setBodytype(filterResults.body_type || "");
+  }, [filterResults]);
 
   useEffect(() => {
     // Retrieve data from session storage
