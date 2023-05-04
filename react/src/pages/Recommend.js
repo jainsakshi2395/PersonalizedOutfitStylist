@@ -5,11 +5,10 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Upload from "./Upload";
 import Results from "./Results";
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { postInitialRecommend } from '../redux/initialRecommend/initialRecommendAction';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
 
 function Recommend() {
   const initialResults = useSelector((state) => state.initialRecommend.data);
@@ -61,127 +60,121 @@ function Recommend() {
       setActiveTabIndex(activeIndex ? Number(activeIndex) : 0);
     }, [activeTabIndex]);
     
+    //Advanced Filters ==> Shivani
+    const seasons = ['Summer', 'Winter', 'Spring', 'Fall'];
+    const age = ['Children', 'Teen', 'Adult'];
+    const bodytype = ['Apple', 'Hourglass', 'Pear', 'Rectangle', 'Pear-Hourglass'];
+    const dispatch = useDispatch();
+
+    const [filterState, setFilterState] = useState({
+      "season": "",
+      "age": "",
+      "bodytype": "",
+    });
+
+    const mapFilterState = (filterState) => {
+      return {
+        user_season: filterState.season,
+        user_age: filterState.age,
+        user_bodytype: filterState.bodytype
+      }
+    }
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      console.log(filterState);
+      const initalRecState = mapFilterState(filterState);
+      dispatch(postInitialRecommend(initalRecState));
+    };
+    
   return (
     <>
       <div className="recommend">
-        <Tabs
-          selectedIndex={activeTabIndex}
-          onSelect={(index) => setActiveTabIndex(index)}
-        >
-          <TabList>
-            <Tab>Filters</Tab>
-            <Tab>Similar Image</Tab>
-          </TabList>
-          <TabPanel>
-            {/* Call filters component here <Filters /> */}
-            <div className="">
-              <div className="container">
-                <Form>
-                  <p><b>Seasons</b></p>
-                  {['checkbox'].map((type) => (
-                    <div key={`inline-${type}`} className="mb-3">
-                      <Form.Check
-                        label="Summer"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-1`}
-                      />
-                      <Form.Check
-                          label="Winter"
-                          name="group1"
-                          type={type}
-                          id={`inline-${type}-2`}
-                      />
-                      <Form.Check
-                          label="Spring"
-                          name="group1"
-                          type={type}
-                          id={`inline-${type}-3`}
-                      />
-                      <Form.Check
-                          label="Fall"
-                          name="group1"
-                          type={type}
-                          id={`inline-${type}-3`}
-                      />
+        <div className="container">
+          <Tabs
+            fill='true'
+            justify='true'
+            selectedIndex={activeTabIndex}
+            onSelect={(index) => setActiveTabIndex(index)}
+          >
+            <TabList>
+              <Tab>Filters</Tab>
+              <Tab>Similar Image</Tab>
+            </TabList>
+            <TabPanel>
+              {/* Call filters component here <Filters /> */}
+              <div className="tab-content">
+                <div className="advance-filter">
+                  <div className="">
+                    <Form onSubmit={handleSubmit}>
+                      <p><b>Seasons</b></p>
+                      {seasons.map((option) => (
+                        <div key={option}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="season"
+                              value={option}
+                              id={option}
+                              checked={filterState.season === option}
+                              onChange={(e) => setFilterState({...filterState, season: e.target.value})}
+                            />
+                            &nbsp;{option}
+                          </label>
+                        </div>
+                      ))}
+                      <p><b>Age</b></p>
+                      {age.map((option) => (
+                        <div key={option}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="age"
+                              value={option}
+                              id={option}
+                              checked={filterState.age === option}
+                              onChange={(e) => setFilterState({...filterState, age: e.target.value})}
+                            />
+                            &nbsp;{option}
+                          </label>
+                        </div>
+                      ))}
+                      <p><b>Body Type</b></p>
+                      {bodytype.map((option) => (
+                        <div key={option}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="bodytype"
+                              value={option}
+                              id={option}
+                              checked={filterState.bodytype === option}
+                              onChange={(e) => setFilterState({...filterState, bodytype: e.target.value})}
+                            />
+                            &nbsp;{option}
+                          </label>
+                        </div>
+                      ))}
+                      <div className='form-btn'>
+                          <Button as="input" type="submit" value="Submit" />{' '}
+                          <Button as="input" type="reset" value="Reset" />
                       </div>
-                  ))}
-                  <p><b>Age</b></p>
-                  {['radio'].map((type) => (
-                      <div key={`inline-${type}`} className="mb-3">
-                      <Form.Check
-                          label="Children"
-                          name="group2"
-                          type={type}
-                          id={`inline-${type}-1`}
-                      />
-                      <Form.Check
-                          label="Teen"
-                          name="group2"
-                          type={type}
-                          id={`inline-${type}-2`}
-                      />
-                      <Form.Check
-                          label="Adult"
-                          name="group2"
-                          type={type}
-                          id={`inline-${type}-3`}
-                      />
-                      </div>
-                  ))}
-                  <p><b>Body Type</b></p>
-                  {['radio'].map((type) => (
-                      <div key={`inline-${type}`} className="mb-3">
-                      <Form.Check
-                          label="Apple"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-4`}
-                      />
-                      <Form.Check
-                          label="Hourglass"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-5`}
-                      />
-                      <Form.Check
-                          label="Pear"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-6`}
-                      />
-                      <Form.Check
-                          label="Rectangle"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-7`}
-                      />
-                      <Form.Check
-                          label="Pear-Hourglass"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-8`}
-                      />
-                      </div>
-                  ))}
-                  <div className='form-btn'>
-                      <Button as="input" type="submit" value="Submit" />{' '}
-                      <Button as="input" type="reset" value="Reset" />
+                    </Form>
                   </div>
-                </Form>
+                </div>
+                <span className="divider"></span>
               </div>
-            </div>
-            <span className="divider"></span>
-            <Results results={filterResults.results} isAgeFiltered={filterResults.age_group} isBodyTypeFiltered={filterResults.body_type} isSeasonFiltered={filterResults.season}/>
-          </TabPanel>
-          <TabPanel>
-            <div className="tab-content">
-              <Upload />
-              <div className="divider"></div>
-              <Results results={similarResults} isSimilarImages={true} />
-            </div>
-          </TabPanel>
-        </Tabs>
+              <Results results={filterResults.results} isAgeFiltered={filterResults.age_group} isBodyTypeFiltered={filterResults.body_type} isSeasonFiltered={filterResults.season}/>
+            </TabPanel>
+            <TabPanel>
+              <div className="tab-content">
+                <Upload />
+                <div className="divider"></div>
+                <Results results={similarResults} isSimilarImages={true} />
+              </div>
+            </TabPanel>
+          </Tabs>
+        </div>
       </div>
     </>
   );

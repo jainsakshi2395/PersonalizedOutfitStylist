@@ -54,17 +54,38 @@
   height: 400px;
 }
 
+.recommend .react-tabs__tab-list{
+  margin: 0;
+}
+
 .divider {
   width: 1px;
-  height: calc(100vh - 214px);
+  height: 100vh;
   background-color: #aaaaaa;
 }
 
 .tab-content {
   display: flex;
   height: 100%;
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #aaa;
 }
 
 .tab-content > :first-child {
-  width: 200px;
+  width: 245px;
+}
+
+.advance-filter{
+  padding: 20px;
+}
+
+.advance-filter p{
+  margin: 20px 0 0 0;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.form-btn{
+  margin-top: 15px;
 }

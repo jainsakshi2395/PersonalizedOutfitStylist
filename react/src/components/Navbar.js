@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { Auth } from 'aws-amplify';
-import {AmplifySignOut} from '@aws-amplify/ui-react';
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {

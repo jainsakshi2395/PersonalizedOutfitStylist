@@ -14,7 +14,7 @@
 
 .content-box {
   margin: 30px auto;
-  width: 500px;
+  width: 400px;
   height: 600px;
   border: solid 0.5px #999999;
   border-radius: 15px;
@@ -33,9 +33,12 @@
 }
 
 .profile-field {
-  display: flex;
   padding: 20px;
   justify-content: space-around;
+}
+
+.profile-field label{
+  float: left;
 }
 
 .input-field {
@@ -43,6 +46,7 @@
   border-radius: 5px;
   border: solid 0.5px;
   padding: 8px;
+  float: right;
 }
 
 .save-button {
