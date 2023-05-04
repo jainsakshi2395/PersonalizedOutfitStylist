@@ -6,7 +6,6 @@ import setPreviewReducer from './redux/updatePreview/setPreviewReducer';
 import cardDetailsReducer from './redux/cardDetails/cardDetailsReducer';
 import profileDetailsReducer from './redux/profileDetails/profileDetailsReducer';
 import updateProfileReducer from './redux/updateProfile/updateProfileReducer';
-import filterReducer from './redux/filter/filterReducer';
 
 const rootReducer = combineReducers({
   profile: profileReducer,
@@ -16,7 +15,6 @@ const rootReducer = combineReducers({
   cardDetails: cardDetailsReducer,
   profileDetails: profileDetailsReducer,
   updateProfile: updateProfileReducer,
-  filter: filterReducer,
 });
 
 export default rootReducer;
