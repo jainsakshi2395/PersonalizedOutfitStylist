@@ -8,6 +8,7 @@ import Results from "./Results";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
+import { postFilter } from "../redux/filter/filterAction";
 
 function Recommend() {
   const initialResults = useSelector((state) => state.initialRecommend.data);
@@ -64,9 +65,9 @@ function Recommend() {
 
   useEffect(() => {
     setFilterState({
-      user_season: season,
-      user_age: age,
-      user_bodytype: bodytype,
+      season: season,
+      age_group: age,
+      body_type: bodytype,
     });
   }, [age, season, bodytype]);
 
@@ -87,7 +88,7 @@ function Recommend() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(filterState);
-    // dispatch(postInitialRecommend(filterState));
+    dispatch(postFilter(filterState));
   };
 
   const handleReset = () => {
