@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./Register.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { postProfile } from "../redux/profile/profileAction";
-import { postInitialRecommend } from "../redux/initialRecommend/initialRecommendAction";
-import { Auth, Amplify } from "aws-amplify";
-import { fetchProfileDetails } from "../redux/profileDetails/profileDetailsAction";
-import { useSelector } from "react-redux";
-import { updateProfile } from "../redux/updateProfile/updateProfileAction";
-// Amplify.Logger.LOG_LEVEL = 'DEBUG';
-
+import { postProfile } from '../redux/profile/profileAction';
+import { postInitialRecommend } from '../redux/initialRecommend/initialRecommendAction';
+import { Auth, Amplify } from 'aws-amplify';
+Amplify.Logger.LOG_LEVEL = 'DEBUG';
+ 
+   
 function Register() {
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();

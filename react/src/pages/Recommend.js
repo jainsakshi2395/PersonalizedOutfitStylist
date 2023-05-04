@@ -5,12 +5,10 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Upload from "./Upload";
 import Results from "./Results";
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { postInitialRecommend } from '../redux/initialRecommend/initialRecommendAction';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
 
 function Recommend() {
   const initialResults = useSelector((state) => state.initialRecommend.data);
@@ -66,20 +64,6 @@ function Recommend() {
     const seasons = ['Summer', 'Winter', 'Spring', 'Fall'];
     const age = ['Children', 'Teen', 'Adult'];
     const bodytype = ['Apple', 'Hourglass', 'Pear', 'Rectangle', 'Pear-Hourglass'];
-    const [selectedSeason, setSelectedSeason] = useState('');
-    const [selectedAge, setSelectedAge] = useState('');
-    const [selectedBodytype, setSelectedBodytype] = useState('');
-
-    const handleSeasonChange = (event) => {
-      setSelectedSeason(event.target.value);
-    };
-    const handleAgeChange = (event) => {
-      setSelectedAge(event.target.value);
-    };
-    const handleBodytypeChange = (event) => {
-      setSelectedBodytype(event.target.value);
-    };
-
     const dispatch = useDispatch();
 
     const [filterState, setFilterState] = useState({
@@ -106,87 +90,91 @@ function Recommend() {
   return (
     <>
       <div className="recommend">
-        <Tabs
-          selectedIndex={activeTabIndex}
-          onSelect={(index) => setActiveTabIndex(index)}
-        >
-          <TabList>
-            <Tab>Filters</Tab>
-            <Tab>Similar Image</Tab>
-          </TabList>
-          <TabPanel>
-            {/* Call filters component here <Filters /> */}
-            <div className="tab-content">
-              <div className="advance-filter">
-                <div className="container">
-                  <Form onSubmit={handleSubmit}>
-                    <p><b>Seasons</b></p>
-                    {seasons.map((option) => (
-                      <div key={option}>
-                        <label>
-                          <input
-                            type="radio"
-                            name="season"
-                            value={option}
-                            id={option}
-                            checked={filterState.season === option}
-                            onChange={(e) => setFilterState({...filterState, season: e.target.value})}
-                          />
-                          &nbsp;{option}
-                        </label>
+        <div className="container">
+          <Tabs
+            fill='true'
+            justify='true'
+            selectedIndex={activeTabIndex}
+            onSelect={(index) => setActiveTabIndex(index)}
+          >
+            <TabList>
+              <Tab>Filters</Tab>
+              <Tab>Similar Image</Tab>
+            </TabList>
+            <TabPanel>
+              {/* Call filters component here <Filters /> */}
+              <div className="tab-content">
+                <div className="advance-filter">
+                  <div className="">
+                    <Form onSubmit={handleSubmit}>
+                      <p><b>Seasons</b></p>
+                      {seasons.map((option) => (
+                        <div key={option}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="season"
+                              value={option}
+                              id={option}
+                              checked={filterState.season === option}
+                              onChange={(e) => setFilterState({...filterState, season: e.target.value})}
+                            />
+                            &nbsp;{option}
+                          </label>
+                        </div>
+                      ))}
+                      <p><b>Age</b></p>
+                      {age.map((option) => (
+                        <div key={option}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="age"
+                              value={option}
+                              id={option}
+                              checked={filterState.age === option}
+                              onChange={(e) => setFilterState({...filterState, age: e.target.value})}
+                            />
+                            &nbsp;{option}
+                          </label>
+                        </div>
+                      ))}
+                      <p><b>Body Type</b></p>
+                      {bodytype.map((option) => (
+                        <div key={option}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="bodytype"
+                              value={option}
+                              id={option}
+                              checked={filterState.bodytype === option}
+                              onChange={(e) => setFilterState({...filterState, bodytype: e.target.value})}
+                            />
+                            &nbsp;{option}
+                          </label>
+                        </div>
+                      ))}
+                      <div className='form-btn'>
+                          <Button as="input" type="submit" value="Submit" />{' '}
+                          <Button as="input" type="reset" value="Reset" />
                       </div>
-                    ))}
-                    <p><b>Age</b></p>
-                    {age.map((option) => (
-                      <div key={option}>
-                        <label>
-                          <input
-                            type="radio"
-                            name="age"
-                            value={option}
-                            id={option}
-                            checked={filterState.age === option}
-                            onChange={(e) => setFilterState({...filterState, age: e.target.value})}
-                          />
-                          &nbsp;{option}
-                        </label>
-                      </div>
-                    ))}
-                    <p><b>Body Type</b></p>
-                    {bodytype.map((option) => (
-                      <div key={option}>
-                        <label>
-                          <input
-                            type="radio"
-                            name="bodytype"
-                            value={option}
-                            id={option}
-                            checked={filterState.bodytype === option}
-                            onChange={(e) => setFilterState({...filterState, bodytype: e.target.value})}
-                          />
-                          &nbsp;{option}
-                        </label>
-                      </div>
-                    ))}
-                    <div className='form-btn'>
-                        <Button as="input" type="submit" value="Submit" />{' '}
-                        <Button as="input" type="reset" value="Reset" />
-                    </div>
-                  </Form>
+                    </Form>
+                  </div>
                 </div>
+                <span className="divider"></span>
               </div>
-              <span className="divider"></span>
-            </div>
-            <Results results={filterResults.results} isAgeFiltered={filterResults.age_group} isBodyTypeFiltered={filterResults.body_type} isSeasonFiltered={filterResults.season}/>
-          </TabPanel>
-          <TabPanel>
-            <div className="tab-content">
-              <Upload />
-              <div className="divider"></div>
-              <Results results={similarResults} isSimilarImages={true} />
-            </div>
-          </TabPanel>
-        </Tabs>
+              <Results results={filterResults.results} isAgeFiltered={filterResults.age_group} isBodyTypeFiltered={filterResults.body_type} isSeasonFiltered={filterResults.season}/>
+            </TabPanel>
+            <TabPanel>
+              <div className="tab-content">
+                <Upload />
+                <div className="divider"></div>
+                <Results results={similarResults} isSimilarImages={true} />
+              </div>
+            </TabPanel>
+          </Tabs>
+        </div>
       </div>
     </>
   );

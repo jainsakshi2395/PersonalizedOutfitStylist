@@ -1,14 +1,21 @@
-.upload-section {
-  display: flex;
-  flex-direction: column;
+.upload-section .upload-start-button{
+  margin-left: 0;
+  margin-right: 0;
 }
 .upload-text {
-  width: 70px;
-  font-size: 15px;
+  font-size: 18px;
   margin: 10px;
-  text-overflow: unset;
-  text-align: justify;
+  margin: 0;
+  font-weight: bold;
 }
+
+.upload-text span{
+  font-size: 16px;
+  padding-top: 10px;
+  display: block;
+  font-weight: normal;
+}
+
 .upload-modal {
   border: dashed 3px #bbb;
   border-radius: inherit;
@@ -50,4 +57,9 @@
 
 .preview-img {
   margin: 10px;
+}
+
+.upload-img{
+  padding: 20px;
+  width: 245px;
 }
