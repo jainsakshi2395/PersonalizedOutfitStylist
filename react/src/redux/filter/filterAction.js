@@ -35,8 +35,8 @@ export const postFilter = (filterState) => {
   return (dispatch) => {
     dispatch(postFilterRequest);
     axios(config)
-    .then( () => {
-      dispatch(postFilterSuccess(filterState));
+    .then( (response) => {
+      dispatch(postFilterSuccess(response.data));
     })
     .catch((error) => {
       dispatch(postFilterFailure(error.message));

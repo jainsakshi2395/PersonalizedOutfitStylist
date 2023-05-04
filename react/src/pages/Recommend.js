@@ -12,6 +12,7 @@ import { postFilter } from "../redux/filter/filterAction";
 
 function Recommend() {
   const initialResults = useSelector((state) => state.initialRecommend.data);
+  const filterApiResults = useSelector((state) => state.filter.data);
   const similarImageResults = useSelector((state) => state.upload.data);
   const [filterResults, setFilterResults] = useState({});
   const [similarResults, setSimilarResults] = useState([]);
@@ -26,6 +27,13 @@ function Recommend() {
       sessionStorage.setItem("initialResults", JSON.stringify(initialResults));
     }
   }, [initialResults]);
+
+  useEffect(() => {
+    if (filterApiResults.results) {
+      setFilterResults(filterApiResults);
+      sessionStorage.setItem("initialResults", JSON.stringify(filterApiResults));
+    }
+  }, [filterApiResults]);
 
   useEffect(() => {
     if (similarImageResults.length) {
