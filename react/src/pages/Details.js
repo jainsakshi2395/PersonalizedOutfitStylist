@@ -73,11 +73,11 @@ function Details() {
                       <b>Buying Options</b>
                     </p>
                     <div className="options">
-                      <div className="option">
-                        <a href="#">MACYS</a>
+                      <div className="option" onClick={() => window.open('http://macys.com', '_blank')}>
+                        <div>MACYS</div>
                       </div>
-                      <div className="option">
-                        <a href="#">SHEIN</a>
+                      <div className="option" onClick={() => window.open('http://shein.com', '_blank')}>
+                        <div>SHEIN</div>
                       </div>
                     </div>
                   </div>
@@ -124,12 +124,32 @@ function Details() {
                           <b>Product Type:</b> <span>{data.product_type}</span>
                         </p>
                       )}
+                      {data.brand && (
+                        <p>
+                          <b>Brand:</b> <span>{data.brand}</span>
+                        </p>
+                      )}
+                      {data.actual_color && (
+                        <p>
+                          <b>Colour:</b> <span>{data.actual_color}</span>
+                        </p>
+                      )}
+                      {data.specifications && (
+                        <p>
+                          <b>Specifications:</b> <br />
+                          <ul>{data.specifications.split("|").map((spec) => (
+                            <li className="no-bullets">{spec}</li>
+                          ))}</ul>
+                        </p>
+                      )}
                       <p className="h5 pt-5 pb-4">
                         <b>Buying Options</b>
                       </p>
-                      <div className="links">
-                        <a href="#">SHEIN</a>
+                      <div className="options">
+                      <div className="option" onClick={() => window.open(data.link, '_blank')}>
+                        <div>MYNTRA</div>
                       </div>
+                    </div>
                     </div>
                   </div>
                 </div>
