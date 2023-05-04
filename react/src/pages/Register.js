@@ -8,7 +8,7 @@ import { Auth, Amplify } from 'aws-amplify';
 import { fetchProfileDetails } from "../redux/profileDetails/profileDetailsAction";
 import { useSelector } from "react-redux";
 import { updateProfile } from "../redux/updateProfile/updateProfileAction";
-Amplify.Logger.LOG_LEVEL = 'DEBUG';
+// Amplify.Logger.LOG_LEVEL = 'DEBUG';
  
    
 function Register() {
