@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { postProfile } from '../redux/profile/profileAction';
 import { postInitialRecommend } from '../redux/initialRecommend/initialRecommendAction';
 import { Auth, Amplify } from 'aws-amplify';
+import { fetchProfileDetails } from "../redux/profileDetails/profileDetailsAction";
+import { useSelector } from "react-redux";
+import { updateProfile } from "../redux/updateProfile/updateProfileAction";
 Amplify.Logger.LOG_LEVEL = 'DEBUG';
  
    
