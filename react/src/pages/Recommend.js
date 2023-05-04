@@ -42,13 +42,6 @@ function Recommend() {
     setSimilarResults(similarData && similarData.length ? JSON.parse(similarData) : similarImageResults);
   }, [similarImageResults]);
 
-  //Advance Filters code
-  const [show, setShow] = useState(false);
-  const handleClose = () => {
-    setShow(false);
-    }
-    const handleShow = () => setShow(true);
-  
     useEffect(() => {
       // Store the current tab index in session storage
       sessionStorage.setItem("activeTabIndex", activeTabIndex);
@@ -90,7 +83,7 @@ function Recommend() {
   return (
     <>
       <div className="recommend">
-        <div className="container">
+        <div className="all-container">
           <Tabs
             fill='true'
             justify='true'
@@ -163,8 +156,8 @@ function Recommend() {
                   </div>
                 </div>
                 <span className="divider"></span>
+                <Results results={filterResults.results} isAgeFiltered={filterResults.age_group} isBodyTypeFiltered={filterResults.body_type} isSeasonFiltered={filterResults.season}/>
               </div>
-              <Results results={filterResults.results} isAgeFiltered={filterResults.age_group} isBodyTypeFiltered={filterResults.body_type} isSeasonFiltered={filterResults.season}/>
             </TabPanel>
             <TabPanel>
               <div className="tab-content">

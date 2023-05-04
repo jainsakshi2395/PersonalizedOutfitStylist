@@ -89,3 +89,7 @@
 .form-btn{
   margin-top: 15px;
 }
+
+.all-container {
+max-width: 100%;
+}
