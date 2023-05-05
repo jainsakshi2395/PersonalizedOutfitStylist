@@ -15,7 +15,7 @@
 .content-box {
   margin: 30px auto;
   width: 400px;
-  height: 600px;
+  height: fit-content;
   border: solid 0.5px #999999;
   border-radius: 15px;
   box-shadow: 5px 10px #ddd;
@@ -57,4 +57,9 @@
   border: none;
   font-weight: bold;
   margin: 20px auto;
+}
+.error-text {
+  color: red;
+  padding: 20px;
+  justify-content: space-around;
 }
