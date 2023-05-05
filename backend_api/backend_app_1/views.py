@@ -116,14 +116,14 @@ def get_recommended_age_results(age_category):
     else:
         return model_response
     prediction_result = recommend_age_based_outfits([[user_predicted_age]])
-    model_response += prediction_result.to_dict('records')[:10]
+    model_response += prediction_result.to_dict('records')[:50]
     return model_response
 
 
 def get_recommended_bodytype_results(body_type):
     model_response = list()
     prediction_result = recommend_bodytype_results([body_type])
-    model_response += prediction_result.to_dict('records')[:10]
+    model_response += prediction_result.to_dict('records')[:50]
     return model_response
 
 
@@ -132,7 +132,7 @@ def get_recommended_season_results(season):
     prediction_result = recommend_outfits(season)
     # model_response += prediction_result.to_dict('records')[:5]
     #model_response += prediction_result[:5]
-    return prediction_result[:10]
+    return prediction_result[:50]
 
 
 class RecommendAll(APIView):
