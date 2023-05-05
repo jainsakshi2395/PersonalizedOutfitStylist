@@ -202,6 +202,12 @@ class RecommendAll(APIView):
             self.recommended_response['results'] += get_recommended_bodytype_results(body_type)
 
         if selected_season:
+            if not isinstance(selected_season, str):
+                return Response("selected_season is not a valid string", status=status.HTTP_400_BAD_REQUEST)
+            if selected_season not in ["Winter", "Summer", "Spring", "Fall"]:
+                return Response("selected_season is invalid", status=status.HTTP_400_BAD_REQUEST)
+
+        if selected_season:
             # write the code to integrate model 3 - season
             # It should have response as list of dictionary for recommended outfits
             self.recommended_response["season"] = selected_season
