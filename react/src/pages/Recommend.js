@@ -109,10 +109,72 @@ function Recommend() {
     setBodytype(null);
   };
 
+  /////// New changes //////
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      setTimeout(() => {
+        if (window.pageYOffset > 0) {
+          setHasScrolled(true);
+        } else {
+          setHasScrolled(false);
+        }
+      }, 500);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return;
+  }, []);
+
+  const [showAll, setShowAll] = useState(false);
+  const [visibleItems, setVisibleItems] = useState(10);
+
+  const toggleShowAll = () => {
+    setShowAll(!showAll);
+    if (!showAll) {
+      setVisibleItems(50);//replace with lenght of results array
+    } else {
+      setVisibleItems(10);
+    }
+  };
+
+  ////// END New Changes ///////
+
+  //////// Dummy Results //////////
+  const n = 50;
+
+  const section = (
+    <div >
+      <div className="box-shadow">
+        <div to="/details" className="shadow">
+            <>
+              <div className="border bg-light">
+                <div className="rec-img">
+                  <img
+                    className="card-img"
+                    src="http://assets.myntassets.com/v1/assets/images/6937673/2018/8/30/88c6ad02-eab9-42c8-8b8e-cbcd8f015d361535627393491-IMARA-Women-Black-Solid-Top-7471535627393374-1.jpg"
+                    alt=""
+                  />
+                </div>
+                <div className="rec-details">
+                  <p>Title Title Title Title TitleTitleTitle</p>
+                  <span>Desc</span>
+                </div>
+              </div>
+            </>
+        </div>
+      </div>
+    </div>
+  );
+
+  const sections = new Array(n).fill(section);
+
+  ////////////////////////////////
+
   return (
     <>
       <div className="recommend">
-        <div className="all-container">
+        <div className="container">
           <Tabs
             fill="true"
             justify="true"
@@ -126,84 +188,120 @@ function Recommend() {
             <TabPanel>
               {/* Call filters component here <Filters /> */}
               <div className="tab-content">
-                <div className="advance-filter">
-                  <div className="">
-                    <Form onSubmit={handleSubmit} onReset={handleReset}>
-                      <p>
-                        <b>Seasons</b>
-                      </p>
-                      {seasons.map((option) => (
-                        <div key={option}>
-                          <label>
-                            <input
-                              type="radio"
-                              name="season"
-                              value={option}
-                              id={option}
-                              checked={season === option}
-                              onChange={(e) => setSeason(e.target.value)}
-                            />
-                            &nbsp;{option}
-                          </label>
-                        </div>
-                      ))}
-                      <p>
-                        <b>Age</b>
-                      </p>
-                      {ages.map((option) => (
-                        <div key={option}>
-                          <label>
-                            <input
-                              type="radio"
-                              name="age"
-                              value={option}
-                              id={option}
-                              checked={age === option}
-                              onChange={(e) => setAge(e.target.value)}
-                            />
-                            &nbsp;{option}
-                          </label>
-                        </div>
-                      ))}
-                      <p>
-                        <b>Body Type</b>
-                      </p>
-                      {bodytypes.map((option) => (
-                        <div key={option}>
-                          <label>
-                            <input
-                              type="radio"
-                              name="bodytype"
-                              value={option}
-                              id={option}
-                              checked={bodytype === option}
-                              onChange={(e) => setBodytype(e.target.value)}
-                            />
-                            &nbsp;{option}
-                          </label>
-                        </div>
-                      ))}
-                      <div className="form-btn">
-                        <Button as="input" type="submit" value="Submit" />{" "}
-                        <Button as="input" type="reset" value="Reset" />
+                <div className="float-left col-2">
+                  <div className={`advance-filter ${hasScrolled ? "scrolled" : ""}`}>
+                    <Form onSubmit={handleSubmit}>
+                      <div className="filter_indi">
+                        <p><b>Seasons</b></p>
+                        {seasons.map((option) => (
+                          <span key={option}>
+                            <label>
+                              <input
+                                type="radio"
+                                name="season"
+                                value={option}
+                                id={option}
+                                checked={filterState.season === option}
+                                onChange={(e) => setFilterState({...filterState, season: e.target.value})}
+                              />
+                              &nbsp;{option}
+                            </label>
+                          </span>
+                        ))}
+                      </div>
+                      <div className="filter_indi">
+                        <p><b>Age</b></p>
+                        {ages.map((option) => (
+                          <span key={option}>
+                            <label>
+                              <input
+                                type="radio"
+                                name="age"
+                                value={option}
+                                id={option}
+                                checked={filterState.age === option}
+                                onChange={(e) => setFilterState({...filterState, age: e.target.value})}
+                              />
+                              &nbsp;{option}
+                            </label>
+                          </span>
+                        ))}
+                      </div>
+                      <div className="filter_indi">
+                        <p><b>Body Type</b></p>
+                        {bodytypes.map((option) => (
+                          <span key={option}>
+                            <label>
+                              <input
+                                type="radio"
+                                name="bodytype"
+                                value={option}
+                                id={option}
+                                checked={filterState.bodytype === option}
+                                onChange={(e) => setFilterState({...filterState, bodytype: e.target.value})}
+                              />
+                              &nbsp;{option}
+                            </label>
+                          </span>
+                        ))}
+                      </div>
+                      <div className='form-btn'>
+                          <Button as="input" type="submit" value="Submit" />{' '}
+                          <Button as="input" type="reset" value="Reset"/>
                       </div>
                     </Form>
                   </div>
                 </div>
-                <span className="divider"></span>
-                <Results
-                  results={filterResults.results}
-                  isAgeFiltered={filterResults.age_group}
-                  isBodyTypeFiltered={filterResults.body_type}
-                  isSeasonFiltered={filterResults.season}
-                />
+                {/* Dummy Results Section */}
+                <div className="float-right col-10 results">
+                  <div className="row">
+                    {sections.slice(0, visibleItems).map((section, index) => (
+                      <div className="col_cust mb-4" key={index}>{section}</div>
+                    ))} {/* Comment or Delete this */}
+                    {/*********  Uncomment this section for Api results ********
+                    <Results
+                      results={filterResults.results}
+                      isAgeFiltered={filterResults.age_group}
+                      isBodyTypeFiltered={filterResults.body_type}
+                      isSeasonFiltered={filterResults.season}
+                    /> 
+                    *************************/}
+                    <div className="clear"></div>
+                  </div>
+                    <button className="yellow-button" onClick={toggleShowAll}>
+                      {showAll ? "Show Less" : "Show More"}
+                    </button>
+                </div>
+                <div className="clear"></div>
+                {/* End Dummy Results Section */}
+
               </div>
             </TabPanel>
             <TabPanel>
               <div className="tab-content">
-                <Upload />
-                <div className="divider"></div>
-                <Results results={similarResults} isSimilarImages={true} />
+                <div className="float-left col-2">
+                  <div className={`advance-filter ${hasScrolled ? "scrolled" : ""}`}>
+                    <Upload />
+                  </div>
+                </div>
+                {/* Dummy Results Section */}
+                <div className="float-right col-10 results">
+                  <div className="row">
+                    {sections.slice(0, visibleItems).map((section, index) => (
+                      <div className="col_cust mb-4" key={index}>{section}</div>
+                    ))} {/* Comment or Delete this */}
+                    {/*********  Uncomment this section for Api results ********
+                    <Results results={similarResults} isSimilarImages={true} />
+                    /> 
+                    *************************/}
+                    <div className="clear"></div>
+                  </div>
+                  <button className="yellow-button" onClick={toggleShowAll}>
+                    {showAll ? "Show Less" : "Show More"}
+                  </button>
+                </div>
+                <div className="clear"></div>
+                {/* End Dummy Results Section */}
               </div>
             </TabPanel>
           </Tabs>

@@ -22,11 +22,10 @@ function NewUserForm() {
 
     async function handleLogin(event) {
         event.preventDefault();
-    
         try {
           await Auth.signIn(username, password);
           // Redirect the user 
-          navigate("/register");
+          navigate("/");
           window.location.reload();
         } catch (error) {
           setErrorMessage(error.message);
