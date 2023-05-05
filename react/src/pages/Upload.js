@@ -14,6 +14,8 @@ function Upload() {
   const handleShow = () => setShow(true);
   const [selectedImage, setSelectedImage] = useState(null);
   const previewImage = useSelector((state) => state.setPreview.previewImage);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const allowedTypes = ["image/jpeg", "image/png"];
 
   useEffect(() => {
     const storedPreviewImage = sessionStorage.getItem("previewImage");
@@ -24,7 +26,13 @@ function Upload() {
 
   const changeHandler = (event) => {
     const file = event.target.files[0];
-    setSelectedImage(event.target.files[0]);
+    if(!allowedTypes.includes(file.type)) {
+      setErrorMessage("Please upload a file of type JPG, JPEG or PNG.");
+      setSelectedImage(null);
+      return;
+    }
+    setErrorMessage(null);
+    setSelectedImage(file);
     const reader = new FileReader();
     reader.onload = () => {
       dispatch(setPreviewImage(reader.result));
@@ -75,6 +83,7 @@ function Upload() {
               <div className="upload-icon">
                 <i className="fa-solid fa-cloud-arrow-up fa-xl"></i>
               </div>
+              {errorMessage && <h6 className="error-msg">{errorMessage}</h6>}
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Control type="file" onChange={changeHandler} />
               </Form.Group>
