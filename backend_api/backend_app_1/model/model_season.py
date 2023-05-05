@@ -97,8 +97,9 @@ def recommend_outfits(season_name):
 
 
 # recommend_outfits('Summer')
-#
-recommend_outfits('Winter')
+
+print("Season-based model executed successfully!!")
+
 #
 # recommend_outfits('Spring')
 #

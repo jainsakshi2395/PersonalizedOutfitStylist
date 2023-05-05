@@ -17,6 +17,9 @@ from django.conf import settings
 from .model.model_age import recommend_age_based_outfits, clf_age_based
 from .model.model_bodytype import recommend_bodytype_results, clf_bodytype
 from .model.model_season import *
+from django.views.decorators.csrf import csrf_exempt
+
+
 
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 model.trainable = False
@@ -55,6 +58,7 @@ def extract_filename(filepath):
 class ImageUploadView(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
 
         print('Inside Similar Image Recommend Api')
@@ -140,6 +144,7 @@ class RecommendAll(APIView):
         super().__init__(**kwargs)
         self.recommended_response = {"age_group": None, "body_type": None, "season": None, "results": []}
 
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         user_age = request.data.get("user_age")  # accepting as integer = 25
         age_group = request.data.get('age_group')  # accepting as string = "Teen"  || "Children" || "Adult"
@@ -217,6 +222,8 @@ class RecommendAll(APIView):
 
 
 class Default(APIView):
+
+    @csrf_exempt
     def get(self, request, *args, **kwargs):
         data = {"This is API server, Use Postman!!"}
         return Response(data, status=status.HTTP_200_OK)

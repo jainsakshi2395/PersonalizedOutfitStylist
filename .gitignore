@@ -85,4 +85,5 @@ amplifytools.xcconfig
 __pycache__
 *.py[cod]
 .idea/*
+.pytest_cache/
 #amplify-do-not-edit-end
