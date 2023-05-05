@@ -32,7 +32,7 @@ class TestRecommendAll(APITestCase):
     # checking for user's invalid age
     def test_recommend_user_attr_age_400(self):
         url = reverse('recommend_all')
-        data = {'user_age': "three", 'user_hip': 7, 'user_bust': 7, 'user_waist': 3}
+        data = {'user_age': "three", 'user_hip': 32, 'user_bust': 36, 'user_waist': 39}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         print("Recommendations for user attributes - user's age invalid check")
@@ -68,3 +68,19 @@ class TestRecommendAll(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         print("Recommendations for selected filters - invalid check")
+
+    # checking for valid season filter
+    def test_recommend_season_filter_200(self):
+        url = reverse('recommend_all')
+        data = {'age_group': "Teen", 'body_type': 'Rectangle', 'season': 'Winter'}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        print("Recommendations for season filter - valid check")
+
+    # checking for invalid season filter
+    def test_recommend_season_filter_400(self):
+        url = reverse('recommend_all')
+        data = {'age_group': "Children", 'body_type': "Pear", 'season': 'Rainy'}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        print("Recommendations for season filter - invalid check")
