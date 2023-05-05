@@ -39,7 +39,7 @@ def feature_extraction(img_path, model):
 
 
 def recommend(features, feature_list):
-    neighbors = NearestNeighbors(n_neighbors=6, algorithm='brute', metric='euclidean')
+    neighbors = NearestNeighbors(n_neighbors=51, algorithm='brute', metric='euclidean')
     neighbors.fit(feature_list)
 
     distances, indices = neighbors.kneighbors([features])
@@ -91,7 +91,7 @@ class ImageUploadView(APIView):
             print(indices)
             indexes = []
 
-            for i in indices[0][1:6]:
+            for i in indices[0][1:51]:
                 index = extract_filename(settings.FILENAMES[i])
                 indexes.append(index)
 

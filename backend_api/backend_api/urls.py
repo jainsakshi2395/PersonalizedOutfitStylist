@@ -25,6 +25,7 @@ urlpatterns = [
     path('image_file/', include('backend_app_1.urls')),
     path('', include('backend_app_1.urls')),
     path('api/', include('backend_app_2.urls')),
+    path('api/v1/', include('backend_app_3.urls')),
 ]
 
 if settings.DEBUG:

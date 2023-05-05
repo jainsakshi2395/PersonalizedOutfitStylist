@@ -5,19 +5,22 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Upload from "./Upload";
 import Results from "./Results";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { useDispatch } from "react-redux";
+import { postFilter } from "../redux/filter/filterAction";
 
 function Recommend() {
   const initialResults = useSelector((state) => state.initialRecommend.data);
+  const filterApiResults = useSelector((state) => state.filter.data);
   const similarImageResults = useSelector((state) => state.upload.data);
   const [filterResults, setFilterResults] = useState({});
   const [similarResults, setSimilarResults] = useState([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  
+  const [age, setAge] = useState(filterResults.age_group || "");
+  const [season, setSeason] = useState(null);
+  const [bodytype, setBodytype] = useState(filterResults.body_type || "");
+
   useEffect(() => {
     if (initialResults.results) {
       setFilterResults(initialResults);
@@ -26,11 +29,26 @@ function Recommend() {
   }, [initialResults]);
 
   useEffect(() => {
+    if (filterApiResults.results) {
+      setFilterResults(filterApiResults);
+      sessionStorage.setItem("initialResults", JSON.stringify(filterApiResults));
+    }
+  }, [filterApiResults]);
+
+  useEffect(() => {
     if (similarImageResults.length) {
       setSimilarResults(similarImageResults);
-      sessionStorage.setItem("similarImageResults", JSON.stringify(similarImageResults));
+      sessionStorage.setItem(
+        "similarImageResults",
+        JSON.stringify(similarImageResults)
+      );
     }
   }, [similarImageResults]);
+
+  useEffect(() => {
+    setAge(filterResults.age_group || "");
+    setBodytype(filterResults.body_type || "");
+  }, [filterResults]);
 
   useEffect(() => {
     // Retrieve data from session storage
@@ -40,148 +58,157 @@ function Recommend() {
   useEffect(() => {
     // Retrieve data from session storage
     const similarData = sessionStorage.getItem("similarImageResults");
-    setSimilarResults(similarData && similarData.length ? JSON.parse(similarData) : similarImageResults);
+    setSimilarResults(
+      similarData && similarData.length
+        ? JSON.parse(similarData)
+        : similarImageResults
+    );
   }, [similarImageResults]);
 
-  //Advance Filters code
-  const [show, setShow] = useState(false);
-  const handleClose = () => {
-    setShow(false);
-    }
-    const handleShow = () => setShow(true);
-  
-    useEffect(() => {
-      // Store the current tab index in session storage
-      sessionStorage.setItem("activeTabIndex", activeTabIndex);
-    }, [activeTabIndex]);
+  useEffect(() => {
+    // Store the current tab index in session storage
+    sessionStorage.setItem("activeTabIndex", activeTabIndex);
+  }, [activeTabIndex]);
 
-    useEffect(() => {
-      // Retrieve data from session storage
-      const activeIndex = sessionStorage.getItem("activeTabIndex");
-      setActiveTabIndex(activeIndex ? Number(activeIndex) : 0);
-    }, [activeTabIndex]);
-    
+  useEffect(() => {
+    // Retrieve data from session storage
+    const activeIndex = sessionStorage.getItem("activeTabIndex");
+    setActiveTabIndex(activeIndex ? Number(activeIndex) : 0);
+  }, [activeTabIndex]);
+
+  useEffect(() => {
+    setFilterState({
+      season: season,
+      age_group: age,
+      body_type: bodytype,
+    });
+  }, [age, season, bodytype]);
+
+  //Advanced Filters ==> Shivani
+  const seasons = ["Summer", "Winter", "Spring", "Fall"];
+  const ages = ["Children", "Teen", "Adult"];
+  const bodytypes = [
+    "Apple",
+    "Hourglass",
+    "Pear",
+    "Rectangle",
+    "Pear-Hourglass",
+  ];
+  const dispatch = useDispatch();
+
+  const [filterState, setFilterState] = useState({});
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(filterState);
+    dispatch(postFilter(filterState));
+  };
+
+  const handleReset = () => {
+    setAge(null);
+    setSeason(null);
+    setBodytype(null);
+  };
+
   return (
     <>
       <div className="recommend">
-        <Tabs
-          selectedIndex={activeTabIndex}
-          onSelect={(index) => setActiveTabIndex(index)}
-        >
-          <TabList>
-            <Tab>Filters</Tab>
-            <Tab>Similar Image</Tab>
-          </TabList>
-          <TabPanel>
-            {/* Call filters component here <Filters /> */}
-            <div className="">
-              <div className="container">
-                <Form>
-                  <p><b>Seasons</b></p>
-                  {['checkbox'].map((type) => (
-                    <div key={`inline-${type}`} className="mb-3">
-                      <Form.Check
-                        label="Summer"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-1`}
-                      />
-                      <Form.Check
-                          label="Winter"
-                          name="group1"
-                          type={type}
-                          id={`inline-${type}-2`}
-                      />
-                      <Form.Check
-                          label="Spring"
-                          name="group1"
-                          type={type}
-                          id={`inline-${type}-3`}
-                      />
-                      <Form.Check
-                          label="Fall"
-                          name="group1"
-                          type={type}
-                          id={`inline-${type}-3`}
-                      />
+        <div className="all-container">
+          <Tabs
+            fill="true"
+            justify="true"
+            selectedIndex={activeTabIndex}
+            onSelect={(index) => setActiveTabIndex(index)}
+          >
+            <TabList>
+              <Tab>Filters</Tab>
+              <Tab>Similar Image</Tab>
+            </TabList>
+            <TabPanel>
+              {/* Call filters component here <Filters /> */}
+              <div className="tab-content">
+                <div className="advance-filter">
+                  <div className="">
+                    <Form onSubmit={handleSubmit} onReset={handleReset}>
+                      <p>
+                        <b>Seasons</b>
+                      </p>
+                      {seasons.map((option) => (
+                        <div key={option}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="season"
+                              value={option}
+                              id={option}
+                              checked={season === option}
+                              onChange={(e) => setSeason(e.target.value)}
+                            />
+                            &nbsp;{option}
+                          </label>
+                        </div>
+                      ))}
+                      <p>
+                        <b>Age</b>
+                      </p>
+                      {ages.map((option) => (
+                        <div key={option}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="age"
+                              value={option}
+                              id={option}
+                              checked={age === option}
+                              onChange={(e) => setAge(e.target.value)}
+                            />
+                            &nbsp;{option}
+                          </label>
+                        </div>
+                      ))}
+                      <p>
+                        <b>Body Type</b>
+                      </p>
+                      {bodytypes.map((option) => (
+                        <div key={option}>
+                          <label>
+                            <input
+                              type="radio"
+                              name="bodytype"
+                              value={option}
+                              id={option}
+                              checked={bodytype === option}
+                              onChange={(e) => setBodytype(e.target.value)}
+                            />
+                            &nbsp;{option}
+                          </label>
+                        </div>
+                      ))}
+                      <div className="form-btn">
+                        <Button as="input" type="submit" value="Submit" />{" "}
+                        <Button as="input" type="reset" value="Reset" />
                       </div>
-                  ))}
-                  <p><b>Age</b></p>
-                  {['radio'].map((type) => (
-                      <div key={`inline-${type}`} className="mb-3">
-                      <Form.Check
-                          label="Children"
-                          name="group2"
-                          type={type}
-                          id={`inline-${type}-1`}
-                      />
-                      <Form.Check
-                          label="Teen"
-                          name="group2"
-                          type={type}
-                          id={`inline-${type}-2`}
-                      />
-                      <Form.Check
-                          label="Adult"
-                          name="group2"
-                          type={type}
-                          id={`inline-${type}-3`}
-                      />
-                      </div>
-                  ))}
-                  <p><b>Body Type</b></p>
-                  {['radio'].map((type) => (
-                      <div key={`inline-${type}`} className="mb-3">
-                      <Form.Check
-                          label="Apple"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-4`}
-                      />
-                      <Form.Check
-                          label="Hourglass"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-5`}
-                      />
-                      <Form.Check
-                          label="Pear"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-6`}
-                      />
-                      <Form.Check
-                          label="Rectangle"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-7`}
-                      />
-                      <Form.Check
-                          label="Pear-Hourglass"
-                          name="group3"
-                          type={type}
-                          id={`inline-${type}-8`}
-                      />
-                      </div>
-                  ))}
-                  <div className='form-btn'>
-                      <Button as="input" type="submit" value="Submit" />{' '}
-                      <Button as="input" type="reset" value="Reset" />
+                    </Form>
                   </div>
-                </Form>
+                </div>
+                <span className="divider"></span>
+                <Results
+                  results={filterResults.results}
+                  isAgeFiltered={filterResults.age_group}
+                  isBodyTypeFiltered={filterResults.body_type}
+                  isSeasonFiltered={filterResults.season}
+                />
               </div>
-            </div>
-            <span className="divider"></span>
-            <Results results={filterResults.results} isAgeFiltered={filterResults.age_group} isBodyTypeFiltered={filterResults.body_type} isSeasonFiltered={filterResults.season}/>
-          </TabPanel>
-          <TabPanel>
-            <div className="tab-content">
-              <Upload />
-              <div className="divider"></div>
-              <Results results={similarResults} isSimilarImages={true} />
-            </div>
-          </TabPanel>
-        </Tabs>
+            </TabPanel>
+            <TabPanel>
+              <div className="tab-content">
+                <Upload />
+                <div className="divider"></div>
+                <Results results={similarResults} isSimilarImages={true} />
+              </div>
+            </TabPanel>
+          </Tabs>
+        </div>
       </div>
     </>
   );

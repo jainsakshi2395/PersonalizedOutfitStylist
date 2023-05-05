@@ -48,9 +48,10 @@ function Upload() {
           {previewImage && (
             <img className="preview-img" src={previewImage} alt="Preview" />
           )}
-          <span className="upload-text">
-            Upload image to generate similar recommentations
-          </span>
+          <p className="upload-text">
+            UPLOAD <br />
+            <span>Select image to generate similar recommentations</span>
+          </p>
           <Button
             variant="primary"
             className="upload-start-button"

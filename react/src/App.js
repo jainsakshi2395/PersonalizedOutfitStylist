@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Recommend from './pages/Recommend';
 import Details from './pages/Details';
 import NewUser from './pages/NewUser';
+import Home from './pages/Home';
 import { Provider } from 'react-redux';
 import './App.css';
 import store from './store';
@@ -34,8 +35,8 @@ function App() {
         {isLoggedIn ? (
               <Routes>
               {/* @TODO - change to the right components when other components are ready. */}
-                <Route exact path='/' element={<Register />}/>
-                <Route exact path='/home' element={<Register />}/>
+                <Route exact path='/' element={<Home />}/>
+                {/* <Route exact path='/home' element={<Home />}/> */}
                 <Route exact path='/register' element={<Register />} />
                 <Route exact path='/recommend' element={<Recommend />} />
                 <Route exact path='/details' element={<Details />} />
@@ -45,7 +46,7 @@ function App() {
               <Routes>
               {/* @TODO - change to the right components when other components are ready. */}
                 <Route exact path='/' element={<NewUser />}/>
-                <Route exact path='/home' element={<NewUser />}/>
+                {/* <Route exact path='/home' element={<NewUser />}/> */}
                 <Route exact path='/register' element={<NewUser />} />
                 <Route exact path='/recommend' element={<NewUser />} />
                 <Route exact path='/details' element={<NewUser />} />
