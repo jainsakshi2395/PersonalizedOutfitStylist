@@ -184,4 +184,3 @@ def recommend_age_based_outfits(input_values):
 num_rows = filtered_df.shape[0]
 
 filtered_df.shape[0]
-
