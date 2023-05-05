@@ -66,3 +66,58 @@
   padding: 20px;
   max-width: 210px;
 }
+
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+}
+.upload-text {
+  width: 70px;
+  font-size: 15px;
+  margin: 10px;
+  text-overflow: unset;
+  text-align: justify;
+}
+.upload-modal {
+  border: dashed 3px #bbb;
+  border-radius: inherit;
+}
+
+.upload-start-button {
+  margin: 20px;
+  width: fit-content;
+}
+
+.upload-button {
+  margin: 20px auto;
+  width: fit-content;
+}
+
+.header {
+  border-bottom: none !important;
+}
+
+.choose-button {
+  margin: 20px auto;
+  width: fit-content;
+  color: #fff !important;
+  background-color: #807897 !important;
+}
+
+.hint-text {
+  margin: 10px auto;
+}
+
+.modal-content {
+  border: none !important;
+}
+
+.upload-icon {
+  margin: 20px auto;
+  color: #807897;
+}
+
+.preview-img {
+  margin: 10px;
+}
