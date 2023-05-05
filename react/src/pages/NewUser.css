@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: end;
-  margin: 2rem;
+  margin: 0rem 2rem 2rem 2rem;
 }
 
 .form-label {
@@ -39,7 +39,7 @@
 .content-box2 {
   margin: 30px auto;
   width: 430px;
-  height: 320px;
+  height: fit-content;
   border: solid 0.5px #999999;
   border-radius: 15px;
   box-shadow: 5px 10px #ddd;
@@ -59,7 +59,7 @@
 .content-box4 {
   margin: 30px auto;
   width: 445px;
-  height: 380px;
+  height: fit-content;
   border: solid 0.5px #999999;
   border-radius: 15px;
   box-shadow: 5px 10px #ddd;
@@ -80,4 +80,10 @@
 
 .yellow-button:hover{
   background-color: #e88c04;
+}
+
+.error-msg {
+  color: red;
+  padding: 20px;
+  text-align: center;
 }
