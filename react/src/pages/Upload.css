@@ -1,67 +1,68 @@
-.upload-section .upload-start-button{
+.advance-filter .upload-section .upload-start-button{
   margin-left: 0;
   margin-right: 0;
 }
-.upload-text {
+.advance-filter .upload-text {
   font-size: 18px;
   margin: 10px;
   margin: 0;
   font-weight: bold;
+  text-transform: none;
 }
 
-.upload-text span{
+.advance-filter .upload-text span{
   font-size: 16px;
   padding-top: 10px;
   display: block;
   font-weight: normal;
 }
 
-.upload-modal {
+.advance-filter .upload-modal {
   border: dashed 3px #bbb;
   border-radius: inherit;
 }
 
-.upload-start-button {
+.advance-filter .upload-start-button {
   margin: 20px;
   width: fit-content;
 }
 
-.upload-button {
+.advance-filter .upload-button {
   margin: 20px auto;
   width: fit-content;
 }
 
-.header {
+.advance-filter .header {
   border-bottom: none !important;
 }
 
-.choose-button {
+.advance-filter .choose-button {
   margin: 20px auto;
   width: fit-content;
   color: #fff !important;
   background-color: #807897 !important;
 }
 
-.hint-text {
+.advance-filter .hint-text {
   margin: 10px auto;
 }
 
-.modal-content {
+.advance-filter .modal-content {
   border: none !important;
 }
 
-.upload-icon {
+.advance-filter .upload-icon {
   margin: 20px auto;
   color: #807897;
 }
 
-.preview-img {
+.advance-filter .preview-img {
   margin: 10px;
   max-width: 200px;
   max-height: 300px;
 }
 
-.upload-img{
+.advance-filter .upload-img{
   padding: 20px;
-  width: 245px;
+  max-width: 210px;
 }

@@ -41,7 +41,7 @@ function Navbar() {
   return (
     <>
     <nav className='navbar'>
-     <div className='navbar-container'>
+     <div className='container'>
       <Link to='/' className='navbar-logo'>
         STYLENEX
       </Link>

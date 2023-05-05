@@ -39,6 +39,7 @@
 
 .profile-field label{
   float: left;
+  padding-top: 9px;
 }
 
 .input-field {
