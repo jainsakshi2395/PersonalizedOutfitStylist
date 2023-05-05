@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./Register.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { postProfile } from '../redux/profile/profileAction';
-import { postInitialRecommend } from '../redux/initialRecommend/initialRecommendAction';
-import { Auth, Amplify } from 'aws-amplify';
+import { postProfile } from "../redux/profile/profileAction";
+import { postInitialRecommend } from "../redux/initialRecommend/initialRecommendAction";
+import { Auth, Amplify } from "aws-amplify";
 import { fetchProfileDetails } from "../redux/profileDetails/profileDetailsAction";
 import { useSelector } from "react-redux";
 import { updateProfile } from "../redux/updateProfile/updateProfileAction";
 // Amplify.Logger.LOG_LEVEL = 'DEBUG';
- 
+
    
 function Register() {
   const [user, setUser] = useState(null);
@@ -25,6 +25,7 @@ function Register() {
   const [hip, setHip] = useState(userProfile.hip);
   const [userId, setUserId] = useState(null);
   const [userName, setUsername] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function getCurrentUser() {
@@ -48,7 +49,7 @@ function Register() {
     setBust(userProfile.bust);
     setWaist(userProfile.waist);
     setHip(userProfile.hip);
-  },[userProfile]);
+  }, [userProfile]);
   useEffect(() => {
     setProfileState({
       user_id: userId || "",
@@ -59,7 +60,7 @@ function Register() {
       bust: bust,
       hip: hip,
     });
-  },[age, height, waist, bust, hip, userId, userName]);
+  }, [age, height, waist, bust, hip, userId, userName]);
 
   const [profileState, setProfileState] = useState({
     user_id: user?.attributes.sub || "",
@@ -80,17 +81,33 @@ function Register() {
       user_hip: profileState.hip,
     };
   };
+  
+  const isValidState = (profileState) => {
+    let valid = false;
+    if(profileState.age < 1 || profileState.age > 40) {
+      setError("Age must be between 1 and 40");
+    } else if(profileState.bust < 30 || profileState.bust > 60) {
+      setError("Bust must be between 30 and 60");
+    } else if(profileState.waist < 22 || profileState.waist > 50) {
+      setError("Waist must be between 22 and 50");
+    } else if(profileState.hip < 30 || profileState.hip > 60) {
+      setError("Hip must be between 30 and 60");
+    } else { valid = true; }
+    return valid;
+  }
+
   const submitProfile = (event) => {
     event.preventDefault();
-    if (!userProfile) {
-      dispatch(postProfile(profileState));
-    } else {
-      dispatch(updateProfile(profileState));
+    if(isValidState(profileState)){
+      if (!userProfile) {
+        dispatch(postProfile(profileState));
+      } else {
+        dispatch(updateProfile(profileState));
+      }
+      const initalRecState = mapProfileState(profileState);
+      dispatch(postInitialRecommend(initalRecState));
+      navigate("/recommend");
     }
-    const initalRecState = mapProfileState(profileState);
-    dispatch(postInitialRecommend(initalRecState));
-    navigate("/recommend");
-    // window.location.reload();
   };
   return (
     <form onSubmit={(e) => submitProfile(e)}>
@@ -114,6 +131,7 @@ function Register() {
         <div className="content-box">
           <h2 className="content-title">Profile Details</h2>
           <div className="fields-container">
+            {error && <div className="error-text">{error}</div>}
             <div className="profile-field">
               <label htmlFor="age">Age</label>
               <input
@@ -127,7 +145,7 @@ function Register() {
               />
             </div>
             <div className="profile-field">
-              <label htmlFor="height">Height(ft)</label>
+              <label htmlFor="height">Height(cm)</label>
               <input
                 className="input-field"
                 name="height"

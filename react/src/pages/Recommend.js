@@ -100,7 +100,6 @@ function Recommend() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(filterState);
     dispatch(postFilter(filterState));
   };
 

@@ -60,7 +60,7 @@ function NewUserForm() {
           // Redirect the user 
           setShowVerificationForm(false)
           setShowLoginForm(true)
-          alert("User successfully registered! Please login.")
+          // alert("User successfully registered! Please login.")
         } catch (error) {
           setErrorMessage(error.message);
         }
@@ -95,6 +95,7 @@ function NewUserForm() {
         {showLoginForm && (
             <div className='content-box2'>
                 <h2 className='content-title'>Login</h2>
+                {errorMessage && <h6 className='error-msg'>{errorMessage}</h6>}
                 <form onSubmit={handleLogin} encType="multipart/form-data" className="new-user-form">
                     <label className="form-label">
                         Username: <input className="form-input" type="text" name="fullname" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -112,6 +113,7 @@ function NewUserForm() {
         {showSignupForm && (
             <div className='content-box4'>
                 <h2 className='content-title'>Create New User</h2>
+                {errorMessage && <h6 className='error-msg'>{errorMessage}</h6>}
                 <form onSubmit={handleSignup} encType="multipart/form-data" className="new-user-form">
                     <label className="form-label">
                         Username: <input className="form-input" type="text" name="fullname" value={username} onChange={(e) => setUsername(e.target.value)} />
