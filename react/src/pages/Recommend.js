@@ -18,7 +18,7 @@ function Recommend() {
   const [similarResults, setSimilarResults] = useState([]);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [age, setAge] = useState(filterResults.age_group || "");
-  const [season, setSeason] = useState(null);
+  const [season, setSeason] = useState(filterResults.season || "");
   const [bodytype, setBodytype] = useState(filterResults.body_type || "");
 
   useEffect(() => {
@@ -83,8 +83,7 @@ function Recommend() {
       body_type: bodytype,
     });
   }, [age, season, bodytype]);
-
-  //Advanced Filters ==> Shivani
+  
   const seasons = ["Summer", "Winter", "Spring", "Fall"];
   const ages = ["Children", "Teen", "Adult"];
   const bodytypes = [
@@ -109,7 +108,6 @@ function Recommend() {
     setBodytype(null);
   };
 
-  /////// New changes //////
   const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
@@ -138,43 +136,10 @@ function Recommend() {
     }
   };
 
-  ////// END New Changes ///////
-
-  //////// Dummy Results //////////
-  const n = 50;
-
-  const section = (
-    <div >
-      <div className="box-shadow">
-        <div to="/details" className="shadow">
-            <>
-              <div className="border bg-light">
-                <div className="rec-img">
-                  <img
-                    className="card-img"
-                    src="http://assets.myntassets.com/v1/assets/images/6937673/2018/8/30/88c6ad02-eab9-42c8-8b8e-cbcd8f015d361535627393491-IMARA-Women-Black-Solid-Top-7471535627393374-1.jpg"
-                    alt=""
-                  />
-                </div>
-                <div className="rec-details">
-                  <p>Title Title Title Title TitleTitleTitle</p>
-                  <span>Desc</span>
-                </div>
-              </div>
-            </>
-        </div>
-      </div>
-    </div>
-  );
-
-  const sections = new Array(n).fill(section);
-
-  ////////////////////////////////
-
   return (
     <>
       <div className="recommend">
-        <div className="container">
+        <div className="all-container">
           <Tabs
             fill="true"
             justify="true"
@@ -182,15 +147,14 @@ function Recommend() {
             onSelect={(index) => setActiveTabIndex(index)}
           >
             <TabList>
-              <Tab>Filters</Tab>
-              <Tab>Similar Image</Tab>
+              <Tab><span className="bold-text">Filters</span></Tab>
+              <Tab><span className="bold-text">Similar Image</span></Tab>
             </TabList>
             <TabPanel>
-              {/* Call filters component here <Filters /> */}
               <div className="tab-content">
                 <div className="float-left col-2">
                   <div className={`advance-filter ${hasScrolled ? "scrolled" : ""}`}>
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} onReset={handleReset}>
                       <div className="filter_indi">
                         <p><b>Seasons</b></p>
                         {seasons.map((option) => (
@@ -201,8 +165,8 @@ function Recommend() {
                                 name="season"
                                 value={option}
                                 id={option}
-                                checked={filterState.season === option}
-                                onChange={(e) => setFilterState({...filterState, season: e.target.value})}
+                                checked={season === option}
+                                onChange={(e) => setSeason(e.target.value)}
                               />
                               &nbsp;{option}
                             </label>
@@ -219,8 +183,8 @@ function Recommend() {
                                 name="age"
                                 value={option}
                                 id={option}
-                                checked={filterState.age === option}
-                                onChange={(e) => setFilterState({...filterState, age: e.target.value})}
+                                checked={age === option}
+                                onChange={(e) => setAge(e.target.value)}
                               />
                               &nbsp;{option}
                             </label>
@@ -237,8 +201,8 @@ function Recommend() {
                                 name="bodytype"
                                 value={option}
                                 id={option}
-                                checked={filterState.bodytype === option}
-                                onChange={(e) => setFilterState({...filterState, bodytype: e.target.value})}
+                                checked={bodytype === option}
+                                onChange={(e) => setBodytype(e.target.value)}
                               />
                               &nbsp;{option}
                             </label>
@@ -252,28 +216,18 @@ function Recommend() {
                     </Form>
                   </div>
                 </div>
-                {/* Dummy Results Section */}
                 <div className="float-right col-10 results">
                   <div className="row">
-                    {sections.slice(0, visibleItems).map((section, index) => (
-                      <div className="col_cust mb-4" key={index}>{section}</div>
-                    ))} {/* Comment or Delete this */}
-                    {/*********  Uncomment this section for Api results ********
                     <Results
                       results={filterResults.results}
                       isAgeFiltered={filterResults.age_group}
                       isBodyTypeFiltered={filterResults.body_type}
                       isSeasonFiltered={filterResults.season}
                     /> 
-                    *************************/}
                     <div className="clear"></div>
                   </div>
-                    <button className="yellow-button" onClick={toggleShowAll}>
-                      {showAll ? "Show Less" : "Show More"}
-                    </button>
                 </div>
                 <div className="clear"></div>
-                {/* End Dummy Results Section */}
 
               </div>
             </TabPanel>
@@ -284,16 +238,9 @@ function Recommend() {
                     <Upload />
                   </div>
                 </div>
-                {/* Dummy Results Section */}
                 <div className="float-right col-10 results">
                   <div className="row">
-                    {sections.slice(0, visibleItems).map((section, index) => (
-                      <div className="col_cust mb-4" key={index}>{section}</div>
-                    ))} {/* Comment or Delete this */}
-                    {/*********  Uncomment this section for Api results ********
-                    <Results results={similarResults} isSimilarImages={true} />
-                    /> 
-                    *************************/}
+                    <Results results={similarResults.slice(0,visibleItems)} isSimilarImages={true} />
                     <div className="clear"></div>
                   </div>
                   <button className="yellow-button" onClick={toggleShowAll}>
@@ -301,7 +248,6 @@ function Recommend() {
                   </button>
                 </div>
                 <div className="clear"></div>
-                {/* End Dummy Results Section */}
               </div>
             </TabPanel>
           </Tabs>

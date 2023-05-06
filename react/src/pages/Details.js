@@ -104,7 +104,7 @@ function Details() {
                       <p>{data.product_details}</p>
                       {data.age_group && (
                         <p>
-                          <b>Suitable for age group:</b>{" "}
+                          <b className="bold-text">Suitable for age group:</b>{" "}
                           <span>{data.age_group}</span>
                         </p>
                       )}
@@ -138,7 +138,7 @@ function Details() {
                         <p>
                           <b>Specifications:</b> <br />
                           <ul>{data.specifications.split("|").map((spec) => (
-                            <li className="no-bullets">{spec}</li>
+                            <li className="no-bullets"><b>{spec.split(':')[0]}</b>{spec.split(':')[1]}</li>
                           ))}</ul>
                         </p>
                       )}

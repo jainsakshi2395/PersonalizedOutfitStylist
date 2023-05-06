@@ -133,7 +133,7 @@ function Register() {
           <div className="fields-container">
             {error && <div className="error-text">{error}</div>}
             <div className="profile-field">
-              <label htmlFor="age">Age</label>
+              <label className="bold-text" htmlFor="age">Age</label>
               <input
                 className="input-field"
                 name="age"
@@ -145,7 +145,7 @@ function Register() {
               />
             </div>
             <div className="profile-field">
-              <label htmlFor="height">Height(cm)</label>
+              <label className="bold-text" htmlFor="height">Height(cm)</label>
               <input
                 className="input-field"
                 name="height"
@@ -157,7 +157,7 @@ function Register() {
               />
             </div>
             <div className="profile-field">
-              <label htmlFor="bust">Bust(in)</label>
+              <label className="bold-text" htmlFor="bust">Bust(in)</label>
               <input
                 className="input-field"
                 name="bust"
@@ -169,7 +169,7 @@ function Register() {
               />
             </div>
             <div className="profile-field">
-              <label htmlFor="waist">Waist(in)</label>
+              <label className="bold-text" htmlFor="waist">Waist(in)</label>
               <input
                 className="input-field"
                 name="waist"
@@ -181,7 +181,7 @@ function Register() {
               />
             </div>
             <div className="profile-field">
-              <label htmlFor="hips">Hips(in)</label>
+              <label className="bold-text" htmlFor="hips">Hips(in)</label>
               <input
                 className="input-field"
                 name="hips"
