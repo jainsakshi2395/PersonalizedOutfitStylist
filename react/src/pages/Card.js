@@ -25,7 +25,7 @@ const Card = ({ isSimilarImages, item }) => {
     dispatch(setCardDetails(data));
   };
   return (
-    <div className="col-3 ">
+    <div className="col_cust mb-4 ">
       <div className="box-shadow">
         <Link to="/details" onClick={handleClick} className="shadow">
           {isSimilarImages ? (
