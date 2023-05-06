@@ -50,12 +50,12 @@ function Navbar() {
       </div>
       <ul className={click? 'nav-menu active': 'nav-menu'}>
         <li className='nav-item'>
-          <Link to='/register' className='nav-links' onClick={closeNavMenu}>
+          <Link to='/register' className='nav-links bold-text' onClick={closeNavMenu}>
             Profile
           </Link>
         </li>
         <li className='nav-item'>
-          <Link to='/recommend' className='nav-links' onClick={closeNavMenu}>
+          <Link to='/recommend' className='nav-links bold-text' onClick={closeNavMenu}>
             Recommendations
           </Link>
         </li>
