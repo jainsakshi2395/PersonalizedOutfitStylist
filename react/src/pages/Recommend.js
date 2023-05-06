@@ -31,7 +31,10 @@ function Recommend() {
   useEffect(() => {
     if (filterApiResults.results) {
       setFilterResults(filterApiResults);
-      sessionStorage.setItem("initialResults", JSON.stringify(filterApiResults));
+      sessionStorage.setItem(
+        "initialResults",
+        JSON.stringify(filterApiResults)
+      );
     }
   }, [filterApiResults]);
 
@@ -83,7 +86,7 @@ function Recommend() {
       body_type: bodytype,
     });
   }, [age, season, bodytype]);
-  
+
   const seasons = ["Summer", "Winter", "Spring", "Fall"];
   const ages = ["Children", "Teen", "Adult"];
   const bodytypes = [
@@ -130,7 +133,7 @@ function Recommend() {
   const toggleShowAll = () => {
     setShowAll(!showAll);
     if (!showAll) {
-      setVisibleItems(50);//replace with lenght of results array
+      setVisibleItems(50); //replace with lenght of results array
     } else {
       setVisibleItems(10);
     }
@@ -147,37 +150,29 @@ function Recommend() {
             onSelect={(index) => setActiveTabIndex(index)}
           >
             <TabList>
-              <Tab><span className="bold-text">Filters</span></Tab>
-              <Tab><span className="bold-text">Similar Image</span></Tab>
+              <Tab>
+                <span className="bold-text">Filters</span>
+              </Tab>
+              <Tab>
+                <span className="bold-text">Similar Image</span>
+              </Tab>
             </TabList>
             <TabPanel>
               <div className="tab-content">
                 <div className="float-left col-2">
-                  <div className={`advance-filter ${hasScrolled ? "scrolled" : ""}`}>
+                  <div
+                    className={`advance-filter ${
+                      hasScrolled ? "scrolled" : ""
+                    }`}
+                  >
                     <Form onSubmit={handleSubmit} onReset={handleReset}>
                       <div className="filter_indi">
-                        <p><b>Seasons</b></p>
-                        {seasons.map((option) => (
-                          <span key={option}>
-                            <label>
-                              <input
-                                type="radio"
-                                name="season"
-                                value={option}
-                                id={option}
-                                checked={season === option}
-                                onChange={(e) => setSeason(e.target.value)}
-                              />
-                              &nbsp;{option}
-                            </label>
-                          </span>
-                        ))}
-                      </div>
-                      <div className="filter_indi">
-                        <p><b>Age</b></p>
+                        <p>
+                          <b>Age Group</b>
+                        </p>
                         {ages.map((option) => (
                           <span key={option}>
-                            <label>
+                            <label className="age-label">
                               <input
                                 type="radio"
                                 name="age"
@@ -187,12 +182,21 @@ function Recommend() {
                                 onChange={(e) => setAge(e.target.value)}
                               />
                               &nbsp;{option}
+                              {option === "Children" ? (
+                                <span>&nbsp;&#40; 1 &ndash; 12 &#41;</span>
+                              ) : option === "Teen" ? (
+                                <span>&nbsp;&#40; 13 &ndash; 17 &#41;</span>
+                              ) : (
+                                <span>&nbsp;&#40; 18 &ndash; 40 &#41;</span>
+                              )}
                             </label>
                           </span>
                         ))}
                       </div>
                       <div className="filter_indi">
-                        <p><b>Body Type</b></p>
+                        <p>
+                          <b>Body Type</b>
+                        </p>
                         {bodytypes.map((option) => (
                           <span key={option}>
                             <label>
@@ -209,9 +213,29 @@ function Recommend() {
                           </span>
                         ))}
                       </div>
-                      <div className='form-btn'>
-                          <Button as="input" type="submit" value="Submit" />{' '}
-                          <Button as="input" type="reset" value="Reset"/>
+                      <div className="filter_indi">
+                          <p>
+                            <b>Seasons</b>
+                          </p>
+                          {seasons.map((option) => (
+                            <span key={option}>
+                              <label>
+                                <input
+                                  type="radio"
+                                  name="season"
+                                  value={option}
+                                  id={option}
+                                  checked={season === option}
+                                  onChange={(e) => setSeason(e.target.value)}
+                                />
+                                &nbsp;{option}
+                              </label>
+                            </span>
+                          ))}
+                        </div>
+                      <div className="form-btn">
+                        <Button as="input" type="submit" value="Submit" />{" "}
+                        <Button as="input" type="reset" value="Reset" />
                       </div>
                     </Form>
                   </div>
@@ -223,24 +247,30 @@ function Recommend() {
                       isAgeFiltered={filterResults.age_group}
                       isBodyTypeFiltered={filterResults.body_type}
                       isSeasonFiltered={filterResults.season}
-                    /> 
+                    />
                     <div className="clear"></div>
                   </div>
                 </div>
                 <div className="clear"></div>
-
               </div>
             </TabPanel>
             <TabPanel>
               <div className="tab-content">
                 <div className="float-left col-2">
-                  <div className={`advance-filter ${hasScrolled ? "scrolled" : ""}`}>
+                  <div
+                    className={`advance-filter ${
+                      hasScrolled ? "scrolled" : ""
+                    }`}
+                  >
                     <Upload />
                   </div>
                 </div>
                 <div className="float-right col-10 results">
                   <div className="row">
-                    <Results results={similarResults.slice(0,visibleItems)} isSimilarImages={true} />
+                    <Results
+                      results={similarResults.slice(0, visibleItems)}
+                      isSimilarImages={true}
+                    />
                     <div className="clear"></div>
                   </div>
                   <button className="yellow-button" onClick={toggleShowAll}>
