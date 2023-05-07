@@ -185,9 +185,9 @@ function Recommend() {
                               {option === "Children" ? (
                                 <span>&nbsp;&#40; 1 &ndash; 12 &#41;</span>
                               ) : option === "Teen" ? (
-                                <span>&nbsp;&#40; 13 &ndash; 17 &#41;</span>
+                                <span>&nbsp;&#40; 13 &ndash; 19 &#41;</span>
                               ) : (
-                                <span>&nbsp;&#40; 18 &ndash; 40 &#41;</span>
+                                <span>&nbsp;&#40; 20 &ndash; 40 &#41;</span>
                               )}
                             </label>
                           </span>
@@ -237,6 +237,7 @@ function Recommend() {
                         <Button as="input" type="submit" value="Submit" />{" "}
                         <Button as="input" type="reset" value="Reset" />
                       </div>
+                      <span className="bold-text info">Note: The search results for each filter section are shown in the corresponding section below. Please review the results for each section separately</span>
                     </Form>
                   </div>
                 </div>
