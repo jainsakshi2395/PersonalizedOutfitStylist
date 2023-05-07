@@ -1,46 +1,15 @@
 {
   "api": {
-    "apiCMPE295": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "react2aefee53"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
     "react": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "react"
-        }
-      ],
+      "dependsOn": [],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [
-            {
-              "apiKeyConfig": {
-                "apiKeyExpirationDate": "2023-05-08T00:01:59.060Z",
-                "apiKeyExpirationDays": 7,
-                "description": "NewUserApi"
-              },
-              "authenticationType": "API_KEY"
-            }
-          ],
+          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authreact"
-            }
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
           }
         }
       },
@@ -49,7 +18,8 @@
     }
   },
   "auth": {
-    "react": {
+    "react9c3d5e63": {
+      "customAuth": false,
       "dependsOn": [
         {
           "attributes": [
@@ -57,7 +27,7 @@
             "Name"
           ],
           "category": "function",
-          "resourceName": "reactCustomMessage",
+          "resourceName": "react9c3d5e63CustomMessage",
           "triggerProvider": "Cognito"
         }
       ],
@@ -80,98 +50,70 @@
         ]
       },
       "providerPlugin": "awscloudformation",
-      "service": "Cognito",
-      "serviceType": "managed"
+      "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "react9c3d5e63"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
     }
   },
   "function": {
-    "CMPE295": {
-      "build": true,
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "react2aefee53": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "reactCustomMessage": {
+    "react9c3d5e63CustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_CMPE295_deploymentBucketName": {
+    "AMPLIFY_function_react9c3d5e63CustomMessage_EMAILMESSAGE": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "CMPE295"
+          "resourceName": "react9c3d5e63CustomMessage"
         }
       ]
     },
-    "AMPLIFY_function_CMPE295_s3Key": {
+    "AMPLIFY_function_react9c3d5e63CustomMessage_EMAILSUBJECT": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "CMPE295"
+          "resourceName": "react9c3d5e63CustomMessage"
         }
       ]
     },
-    "AMPLIFY_function_react2aefee53_deploymentBucketName": {
+    "AMPLIFY_function_react9c3d5e63CustomMessage_REDIRECTURL": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "react2aefee53"
+          "resourceName": "react9c3d5e63CustomMessage"
         }
       ]
     },
-    "AMPLIFY_function_react2aefee53_s3Key": {
+    "AMPLIFY_function_react9c3d5e63CustomMessage_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "react2aefee53"
+          "resourceName": "react9c3d5e63CustomMessage"
         }
       ]
     },
-    "AMPLIFY_function_reactCustomMessage_EMAILMESSAGE": {
+    "AMPLIFY_function_react9c3d5e63CustomMessage_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "reactCustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_reactCustomMessage_EMAILSUBJECT": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "reactCustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_reactCustomMessage_REDIRECTURL": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "reactCustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_reactCustomMessage_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "reactCustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_reactCustomMessage_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "reactCustomMessage"
+          "resourceName": "react9c3d5e63CustomMessage"
         }
       ]
     }

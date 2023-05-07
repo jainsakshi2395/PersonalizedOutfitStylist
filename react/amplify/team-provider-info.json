@@ -1,44 +1,32 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-react-dev-201013-authRole",
-      "UnauthRoleArn": "arn:aws:iam::512148372417:role/amplify-react-dev-201013-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::512148372417:role/amplify-react-dev-201013-authRole",
+      "AuthRoleName": "amplify-react-dev-122125-authRole",
+      "UnauthRoleArn": "arn:aws:iam::512148372417:role/amplify-react-dev-122125-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::512148372417:role/amplify-react-dev-122125-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-react-dev-201013-deployment",
-      "UnauthRoleName": "amplify-react-dev-201013-unauthRole",
-      "StackName": "amplify-react-dev-201013",
-      "StackId": "arn:aws:cloudformation:us-east-1:512148372417:stack/amplify-react-dev-201013/5d50aaa0-e63b-11ed-b8b9-0a2c39fbee67",
-      "AmplifyAppId": "d3q6j4fk1vnmc8",
-      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-react-dev-201013-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "DeploymentBucketName": "amplify-react-dev-122125-deployment",
+      "UnauthRoleName": "amplify-react-dev-122125-unauthRole",
+      "StackName": "amplify-react-dev-122125",
+      "StackId": "arn:aws:cloudformation:us-east-1:512148372417:stack/amplify-react-dev-122125/5cf935e0-ed0c-11ed-8963-0e6410e177cf",
+      "AmplifyAppId": "d30efuaquknhz8",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-react-dev-122125-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
+      "auth": {
+        "react9c3d5e63": {},
+        "userPoolGroups": {}
+      },
       "function": {
-        "CMPE295": {
-          "deploymentBucketName": "amplify-react-dev-201013-deployment",
-          "s3Key": "amplify-builds/CMPE295-2b6c4f4e4b3049624747-build.zip"
-        },
-        "react2aefee53": {
-          "deploymentBucketName": "amplify-react-dev-201013-deployment",
-          "s3Key": "amplify-builds/react2aefee53-6e785a523065694c6f43-build.zip"
-        },
-        "reactCustomMessage": {
-          "REDIRECTURL": "https://localhost:3000/register/",
+        "react9c3d5e63CustomMessage": {
+          "REDIRECTURL": "http://localhost:3000/",
           "EMAILSUBJECT": "Your verification code",
-          "EMAILMESSAGE": "Your verification link is",
-          "deploymentBucketName": "amplify-react-dev-201013-deployment",
-          "s3Key": "amplify-builds/reactCustomMessage-4a767968432f4f776769-build.zip"
+          "EMAILMESSAGE": "Your verificarion code would be at the end of the link:",
+          "deploymentBucketName": "amplify-react-dev-122125-deployment",
+          "s3Key": "amplify-builds/react9c3d5e63CustomMessage-784d755a7333516f5546-build.zip"
         }
       },
-      "auth": {
-        "react": {}
-      },
-      "auth": {
-        "react": {}
-      },
       "api": {
-        "apiCMPE295": {},
         "react": {}
       }
     }

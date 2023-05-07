@@ -3,14 +3,14 @@
   "modules": [
     "verification-link"
   ],
-  "parentResource": "react",
-  "functionName": "reactCustomMessage",
-  "resourceName": "reactCustomMessage",
+  "parentResource": "react9c3d5e63",
+  "functionName": "react9c3d5e63CustomMessage",
+  "resourceName": "react9c3d5e63CustomMessage",
   "parentStack": "auth",
   "triggerEnvs": "[\n  {\n    \"key\": \"RESOURCENAME\",\n    \"value\": \"resourceName\"\n  }\n]",
   "triggerDir": "/snapshot/repo/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
   "triggerTemplate": "CustomMessage.json.ejs",
   "triggerEventPath": "CustomMessage.event.json",
-  "roleName": "reactCustomMessage",
+  "roleName": "react9c3d5e63CustomMessage",
   "skipEdit": true
 }
