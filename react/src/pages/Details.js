@@ -73,11 +73,8 @@ function Details() {
                       <b>Buying Options</b>
                     </p>
                     <div className="options">
-                      <div className="option" onClick={() => window.open('http://macys.com', '_blank')}>
-                        <div>MACYS</div>
-                      </div>
-                      <div className="option" onClick={() => window.open('http://shein.com', '_blank')}>
-                        <div>SHEIN</div>
+                      <div className="option" onClick={() => window.open('https://www.myntra.com/${data.outfit_type}', '_blank')}>
+                        <div>MYNTRA</div>
                       </div>
                     </div>
                   </div>
