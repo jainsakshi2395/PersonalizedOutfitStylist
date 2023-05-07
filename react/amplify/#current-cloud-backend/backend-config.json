@@ -1,121 +1,127 @@
 {
-  "api": {
-    "react": {
-      "dependsOn": [],
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [],
-          "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+    "api": {
+        "react": {
+            "dependsOn": [],
+            "output": {
+                "authConfig": {
+                    "additionalAuthenticationProviders": [],
+                    "defaultAuthentication": {
+                        "apiKeyConfig": {
+                            "apiKeyExpirationDays": 7
+                        },
+                        "authenticationType": "API_KEY"
+                    }
+                }
             },
-            "authenticationType": "API_KEY"
-          }
+            "providerPlugin": "awscloudformation",
+            "service": "AppSync"
         }
-      },
-      "providerPlugin": "awscloudformation",
-      "service": "AppSync"
-    }
-  },
-  "auth": {
-    "react9c3d5e63": {
-      "customAuth": false,
-      "dependsOn": [
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "react9c3d5e63CustomMessage",
-          "triggerProvider": "Cognito"
-        }
-      ],
-      "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 8
+    },
+    "auth": {
+        "react9c3d5e63": {
+            "customAuth": false,
+            "dependsOn": [
+                {
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ],
+                    "category": "function",
+                    "resourceName": "react9c3d5e63CustomMessage",
+                    "triggerProvider": "Cognito"
+                }
+            ],
+            "frontendAuthConfig": {
+                "mfaConfiguration": "OFF",
+                "mfaTypes": [
+                    "SMS"
+                ],
+                "passwordProtectionSettings": {
+                    "passwordPolicyCharacters": [],
+                    "passwordPolicyMinLength": 8
+                },
+                "signupAttributes": [
+                    "EMAIL"
+                ],
+                "socialProviders": [],
+                "usernameAttributes": [],
+                "verificationMechanisms": [
+                    "EMAIL"
+                ]
+            },
+            "providerPlugin": "awscloudformation",
+            "service": "Cognito"
         },
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      },
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito"
-    },
-    "userPoolGroups": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "react9c3d5e63"
+        "userPoolGroups": {
+            "dependsOn": [
+                {
+                    "attributes": [
+                        "UserPoolId",
+                        "AppClientIDWeb",
+                        "AppClientID",
+                        "IdentityPoolId"
+                    ],
+                    "category": "auth",
+                    "resourceName": "react9c3d5e63"
+                }
+            ],
+            "providerPlugin": "awscloudformation",
+            "service": "Cognito-UserPool-Groups"
         }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito-UserPool-Groups"
+    },
+    "function": {
+        "react9c3d5e63CustomMessage": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        }
+    },
+    "parameters": {
+        "AMPLIFY_function_react9c3d5e63CustomMessage_EMAILMESSAGE": {
+            "usedBy": [
+                {
+                    "category": "function",
+                    "resourceName": "react9c3d5e63CustomMessage"
+                }
+            ]
+        },
+        "AMPLIFY_function_react9c3d5e63CustomMessage_EMAILSUBJECT": {
+            "usedBy": [
+                {
+                    "category": "function",
+                    "resourceName": "react9c3d5e63CustomMessage"
+                }
+            ]
+        },
+        "AMPLIFY_function_react9c3d5e63CustomMessage_REDIRECTURL": {
+            "usedBy": [
+                {
+                    "category": "function",
+                    "resourceName": "react9c3d5e63CustomMessage"
+                }
+            ]
+        },
+        "AMPLIFY_function_react9c3d5e63CustomMessage_deploymentBucketName": {
+            "usedBy": [
+                {
+                    "category": "function",
+                    "resourceName": "react9c3d5e63CustomMessage"
+                }
+            ]
+        },
+        "AMPLIFY_function_react9c3d5e63CustomMessage_s3Key": {
+            "usedBy": [
+                {
+                    "category": "function",
+                    "resourceName": "react9c3d5e63CustomMessage"
+                }
+            ]
+        }
+    },
+    "hosting": {
+        "amplifyhosting": {
+            "service": "amplifyhosting",
+            "type": "cicd"
+        }
     }
-  },
-  "function": {
-    "react9c3d5e63CustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_react9c3d5e63CustomMessage_EMAILMESSAGE": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "react9c3d5e63CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_react9c3d5e63CustomMessage_EMAILSUBJECT": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "react9c3d5e63CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_react9c3d5e63CustomMessage_REDIRECTURL": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "react9c3d5e63CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_react9c3d5e63CustomMessage_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "react9c3d5e63CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_react9c3d5e63CustomMessage_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "react9c3d5e63CustomMessage"
-        }
-      ]
-    }
-  }
 }
