@@ -34,39 +34,3 @@ export const onDeleteTodo = /* GraphQL */ `
     }
   }
 `;
-export const onCreateNewuser = /* GraphQL */ `
-  subscription OnCreateNewuser($filter: ModelSubscriptionNewuserFilterInput) {
-    onCreateNewuser(filter: $filter) {
-      id
-      username
-      password
-      email
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateNewuser = /* GraphQL */ `
-  subscription OnUpdateNewuser($filter: ModelSubscriptionNewuserFilterInput) {
-    onUpdateNewuser(filter: $filter) {
-      id
-      username
-      password
-      email
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteNewuser = /* GraphQL */ `
-  subscription OnDeleteNewuser($filter: ModelSubscriptionNewuserFilterInput) {
-    onDeleteNewuser(filter: $filter) {
-      id
-      username
-      password
-      email
-      createdAt
-      updatedAt
-    }
-  }
-`;

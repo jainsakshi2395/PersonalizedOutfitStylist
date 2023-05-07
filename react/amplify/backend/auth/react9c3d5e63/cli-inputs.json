@@ -1,8 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "resourceNameTruncated": "react51daa296",
-    "userPoolName": "react_userpool_51daa296",
+    "identityPoolName": "react9c3d5e63_identitypool_9c3d5e63",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "react9c3d5e63",
+    "userPoolName": "react9c3d5e63_userpool_9c3d5e63",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -29,13 +31,28 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "react51daa296_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "react99c3d5e63_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "authSelections": "userPoolOnly",
-    "resourceName": "react",
-    "sharedId": "51daa296",
+    "sharedId": "9c3d5e63",
+    "resourceName": "react9c3d5e63",
+    "authSelections": "identityPoolAndUserPool",
+    "useDefault": "defaultSocial",
+    "hostedUI": true,
+    "triggers": {
+      "CustomMessage": [
+        "verification-link"
+      ]
+    },
+    "hostedUIDomainName": "personalizedoutfitstylist",
+    "authProvidersUserPool": [],
+    "hostedUIProviderMeta": "[]",
+    "userPoolGroupList": [
+      "default"
+    ],
     "serviceName": "Cognito",
-    "useDefault": "manual",
+    "verificationBucketName": "react9c3d5e63verificationbucket",
+    "usernameCaseSensitive": false,
+    "useEnabledMfas": true,
     "authRoleArn": {
       "Fn::GetAtt": [
         "AuthRole",
@@ -49,11 +66,10 @@
       ]
     },
     "breakCircularDependency": true,
-    "useEnabledMfas": true,
     "dependsOn": [
       {
         "category": "function",
-        "resourceName": "reactCustomMessage",
+        "resourceName": "react9c3d5e63CustomMessage",
         "triggerProvider": "Cognito",
         "attributes": [
           "Arn",
@@ -61,25 +77,11 @@
         ]
       }
     ],
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "triggers": {
-      "CustomMessage": [
-        "verification-link"
-      ]
-    },
-    "hostedUI": true,
-    "hostedUIDomainName": "cmpe295",
-    "authProvidersUserPool": [],
-    "hostedUIProviderMeta": "[]",
-    "userPoolGroupList": [],
-    "verificationBucketName": "reactverificationbucket",
+    "permissions": [],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"react9c3d5e63CustomMessage\"\n  }\n]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
     "parentStack": {
       "Ref": "AWS::StackId"
-    },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"reactCustomMessage\"\n  }\n]",
-    "permissions": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\"],\"CallbackURLs\":[\"https://localhost:3000/register/\"],\"LogoutURLs\":[\"https://localhost:3000/newuser/\"]}",
-    "authProviders": []
+    }
   }
 }
