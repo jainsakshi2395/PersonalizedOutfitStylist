@@ -62,7 +62,7 @@
   height: auto;
 }
 
-.recommend .react-tabs__tab-list{
+.recommend .react-tabs__tab-list {
   margin: 0;
 }
 
@@ -78,12 +78,12 @@
   border-right: 1px solid #aaa;
 }
 
-.float-left{
+.float-left {
   float: left;
   height: 100vh;
 }
 
-.float-left::after{
+.float-left::after {
   content: "";
   display: block;
   width: 1px;
@@ -92,61 +92,63 @@
   float: right;
 }
 
-.float-right{
+.float-right {
   float: left;
 }
 
-.clear{
+.clear {
   clear: both;
 }
 
-.advance-filter{
-  padding: 20px 0 0;
+.advance-filter {
+  /* padding: 20px 0 0; */
   display: block;
   position: fixed;
 }
 
-.advance-filter.scrolled{
-  top: 0
+.advance-filter.scrolled {
+  top: 0;
 }
 
-.advance-filter .filter_indi{
-  padding: 20px 0 10px 20px;
+.advance-filter .filter_indi {
+  padding: 10px 0 5px 20px;
 }
 
-.advance-filter p{
+.advance-filter p {
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.advance-filter span{
+.advance-filter span {
   display: block;
   padding: 2px 0;
 }
 
-.form-btn{
+.form-btn {
   margin-top: 15px;
   padding-left: 20px;
 }
 
-.col_cust{
+.col_cust {
   flex: 0 0 auto;
   width: 20% !important;
 }
 
-.results{
+.results {
   padding: 30px 30px 0 30px;
 }
 
 .all-container {
-max-width: 100%;
+  max-width: 100%;
+  margin: 10px 10px 0 10px;
 }
 
-.all-container {
-max-width: 100%;
-}
 .age-label {
   display: inline-flex;
   align-items: center;
+}
+.info {
+  max-width: 200px;
+  margin-left: 20px;
 }
