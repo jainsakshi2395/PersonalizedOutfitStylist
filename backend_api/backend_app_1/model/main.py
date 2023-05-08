@@ -28,9 +28,9 @@ model = tensorflow.keras.Sequential([
 
 st.title('Personalized Outfit Stylist')
 
-folder_path = '/home/ubuntu/backend_app_1/uploads'
+# folder_path = '/home/ubuntu/masters-project-v2-testing/backend_app_1/uploads'  # path to AWS EC2
 
-#folder_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\uploads'
+folder_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\uploads'
 # folder_path = '/Users/supreetha/Documents/PersonalizedOutfitStylist/backend_api/backend_app_1/uploads'
 
 

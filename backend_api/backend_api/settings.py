@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-b4)egu9*a(de_dpmh5prpe3*^hw(l)tz8gw^9d_eqdgjixnkbq
 DEBUG = True
 
 ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['backend-style-env.eba-h22k9qmh.us-east-1.elasticbeanstalk.com']
+#ALLOWED_HOSTS = [here would be the approved hosts - do not commit ip's to git]
 
 # Application definition
 

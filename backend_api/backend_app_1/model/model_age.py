@@ -22,9 +22,9 @@ def age_groups(df):
 
         if age >= 1 and age <= 12:
             df.at[i, 'AgeGroups'] = 'Children'
-        elif age >= 13 and age <= 17:
+        elif age >= 13 and age <= 19:
             df.at[i, 'AgeGroups'] = 'Teen'
-        elif age >= 18 and age < 40:
+        elif age >= 20 and age <= 40:
             df.at[i, 'AgeGroups'] = 'Adult'
 
     return df
