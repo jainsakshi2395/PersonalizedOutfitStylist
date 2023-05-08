@@ -16,3 +16,27 @@
     width: 100%;
     height: auto;
 }
+
+.main-content ul li{
+    margin: 15px 0;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.text {
+    width: 50%;
+    float: left;
+}
+
+.image {
+    width: 50%;
+    float: left;
+}
+
+.pr-3{
+    padding-right: 30px;
+}
+
+.pl-3{
+    padding-left: 30px;
+}

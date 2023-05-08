@@ -7,9 +7,3 @@ type Todo @model {
   name: String!
   description: String
 }
-type Newuser @model {
-  id: ID!
-  username: String!
-  password: String!
-  email: String!
-}

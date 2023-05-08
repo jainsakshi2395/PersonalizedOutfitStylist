@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCardDetails } from "../redux/cardDetails/cardDetailsAction";
 
-const Card = ({ isSimilarImages, item}) => {
+const Card = ({ isSimilarImages, item }) => {
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
   useEffect(() => {
     // Get data from session storage
-    const storedData = sessionStorage.getItem('detailsData');
+    const storedData = sessionStorage.getItem("detailsData");
     if (storedData) {
       setData(JSON.parse(storedData));
     }
@@ -16,16 +16,16 @@ const Card = ({ isSimilarImages, item}) => {
   useEffect(() => {
     // Store data in session storage
     if (data) {
-      sessionStorage.setItem('detailsData', JSON.stringify(data));
+      sessionStorage.setItem("detailsData", JSON.stringify(data));
     }
   }, [data]);
   const handleClick = () => {
     // Set the card details in the Redux store
-    let data = { ...item, isSimilarImages: isSimilarImages}
+    let data = { ...item, isSimilarImages: isSimilarImages };
     dispatch(setCardDetails(data));
   };
   return (
-    <div className="col-3 ">
+    <div className="col_cust mb-4 ">
       <div className="box-shadow">
         <Link to="/details" onClick={handleClick} className="shadow">
           {isSimilarImages ? (
@@ -39,7 +39,7 @@ const Card = ({ isSimilarImages, item}) => {
                   />
                 </div>
                 <div className="rec-details">
-                  <p>{item.outfit_type}</p>
+                  <p className="bold-text">{item.outfit_type}</p>
                   <span>{item.description}</span>
                 </div>
               </div>
@@ -58,7 +58,7 @@ const Card = ({ isSimilarImages, item}) => {
                 />
               </div>
               <div className="rec-details">
-                <p>{item.title}</p>
+                <p className="bold-text">{item.title}</p>
                 <span>{item.product_details}</span>
               </div>
             </div>

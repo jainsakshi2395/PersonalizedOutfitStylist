@@ -1,7 +1,3 @@
-.recommend {
-  margin: 40px 0;
-}
-
 .recommend a {
   text-decoration: none;
   color: #000;
@@ -31,30 +27,42 @@
 }
 
 .rec-details {
-  padding: 15px;
-  min-height: 113px;
+  padding: 10px;
+  min-height: 90px;
 }
 
 .rec-details p {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
   margin-bottom: 5px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .rec-details span {
   font-size: 14px;
   line-height: 20px;
   display: block;
-  height: 41px;
+  max-height: 41px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.rec-img {
+  height: 250px;
   overflow: hidden;
 }
 
 .card-img {
   width: 200px;
-  height: 400px;
+  height: auto;
 }
 
-.recommend .react-tabs__tab-list{
+.recommend .react-tabs__tab-list {
   margin: 0;
 }
 
@@ -65,31 +73,82 @@
 }
 
 .tab-content {
-  display: flex;
   height: 100%;
   border-left: 1px solid #aaa;
   border-right: 1px solid #aaa;
 }
 
-.tab-content > :first-child {
-  width: 245px;
+.float-left {
+  float: left;
+  height: 100vh;
 }
 
-.advance-filter{
-  padding: 20px;
+.float-left::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 100%;
+  background-color: #000;
+  float: right;
 }
 
-.advance-filter p{
-  margin: 20px 0 0 0;
+.float-right {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+.advance-filter {
+  /* padding: 20px 0 0; */
+  display: block;
+  position: fixed;
+}
+
+.advance-filter.scrolled {
+  top: 0;
+}
+
+.advance-filter .filter_indi {
+  padding: 10px 0 5px 20px;
+}
+
+.advance-filter p {
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.form-btn{
+.advance-filter span {
+  display: block;
+  padding: 2px 0;
+}
+
+.form-btn {
   margin-top: 15px;
+  padding-left: 20px;
+}
+
+.col_cust {
+  flex: 0 0 auto;
+  width: 20% !important;
+}
+
+.results {
+  padding: 30px 30px 0 30px;
 }
 
 .all-container {
-max-width: 100%;
+  max-width: 100%;
+  margin: 10px 10px 0 10px;
+}
+
+.age-label {
+  display: inline-flex;
+  align-items: center;
+}
+.info {
+  max-width: 200px;
+  margin-left: 20px;
 }
