@@ -1,10 +1,13 @@
 nversion: 1
 frontend:
   phases:
+    prebuild:      
+      commands:        
+        - cd react        
+        - npm install
     # IMPORTANT - Please verify your build commands
     build:
       commands:
-        - npm install
         - npm run start
   artifacts:
     # IMPORTANT - Please verify your build output directory
