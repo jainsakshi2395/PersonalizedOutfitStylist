@@ -2,8 +2,7 @@ nversion: 1
 frontend:
   phases:
     prebuild:      
-      commands:        
-        - cd react        
+      commands:          
         - npm install
     # IMPORTANT - Please verify your build commands
     build:
