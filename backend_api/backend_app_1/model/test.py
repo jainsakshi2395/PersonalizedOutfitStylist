@@ -10,12 +10,16 @@ from sklearn.neighbors import NearestNeighbors
 
 import cv2
 
-feature_list = np.array(pickle.load(open('\Users\simra\Desktop\Pickle\embeddings.pkl', 'rb')))
+feature_list = np.array(pickle.load(open('/home/ubuntu/data/embeddings.pkl', 'rb')))
+
+# feature_list = np.array(pickle.load(open('\Users\simra\Desktop\Pickle\embeddings.pkl', 'rb')))
 # feature_list = np.array(pickle.load(open('/Users/supreetha/Documents/Pickle/embeddings.pkl', 'rb')))
 
 # print(feature_list.shape)
 
-filenames = pickle.load(open('\Users\simra\Desktop\Pickle\filenames.pkl', 'rb'))
+filenames = pickle.load(open('/home/ubuntu/data/filenames.pkl', 'rb'))
+
+# filenames = pickle.load(open('\Users\simra\Desktop\Pickle\filenames.pkl', 'rb'))
 # filenames = pickle.load(open('/Users/supreetha/Documents/Pickle/filenames.pkl', 'rb'))
 
 model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
@@ -25,8 +29,11 @@ model = tensorflow.keras.Sequential([
     model,
     GlobalMaxPooling2D()
 ])
-img_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\sample' \
-           '\watch.jpg'
+
+img_path = '/home/ubuntu/backend_app_1/sample/watch.jpg'
+
+# img_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\sample' \
+#            '\watch.jpg'
 # img_path = '/Users/supreetha/Documents/PersonalizedOutfitStylist/backend_api/backend_app_1/sample/watch.jpg'
 
 img = load_img(img_path, target_size=(224, 224))
