@@ -10,10 +10,14 @@ from sklearn.neighbors import NearestNeighbors
 
 import cv2
 
+# feature_list = np.array(pickle.load(open('/home/ubuntu/masters-project-v2-testing/data/embeddings.pkl', 'rb')))  # path to AWS EC2
+
 feature_list = np.array(pickle.load(open('\Users\simra\Desktop\Pickle\embeddings.pkl', 'rb')))
 # feature_list = np.array(pickle.load(open('/Users/supreetha/Documents/Pickle/embeddings.pkl', 'rb')))
 
 # print(feature_list.shape)
+
+# filenames = pickle.load(open('/home/ubuntu/masters-project-v2-testing/data/filenames.pkl', 'rb'))   # path to AWS EC2
 
 filenames = pickle.load(open('\Users\simra\Desktop\Pickle\filenames.pkl', 'rb'))
 # filenames = pickle.load(open('/Users/supreetha/Documents/Pickle/filenames.pkl', 'rb'))
@@ -25,6 +29,9 @@ model = tensorflow.keras.Sequential([
     model,
     GlobalMaxPooling2D()
 ])
+
+# img_path = '/home/ubuntu/masters-project-v2-testing/backend_app_1/sample/watch.jpg'   # path to AWS EC2
+
 img_path = '\Users\simra\PycharmProjects\PersonalizedOutfitStylist\backend_api\backend_app_1\sample' \
            '\watch.jpg'
 # img_path = '/Users/supreetha/Documents/PersonalizedOutfitStylist/backend_api/backend_app_1/sample/watch.jpg'

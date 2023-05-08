@@ -114,9 +114,9 @@ def get_recommended_age_results(age_category):
     if age_category == "Children":
         user_predicted_age = 5
     elif age_category == "Teen":
-        user_predicted_age = 14
+        user_predicted_age = 15
     elif age_category == "Adult":
-        user_predicted_age = 30
+        user_predicted_age = 26
     else:
         return model_response
     prediction_result = recommend_age_based_outfits([[user_predicted_age]])
