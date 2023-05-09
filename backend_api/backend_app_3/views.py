@@ -7,8 +7,10 @@ from .models import UserAttributes
 from .serializers import UserAttributesSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 
 
+@csrf_exempt
 @api_view(['GET'])
 def getMeasurementByUserId(request, user_id):
     print(user_id)
@@ -24,6 +26,7 @@ def getMeasurementByUserId(request, user_id):
     return Response(serializer.data)
 
 
+@csrf_exempt
 @api_view(['POST'])
 def createMeasurements(request):
     serializer = UserAttributesSerializer(data=request.data)
@@ -33,6 +36,7 @@ def createMeasurements(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@csrf_exempt
 @api_view(['PUT'])
 def updateMeasurementByUserId(request, user_id):
     try:
