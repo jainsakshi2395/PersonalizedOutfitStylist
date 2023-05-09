@@ -29,7 +29,7 @@ export const updateProfileFailure = (error) => {
 export const updateProfile = (profileData) => {
   const config = {
     method: 'put',
-    url: `${RestUrl}/api/v1/profile/update/${profileData.user_id}`,
+    url: `${RestUrl}/api/v1/profile/update/${profileData.user_id}/`,
     headers: {
       'Content-Type': 'application/json'
     },

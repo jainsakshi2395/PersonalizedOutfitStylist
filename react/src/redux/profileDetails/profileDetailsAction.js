@@ -30,7 +30,7 @@ const url = RestUrl + "/api/v1/profile/get/";
 export const fetchProfileDetails = (userId) => {
   return (dispatch) => {
     dispatch(getProfileDetailsRequest());
-    axios.get(`${url}${userId}`)
+    axios.get(`${url}${userId}/`)
       .then(response => {
         const profileDetails = response.data;
         dispatch(getProfileDetailsSuccess(profileDetails));

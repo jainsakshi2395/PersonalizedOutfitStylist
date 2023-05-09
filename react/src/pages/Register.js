@@ -99,7 +99,7 @@ function Register() {
   const submitProfile = (event) => {
     event.preventDefault();
     if(isValidState(profileState)){
-      if (!userProfile) {
+      if (!Object.keys(userProfile).length) {
         dispatch(postProfile(profileState));
       } else {
         dispatch(updateProfile(profileState));
@@ -137,7 +137,7 @@ function Register() {
               <input
                 className="input-field"
                 name="age"
-                onChange={(e) => setAge(e.target.value)}
+                onChange={(e) => setAge(Number(e.target.value))}
                 type="number"
                 value={age}
                 placeholder="0"
@@ -149,7 +149,7 @@ function Register() {
               <input
                 className="input-field"
                 name="height"
-                onChange={(e) => setHeight(e.target.value)}
+                onChange={(e) => setHeight(Number(e.target.value))}
                 type="number"
                 value={height}
                 placeholder="0"
@@ -161,7 +161,7 @@ function Register() {
               <input
                 className="input-field"
                 name="bust"
-                onChange={(e) => setBust(e.target.value)}
+                onChange={(e) => setBust(Number(e.target.value))}
                 type="number"
                 value={bust}
                 placeholder="0"
@@ -173,7 +173,7 @@ function Register() {
               <input
                 className="input-field"
                 name="waist"
-                onChange={(e) => setWaist(e.target.value)}
+                onChange={(e) => setWaist(Number(e.target.value))}
                 type="number"
                 value={waist}
                 placeholder="0"
@@ -185,7 +185,7 @@ function Register() {
               <input
                 className="input-field"
                 name="hips"
-                onChange={(e) => setHip(e.target.value)}
+                onChange={(e) => setHip(Number(e.target.value))}
                 type="number"
                 value={hip}
                 placeholder="0"
